@@ -1,13 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Fest_form.Interface;
 
 namespace Fest_form.data.Entity
 {
-    public class Category
+    public class Category 
     {
-      
-        public int CategoryId { get; set;}
-        public string CategoryName { get; set; } = null!;
-        public string CategoryDescription { get; set; } = null!;
+        public int Id { get; set;}
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
     }
 }

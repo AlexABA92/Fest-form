@@ -1,5 +1,19 @@
-html {
-  font-size: 14px;
+@import url('../fonts/ofont.ru_Alice.ttf');
+
+@font-face {
+    font-family : "Alice";
+    src: url('../fonts/ofont.ru_Alice.ttf')
+}
+@font-face {
+    font-family: "Pacifico";
+    src: url('../fonts/Pacifico-Regular.ttf')
+}
+
+html, body {
+    padding:0;
+    margin:0;
+    position:relative;
+    font-family: "Pacifico",Arial,sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -14,9 +28,52 @@ html {
 
 html {
   position: relative;
-  min-height: 100%;
+  
 }
 
 body {
-  margin-bottom: 60px;
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    margin-bottom: 60px;
+    height : 100%;
+}
+.backgroundImage {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    max-height: 600px;
+    margin: 0 auto;
+    position: sticky;
+    object-fit: contain;
+}
+.fontAliace {
+    font-family: "Alice",Arial,sans-serif;
+    font-weight:bold;
+    letter-spacing : 0.1rem;
+}
+.fontError {
+    font-family: Arial,sans-serif;
+    font-weight:normal;
+    font-size: 0.7rem;
+}
+.fontSimple {
+    font-family: Calibri,sans-serif;
+    font-weight: lighter;
+   
+}
+.bgWhite {
+    position:relative;
+    background-color : rgba(225,225,225,0.9)
+}
+.zIndex {
+    z-index:0;
+}
+#organizationField.invisible {
+    opacity: 0;
+    transition: all 1s ease;
+}
+#organizationField.visible {
+    opacity: 100;
+    transition: all 0.7s ease;
 }

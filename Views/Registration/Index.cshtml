@@ -1,0 +1,337 @@
+﻿@model Fest_form.data.Entity.DanceTeam
+
+@using Fest_form.data.Entity
+@using Fest_form.GlobalData.Enum
+@{
+    ViewData["Title"] = @Resources.Resource.RegistrationPageTitle;
+    var lang =  ViewData["lang"]?.ToString();
+    if (lang == null)
+    {
+        lang = "uk";    
+    }
+    ViewData["label"] = Resources.Resource.TeamLider;
+    int pNum = 0;
+
+    List<Genre> genreList = ViewData["GenreList"] as List<Genre> ?? new List<Genre>();
+    List<Category> categoryList = ViewData["CategoryList"] as List<Category> ?? new List<Category>();
+    List<ParticipantsNumber> participantsList = ViewData["ParticipantsNumberList"] as List<ParticipantsNumber> ?? new List<ParticipantsNumber>();
+    var index = 0;  
+}
+<div class="col-12 d-flex justify-content-center position-absolute h-100 zIndex">
+    <img class="backgroundImage  sticky-top " src="~/images/background.png" alt="Alternate Text" />
+</div>
+<div class="bgWhite col-11 container text-center mt-1 mt-lg-4">
+    <h1 class="display-4 fontAliace  text-uppercase">@Resources.Resource.Festname</h1>
+    <p class="fw-bold fs-4 mb-0">@Resources.Resource.registrationform</p>
+    <p class="fw-bold fs-6  mb-1">@Resources.Resource.ForeFest</p>
+    <img src="~/images/708807_012.svg" width="30%" alt="Monocrome"/>
+    <div class="border rounded-3 container border-secondary col-sm-11 col-12">
+      
+        <form asp-action="Index" method="post" asp-controller="Registration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*TeamName*@
+            <div class="form-group  text-start mb-2">
+                <label asp-for="TeamName" class="control-label  mb-2" id="teamName">@Resources.Resource.TeameName :</label>
+                <input asp-for="TeamName" class="form-control fontSimple" aria-describedby=@Resources.Resource.TeameName />
+                <span asp-validation-for="TeamName" class="text-danger  fontError"></span>
+            </div>
+            @*TeamLeader*@
+            <div class="form-group mb-3 text-start">
+                <label class="control-label mb-2 ">@ViewData["label"] :</label>
+                <div class="form-group row align-items-center">
+                    <div class="col-12 col-md-4">
+                        <input asp-for="TeamLeader.PersonName"
+                               class="form-control fontSimple mb-1"
+                               aria-describedby="Person Name"
+                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                        <span asp-validation-for="TeamLeader.PersonName" class="text-danger fontError d-block"></span>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <input asp-for="TeamLeader.PersonLastName"
+                               class="form-control fontSimple mb-1"
+                               aria-describedby="Person Last Name"
+                               placeholder=@Resources.Resource.PersonLastNameLable />
+                        <span asp-validation-for="TeamLeader.PersonLastName" class="text-danger fontError d-block"></span>
+                    </div>
+                    @if (lang == "uk" || lang == "ru")
+                    {
+                        <div class="col-12 col-md-4">
+                            <input asp-for="TeamLeader.PersonFatherName"
+                                   class="form-control fontSimple"
+                                   aria-describedby="Person Father Name"
+                                   placeholder="По батькові" />
+                            <span asp-validation-for="TeamLeader.PersonFatherName" class="text-danger fontError d-block"></span>
+                        </div>
+                    }
+                </div>
+      
+
+
+            </div>
+            @*Mail*@
+            <div class="form-group  text-start mb-2">
+                <label asp-for="Mail" class="control-label mb-2">@Resources.Resource.Mail :</label>
+                <input asp-for="Mail" type="email" class="form-control fontSimple" aria-describedby=@Resources.Resource.Mail />
+                <span asp-validation-for="Mail" class="text-danger fontError"></span>
+            </div>
+            @*TeamPhoneNumber*@
+            <div class="form-group  text-start mb-2">
+
+                <label asp-for="TeamPhoneNumber" class="control-label mb-2">@Resources.Resource.PhoneNumber :</label>
+                <input asp-for="TeamPhoneNumber" type="tel" placeholder="+380630000000 (0630080000)" class="form-control fontSimple" aria-describedby=@Resources.Resource.PhoneNumber />
+                <span asp-validation-for="TeamPhoneNumber" class="text-danger fontError"></span>
+            </div>
+            @*TeamLevel*@
+          <div class="form-group mb-2">
+              <label asp-for="TeamLevel" class="control-label mb-2 d-block">@Resources.Resource.TeamLevelLabel : </label>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active" id="option1"> 
+                        <input type="radio" asp-for="TeamLevel" value="Amateur" name="TeamLevel" autocomplete="off" checked>
+                        <span class="ms-1 fontSimple"> @Resources.Resource.OptionsToggleTeamLevelAmateur</span>
+                </label>
+                <label class="btn btn-secondary" id="option2">
+                        <input type="radio" id="radioProf" asp-for="TeamLevel" value="Professional" name="TeamLevel" autocomplete="off">
+                        <span class="ms-1 fontSimple">@Resources.Resource.OptionsToggleTeamLevelProf</span>
+                </label>
+            </div>
+            </div>
+           <div id="organizationField" class="form-group  text-start invisible">
+                <label asp-for="Organization" class="control-label mb-2">@Resources.Resource.Organization :</label>
+                <input asp-for="Organization" type="tel" placeholder="'@Resources.Resource.OrganizationPlaseholder'"
+                       class="form-control fontSimple" aria-describedby=@Resources.Resource.Organization />
+                <span asp-validation-for="Organization" class="text-danger fontError"></span>
+            </div>
+
+
+            <h2 class="mb-3">@Resources.Resource.PerfornamceInfo</h2>
+            <div class="border-1 rounded-3 m-1" id="performanceList">
+                @*PerformanceName*@
+                <div id="performanceItem">
+                    <div class="form-group  text-start mb-2">
+                        <label asp-for="Performances[@index].PerformanceName" class="control-label mb-2">@Resources.Resource.PerformanceName :</label>
+                        <input asp-for="Performances[@index].PerformanceName" type="tel" class="form-control fontSimple" aria-describedby=@Resources.Resource.PhoneNumber />
+                        <span asp-validation-for="Performances[@index].PerformanceName" class="text-danger fontError"></span>
+                    </div>
+                </div>
+                @*ChoreographerDirector*@
+                <div class="form-group mb-3 text-start">
+                    <label class="control-label mb-2 ">@Resources.Resource.ChoreographerDirector :</label>
+                    <div class="form-group row align-items-center">
+                        <div class="col-12 col-md-4">
+                            <input asp-for="Performances[@index].ChoreographerDirector.PersonName"
+                                   class="form-control fontSimple mb-1"
+                                   aria-describedby="Person Name"
+                                   placeholder=@Resources.Resource.PersonFirstNameLable />
+                            <span asp-validation-for="Performances[@index].ChoreographerDirector.PersonName" class="text-danger fontError d-block"></span>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <input asp-for="Performances[@index].ChoreographerDirector.PersonLastName"
+                                   class="form-control fontSimple mb-1"
+                                   aria-describedby="Person Last Name"
+                                   placeholder=@Resources.Resource.PersonLastNameLable />
+                            <span asp-validation-for="Performances[@index].ChoreographerDirector.PersonLastName" class="text-danger fontError d-block"></span>
+                        </div>
+                        @if (lang == "uk" || lang == "ru")
+                        {
+                            <div class="col-12 col-md-4">
+                                <input asp-for="Performances[@index].ChoreographerDirector.PersonFatherName"
+                                       class="form-control fontSimple"
+                                       aria-describedby="Person Father Name"
+                                       placeholder="По батькові" />
+                                <span asp-validation-for="Performances[@index].ChoreographerDirector.PersonFatherName" class="text-danger fontError d-block"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @*Concertmaster*@
+                <div class="form-group mb-3 text-start">
+                    <label class="control-label mb-2 ">@Resources.Resource.Concertmaster :</label>
+                    <div class="form-group row align-items-center">
+                        <div class="col-12 col-md-4">
+                            <input asp-for="Performances[@index].Concertmaster.PersonName"
+                                   class="form-control fontSimple mb-1"
+                                   aria-describedby="Person Name"
+                                   placeholder=@Resources.Resource.PersonFirstNameLable />
+                            <span asp-validation-for="Performances[@index].Concertmaster.PersonName" class="text-danger fontError d-block"></span>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <input asp-for="Performances[@index].Concertmaster.PersonLastName"
+                                   class="form-control fontSimple mb-1"
+                                   aria-describedby="Person Last Name"
+                                   placeholder=@Resources.Resource.PersonLastNameLable />
+                            <span asp-validation-for="Performances[@index].Concertmaster.PersonLastName" class="text-danger fontError d-block"></span>
+                        </div>
+                        @if (lang == "uk" || lang == "ru")
+                        {
+                            <div class="col-12 col-md-4">
+                                <input asp-for="Performances[@index].Concertmaster.PersonFatherName"
+                                       class="form-control fontSimple"
+                                       aria-describedby="Person Father Name"
+                                       placeholder="По батькові" />
+                                <span asp-validation-for="Performances[@index].Concertmaster.PersonFatherName" class="text-danger fontError d-block"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @*select ParticipantsNumber*@
+               <div >
+                    <div class="container p-0 col-md-6">
+                        <label for="parNum">@Resources.Resource.ParticipantsNameListLabel : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[@index].ParticipantsNumber"
+                                id="parNum"
+                                name="@Html.NameFor(m=>m.Performances[@index].ParticipantsNumber.Id)">
+                            <option value="" selected>------</option>
+                            @foreach (var item in participantsList)
+                            {
+                                <option value="@item.Id" class="">@Resources.Resource.ResourceManager.GetString(@item.Name)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Performances[@index].ParticipantsNumber" class="text-danger fontError"></span>
+                    </div>
+                 
+                    <div  id="listBlock">
+                        <div class="d-none " id="par1">
+                            @*ParticipantsNameList.Person1*@
+                            <div class="form-group mb-3 text-start">
+                                <label class="control-label mb-2 ">@Resources.Resource.ParticipantNumList :</label>
+                                <div class="form-group row align-items-center">
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person1.PersonName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Name"
+                                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person1.PersonName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person1.PersonLastName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Last Name"
+                                               placeholder=@Resources.Resource.PersonLastNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person1.PersonLastName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    @if (lang == "uk" || lang == "ru")
+                                    {
+                                        <div class="col-12 col-md-4">
+                                            <input asp-for="Performances[@index].ParticipantsNameList.Person1.PersonFatherName"
+                                                   class="form-control fontSimple"
+                                                   aria-describedby="Person Father Name"
+                                                   placeholder="По батькові" />
+                                            <span asp-validation-for="Performances[@index].ParticipantsNameList.Person1.PersonFatherName" class="text-danger fontError d-block"></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-none" id="par2">
+                            @*ParticipantsNameList.Person2*@
+                            <div class="form-group mb-3 text-start">
+                                <label class="control-label mb-2 ">@Resources.Resource.ParticipantNumList :</label>
+                                <div class="form-group row align-items-center">
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person2.PersonName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Name"
+                                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person2.PersonName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person2.PersonLastName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Last Name"
+                                               placeholder=@Resources.Resource.PersonLastNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person2.PersonLastName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    @if (lang == "uk" || lang == "ru")
+                                    {
+                                        <div class="col-12 col-md-4">
+                                            <input asp-for="Performances[@index].ParticipantsNameList.Person2.PersonFatherName"
+                                                   class="form-control fontSimple"
+                                                   aria-describedby="Person Father Name"
+                                                   placeholder="По батькові" />
+                                            <span asp-validation-for="Performances[@index].ParticipantsNameList.Person2.PersonFatherName" class="text-danger fontError d-block"></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-none" id="par3">
+                            @*ParticipantsNameList.Person3*@
+                            <div class="form-group mb-3 text-start">
+                                <label class="control-label mb-2 ">@Resources.Resource.ParticipantNumList :</label>
+                                <div class="form-group row align-items-center">
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person3.PersonName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Name"
+                                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person3.PersonName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <input asp-for="Performances[@index].ParticipantsNameList.Person3.PersonLastName"
+                                               class="form-control fontSimple mb-1"
+                                               aria-describedby="Person Last Name"
+                                               placeholder=@Resources.Resource.PersonLastNameLable />
+                                        <span asp-validation-for="Performances[@index].ParticipantsNameList.Person3.PersonLastName" class="text-danger fontError d-block"></span>
+                                    </div>
+                                    @if (lang == "uk" || lang == "ru")
+                                    {
+                                        <div class="col-12 col-md-4">
+                                            <input asp-for="Performances[@index].ParticipantsNameList.Person3.PersonFatherName"
+                                                   class="form-control fontSimple"
+                                                   aria-describedby="Person Father Name"
+                                                   placeholder="По батькові" />
+                                            <span asp-validation-for="Performances[@index].ParticipantsNameList.Person3.PersonFatherName" class="text-danger fontError d-block"></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*select Genre  PerformanceGroup*@
+                <div class="row row-cols-sm-2 mt-2">
+                    <div>
+                        <label for="floatingSelect1">@Resources.Resource.GenreLabel : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[@index].Genre"
+                                id="floatingSelect1" aria-label="Floating label select example"
+                                name="@Html.NameFor(m=>m.Performances[@index].Genre.Id)">
+                            <option value="" selected>------</option>
+                            @foreach (var item in genreList)
+                            {
+                                <option value="@item.Id">@Resources.Resource.ResourceManager.GetString(@item.Name) </option>
+                            }
+                        </select>
+                        <span asp-validation-for="Performances[@index].Genre" class="text-danger fontError"></span>
+
+                    </div>
+                      <div >
+                        <label for="floatingSelect2">@Resources.Resource.AgeGroup : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[@index].PerformanceGroup"
+                                id="floatingSelect2" aria-label="Floating label select example"
+                                name="@Html.NameFor(m=>m.Performances[@index].PerformanceGroup.Id)">
+                            <option value="" selected>------</option>
+                            @foreach (var item in categoryList)
+                            {
+                                <option value="@item.Id" >
+                                    @Resources.Resource.ResourceManager.GetString(@item.Name) -
+                                            @Resources.Resource.ResourceManager.GetString(@item.Description)
+                                </option>
+                            }
+                        </select>
+                        <span asp-validation-for="Performances[@index].PerformanceGroup" class="text-danger fontError"></span>
+                     </div>
+                </div>
+             </div>
+
+            <div class="mt-1">
+                <button type="submit" class="btn btn-primary">Oтправить</button>
+            </div>
+        </form>
+
+    </div> 
+</div>
+
+<script type="text/javascript">
+    var ajaxUrl = '@Url.Action("Index", "Registration")';
+</script>

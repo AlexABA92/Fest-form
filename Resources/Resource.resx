@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Festname" xml:space="preserve">
+    <value>Чорноморськi вiзерунки</value>
+  </data>
+  <data name="registrationform" xml:space="preserve">
+    <value>Реєстраційна форма </value>
+  </data>
+  <data name="ForeFest" xml:space="preserve">
+    <value>Для участі у фестивалі</value>
+  </data>
+  <data name="RegistrationPageTitle" xml:space="preserve">
+    <value>Реєстрацiя</value>
+  </data>
+  <data name="Boosplaceholder" xml:space="preserve">
+    <value>Керівник групи </value>
+  </data>
+  <data name="TeameName" xml:space="preserve">
+    <value>Назва колективу</value>
+  </data>
+  <data name="ErorrMessage" xml:space="preserve">
+    <value>*Не всі обов'язкові поля заповнені</value>
+  </data>
+  <data name="TeamLider" xml:space="preserve">
+    <value>Керивник колективу (П.І.Б)</value>
+  </data>
+  <data name="RequiredErrorMessage" xml:space="preserve">
+    <value>*Поле обов'язкове для заповнення</value>
+  </data>
+  <data name="ErrorLengthValidation" xml:space="preserve">
+    <value>*Kількість символів</value>
+  </data>
+  <data name="NameSymbolValidation" xml:space="preserve">
+    <value>*Ім'я та прізвище можуть містити тільки букви, пробіли та дефіси.</value>
+  </data>
+  <data name="PhoneNumberValidation" xml:space="preserve">
+    <value>*Введіть правильний номер телефону.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефонный номер</value>
+  </data>
+  <data name="OptionsToggleTeamLevelAmateur" xml:space="preserve">
+    <value>Аматорський</value>
+  </data>
+  <data name="OptionsToggleTeamLevelProf" xml:space="preserve">
+    <value>Професійний</value>
+  </data>
+  <data name="TeamLevelLabel" xml:space="preserve">
+    <value>Рівень підготовки колективу</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Електронна пoшта</value>
+  </data>
+  <data name="EmailErrorValidation" xml:space="preserve">
+    <value>*Введіть правельну пошту</value>
+  </data>
+  <data name="PersonFirstNameLable" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="PersonLastNameLable" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Організація</value>
+  </data>
+  <data name="PerfornamceInfo" xml:space="preserve">
+    <value>Інформація про номер</value>
+  </data>
+  <data name="OrganizationPlaseholder" xml:space="preserve">
+    <value>Одеський фаховий коледж мистецтв імені К.Ф. Данькевича</value>
+  </data>
+  <data name="ChoreographerDirector" xml:space="preserve">
+    <value>Хореограф-постановник</value>
+  </data>
+  <data name="Concertmaster" xml:space="preserve">
+    <value>Концертмейстер</value>
+  </data>
+  <data name="ParticipantNumList" xml:space="preserve">
+    <value>Учасник (П.І.Б)</value>
+  </data>
+  <data name="ParticipantsNameListLabel" xml:space="preserve">
+    <value>Кількість учасників</value>
+  </data>
+  <data name="Solo" xml:space="preserve">
+    <value>Соло</value>
+  </data>
+  <data name="Duo" xml:space="preserve">
+    <value>Дует</value>
+  </data>
+  <data name="Trio" xml:space="preserve">
+    <value>Тріо</value>
+  </data>
+  <data name="Ensemble(Small)" xml:space="preserve">
+    <value>Ансамбль (4-7 участників)</value>
+  </data>
+  <data name="Ensemble(Bigg)" xml:space="preserve">
+    <value>Ансамбль (8 - 30 чи більше учасників)</value>
+  </data>
+  <data name="group1" xml:space="preserve">
+    <value>Група 1 </value>
+  </data>
+  <data name="DescriptionGroup1" xml:space="preserve">
+    <value>Молодша Група ( 9 - 10 років)</value>
+  </data>
+  <data name="group2" xml:space="preserve">
+    <value>Група 2</value>
+  </data>
+  <data name="group3" xml:space="preserve">
+    <value>Група 3</value>
+  </data>
+  <data name="group4" xml:space="preserve">
+    <value>Група 4</value>
+  </data>
+  <data name="group5" xml:space="preserve">
+    <value>Група 5</value>
+  </data>
+  <data name="DescriptionGroup2" xml:space="preserve">
+    <value>Середня Група ( 11 - 13 років)</value>
+  </data>
+  <data name="DescriptionGroup3" xml:space="preserve">
+    <value>Старша Група ( 14 - 16 років)</value>
+  </data>
+  <data name="DescriptionGroup4" xml:space="preserve">
+    <value>Молодь ( 17 - 20 років)</value>
+  </data>
+  <data name="DescriptionGroup5" xml:space="preserve">
+    <value>Змішані за віком</value>
+  </data>
+  <data name="Classic" xml:space="preserve">
+    <value>Класика</value>
+  </data>
+  <data name="Contemporary/Modern" xml:space="preserve">
+    <value>Сучасний / Модерн</value>
+  </data>
+  <data name="Folk" xml:space="preserve">
+    <value>Народний</value>
+  </data>
+  <data name="GenreLabel" xml:space="preserve">
+    <value>Оберіть жанр</value>
+  </data>
+  <data name="AgeGroup" xml:space="preserve">
+    <value>Оберіть вікову групу</value>
+  </data>
+  <data name="PerformanceName" xml:space="preserve">
+    <value>Назва номеру</value>
+  </data>
+</root>

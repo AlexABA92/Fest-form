@@ -1,24 +1,43 @@
-﻿using Fest_form.data.Enum;
+﻿using Fest_form.GlobalData.Enum;
+
+using Microsoft.AspNetCore.WebUtilities;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Fest_form.data.Entity
 {
     public class Performance
     {
+        
+
         [Key]
         public Guid PerformanceId { get; set; }
-        
-        public Guid  DeanceTeamId { get; set; }
+        public Guid  DanceTeamId { get; set; }
+        [Required(ErrorMessageResourceType =
+           typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public string PerformanceName { get; set; } = string.Empty;
-        public Persоn Choreographerdirector { get; set; } = null!;
-        public Persоn Concertmaster { get; set; } = null!;
+        
+        public Person ChoreographerDirector { get; set; } = null!;
+        public Person Concertmaster { get; set; } = null!;
+        [Required(ErrorMessageResourceType =
+             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public Category PerformanceGroup { get; set; } = null!;
-        public ParticipiantsNumber ParticipiantsNumber { get; set; } = null!;
-        public string PerfornmanceTime { get; set; } = null!;
+        [Required(ErrorMessageResourceType =
+             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
+        public Genre Genre { get; set; } = null!;
+        [Required(ErrorMessageResourceType =
+             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
+        public ParticipantsNumber ParticipantsNumber { get; set; } = null!;
+        public ParticipantsList ParticipantsNameList { get; set; } = new ParticipantsList();
+        public string PerformanceTime { get; set; } = null!;
+        public StartPointEnum startPoint { get; set; } = StartPointEnum.None;
         public string PhonogramFileURL { get; set; } = null!;
         public string YouTubeVideoURL { get; set; } = null!;
     }
