@@ -3,12 +3,9 @@ using Fest_form.data.Entity;
 using Fest_form.GlobalData.Collections;
 using Fest_form.Interface;
 using Fest_form.Models;
-using Fest_form.Services;
 
-using Google.Apis.Drive.v3;
-
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Diagnostics;
 using System.Globalization;
 
@@ -22,16 +19,19 @@ namespace Fest_form.Controllers
         private readonly IGenreRepos<Genre> _genreRepos;
         private readonly ICategory<Category> _categoryRepos;
         private readonly IParticipantsNumber<ParticipantsNumber> _participantsNumber;
-
+        private readonly IMemoryCache _cache;
         public RegistrationController(ILogger<RegistrationController> logger,
             IGenreRepos<Genre> genreRepos,
             ICategory<Category> category,
-            IParticipantsNumber<ParticipantsNumber> participantsNumber)
+            IParticipantsNumber<ParticipantsNumber> participantsNumber,
+            IMemoryCache memoryCache
+            )
         {
             _logger = logger;
             _genreRepos = genreRepos;
             _categoryRepos = category;
             _participantsNumber = participantsNumber;
+            _cache = memoryCache;
             }
 
         public IActionResult Index(string? num)
@@ -39,28 +39,47 @@ namespace Fest_form.Controllers
             
             HttpContext.Session.SetString("path", Request.Path);
             var langValue = Request.Cookies["Language"];
-            
-            ViewData["GenreList"] = _genreRepos.GetGenreItems(); ;
-            ViewData["CategoryList"] = _categoryRepos.GetCategories(); 
-            ViewData["ParticipantsNumberList"] = _participantsNumber.GetList();
+
+            if (!_cache.TryGetValue("GenreList", out List<Genre> genreList)) {
+                genreList = _genreRepos.GetGenreItems();
+                _cache.Set("GenreList", genreList, TimeSpan.FromHours(1));
+            }
+            if (!_cache.TryGetValue("CategoryList", out List<Category> categoryList))
+            {
+                categoryList = _categoryRepos.GetCategories();
+                _cache.Set("CategoryList", categoryList, TimeSpan.FromHours(1));
+            }
+            if (!_cache.TryGetValue("ParticipantsNumberList", out List<ParticipantsNumber> partNumb))
+            {
+                partNumb = _participantsNumber.GetList();
+                _cache.Set("ParticipantsNumberList", partNumb, TimeSpan.FromHours(1));
+            }
+            ViewData["GenreList"] = genreList;
+            ViewData["CategoryList"] = categoryList; 
+            ViewData["ParticipantsNumberList"] = partNumb;
             if (!string.IsNullOrEmpty(num)) {
                 ViewData["num"] = num;
             }
             if (!string.IsNullOrEmpty(langValue)) {
                 ViewData["lang"] = langValue;
             }
-            var model = new DanceTeam();
-            model.TeamLeader = new Person() {PersonFatherName = "lol" };
-            
-            return View(model);
+           
+            return View();
           
         }
 
         [HttpPost]
-        public IActionResult Index(DanceTeam team) {
+        public IActionResult Index(DanceTeam team, IFormFile file) {
+
+            if (file == null) ModelState.AddModelError("", @Resources.Resource.AddTrack);
+            
+
             HttpContext.Session.SetString("path", Request.Path);
             if (!ModelState.IsValid)
             {
+                ViewData["GenreList"] = _cache.Get<List<Genre>>("GenreList"); 
+                ViewData["CategoryList"] = _cache.Get<List<Category>>("CategoryList");
+                ViewData["ParticipantsNumberList"] = _cache.Get<List<ParticipantsNumber>>("ParticipantsNumberList");
                 return View(team);
             }
                 return RedirectToAction("Success"); 

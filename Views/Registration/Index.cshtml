@@ -27,7 +27,7 @@
     <img src="~/images/708807_012.svg" width="30%" alt="Monocrome"/>
     <div class="border rounded-3 container border-secondary col-sm-11 col-12">
       
-        <form asp-action="Index" method="post" asp-controller="Registration">
+        <form asp-action="Index" method="post" asp-controller="Registration" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*TeamName*@
             <div class="form-group  text-start mb-2">
@@ -102,8 +102,8 @@
                 <span asp-validation-for="Organization" class="text-danger fontError"></span>
             </div>
 
-
             <h2 class="mb-3">@Resources.Resource.PerfornamceInfo</h2>
+            <div id="performancesList" class="border-1 border rounded-3 border-secondary m-1">
             <div class="border-1 rounded-3 m-1" id="performanceList">
                 @*PerformanceName*@
                 <div id="performanceItem">
@@ -323,12 +323,47 @@
                      </div>
                 </div>
              </div>
+             <div class="row justify-content-around">
+              <div class="col-6">
+                <label for="time" >@Resources.Resource.PerfomanseTime : </label>
+                    <input type="time" asp-for="Performances[@index].PerformanceTime" 
+                    class="form-control col-12 col-md-3 text-center" id="time" />
+                    <span asp-validation-for="Performances[@index].PerformanceTime" class="text-danger fontError"></span>
+              </div>
+                <div class="col-6 ">
+                    <label for="startSpot">@Resources.Resource.StartPosition : </label>
+                        <div class="row justify-content-md-around justify-content-center">
+                        <input type="radio" class="btn-check" asp-for="Performances[@index].StartPoint"
+                               name="@Html.NameFor(m=>m.Performances[@index].StartPoint)" value="Wing" id="btn-check-outlined1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple" 
+                        for="btn-check-outlined1">@Resources.Resource.Backstage</label>
+                        <input type="radio" class="btn-check " asp-for="Performances[@index].StartPoint"
+                               name="@Html.NameFor(m=>m.Performances[@index].StartPoint)" value="Point" id="btn-check-outlined2" autocomplete="off">
+                        <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple" 
+                        for="btn-check-outlined2">@Resources.Resource.Spot</label>
+                    </div>
+                </div>
+             </div>
+                <div class="form-group text-start mb-2 container">
+                <label
+                       for="file">@Resources.Resource.FileAdd</label>
+                <input type="file" name="file" class="form-control fontSimple"/>
+            </div>
+            <div class="form-group  text-start mb-2 container">
+                <label asp-for="Performances[@index].YouTubeVideoURL" class="control-label  mb-2" id="teamName">@Resources.Resource.YouTubeURL :</label>
+                <input asp-for="Performances[@index].YouTubeVideoURL" class="form-control fontSimple" aria-describedby=@Resources.Resource.YouTubeURL />
+                <span asp-validation-for="Performances[@index].YouTubeVideoURL" class="text-danger  fontError"></span>
+            </div>
+                <div class="m-2">
+                    <button type="button" class="btn btn-success"><i class="bi bi-plus-square"></i> @Resources.Resource.AddPerformance</button>
+                </div>
 
-            <div class="mt-1">
-                <button type="submit" class="btn btn-primary">Oтправить</button>
+            </div>
+
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary">@Resources.Resource.Send</button>
             </div>
         </form>
-
     </div> 
 </div>
 

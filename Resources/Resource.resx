@@ -261,4 +261,34 @@
   <data name="PerformanceName" xml:space="preserve">
     <value>Назва номеру</value>
   </data>
+  <data name="Spot" xml:space="preserve">
+    <value>З точки</value>
+  </data>
+  <data name="Backstage" xml:space="preserve">
+    <value>З куліси</value>
+  </data>
+  <data name="StartPosition" xml:space="preserve">
+    <value>Початкова позиція</value>
+  </data>
+  <data name="PerfomanseTime" xml:space="preserve">
+    <value>Час виступу</value>
+  </data>
+  <data name="FileAdd" xml:space="preserve">
+    <value>Фонограма</value>
+  </data>
+  <data name="AddTrack" xml:space="preserve">
+    <value>Файл фонограми обовьязковий </value>
+  </data>
+  <data name="YouTubeURL" xml:space="preserve">
+    <value>Посилання на відеозапис виступу (за наявності)</value>
+  </data>
+  <data name="ValidationUrlError" xml:space="preserve">
+    <value>Неправильний формат посилання </value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Відправити</value>
+  </data>
+  <data name="AddPerformance" xml:space="preserve">
+    <value>Додати номер  </value>
+  </data>
 </root>

@@ -261,4 +261,34 @@
   <data name="PerformanceName" xml:space="preserve">
     <value>Performance name</value>
   </data>
+  <data name="Spot" xml:space="preserve">
+    <value>From Spot</value>
+  </data>
+  <data name="Backstage" xml:space="preserve">
+    <value>From Backstage</value>
+  </data>
+  <data name="StartPosition" xml:space="preserve">
+    <value>Starting position</value>
+  </data>
+  <data name="PerfomanseTime" xml:space="preserve">
+    <value>Performance time</value>
+  </data>
+  <data name="FileAdd" xml:space="preserve">
+    <value>Soundtrack</value>
+  </data>
+  <data name="AddTrack" xml:space="preserve">
+    <value>A soundtrack file is required </value>
+  </data>
+  <data name="YouTubeURL" xml:space="preserve">
+    <value>A link to the video recording of the performance (if available)</value>
+  </data>
+  <data name="ValidationUrlError" xml:space="preserve">
+    <value>Invalid link format </value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="AddPerformance" xml:space="preserve">
+    <value>Add performances</value>
+  </data>
 </root>

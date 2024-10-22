@@ -36,9 +36,14 @@ namespace Fest_form.data.Entity
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public ParticipantsNumber ParticipantsNumber { get; set; } = null!;
         public ParticipantsList ParticipantsNameList { get; set; } = new ParticipantsList();
+        [Required(ErrorMessageResourceType =
+            typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public string PerformanceTime { get; set; } = null!;
-        public StartPointEnum startPoint { get; set; } = StartPointEnum.None;
-        public string PhonogramFileURL { get; set; } = null!;
-        public string YouTubeVideoURL { get; set; } = null!;
+
+        public StartPointEnum StartPoint { get; set; } = StartPointEnum.None;
+        public string PhonogramFileURL { get; set; } = string.Empty!;
+        [Url(ErrorMessageResourceType =
+            typeof(Resources.Resource), ErrorMessageResourceName = "ValidationUrlError")]
+        public string? YouTubeVideoURL { get; set; } = string.Empty!;
     }
 }

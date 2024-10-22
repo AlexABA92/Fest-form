@@ -61,11 +61,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Додати номер  .
+        /// </summary>
+        public static string AddPerformance {
+            get {
+                return ResourceManager.GetString("AddPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Файл фонограми обовьязковий .
+        /// </summary>
+        public static string AddTrack {
+            get {
+                return ResourceManager.GetString("AddTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Оберіть вікову групу.
         /// </summary>
         public static string AgeGroup {
             get {
                 return ResourceManager.GetString("AgeGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to З куліси.
+        /// </summary>
+        public static string Backstage {
+            get {
+                return ResourceManager.GetString("Backstage", resourceCulture);
             }
         }
         
@@ -223,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фонограма.
+        /// </summary>
+        public static string FileAdd {
+            get {
+                return ResourceManager.GetString("FileAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Народний.
         /// </summary>
         public static string Folk {
@@ -367,6 +403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Час виступу.
+        /// </summary>
+        public static string PerfomanseTime {
+            get {
+                return ResourceManager.GetString("PerfomanseTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назва номеру.
         /// </summary>
         public static string PerformanceName {
@@ -448,11 +493,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Відправити.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Соло.
         /// </summary>
         public static string Solo {
             get {
                 return ResourceManager.GetString("Solo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to З точки.
+        /// </summary>
+        public static string Spot {
+            get {
+                return ResourceManager.GetString("Spot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Початкова позиція.
+        /// </summary>
+        public static string StartPosition {
+            get {
+                return ResourceManager.GetString("StartPosition", resourceCulture);
             }
         }
         
@@ -489,6 +561,24 @@ namespace Resources {
         public static string Trio {
             get {
                 return ResourceManager.GetString("Trio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неправильний формат посилання .
+        /// </summary>
+        public static string ValidationUrlError {
+            get {
+                return ResourceManager.GetString("ValidationUrlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Посилання на відеозапис виступу (за наявності).
+        /// </summary>
+        public static string YouTubeURL {
+            get {
+                return ResourceManager.GetString("YouTubeURL", resourceCulture);
             }
         }
     }
