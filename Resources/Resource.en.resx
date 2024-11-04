@@ -291,4 +291,13 @@
   <data name="AddPerformance" xml:space="preserve">
     <value>Add performances</value>
   </data>
+  <data name="IsErrorsInForm" xml:space="preserve">
+    <value>Not all required fields are filled in</value>
+  </data>
+  <data name="FileRequiredError" xml:space="preserve">
+    <value>Add a soundtrack file</value>
+  </data>
+  <data name="SelectErrorMessage" xml:space="preserve">
+    <value>Choose from the list</value>
+  </data>
 </root>

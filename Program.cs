@@ -2,6 +2,7 @@ using Fest_form.data;
 using Fest_form.data.Entity;
 using Fest_form.Interface;
 using Fest_form.Repositories;
+using Fest_form.Services;
 
 using Microsoft.EntityFrameworkCore;
 using testBD.services;
@@ -26,6 +27,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<IGenreRepos<Genre>, GenreRepos>();
 builder.Services.AddScoped<ICategory<Category>, CategoryRepos>();
 builder.Services.AddScoped<IParticipantsNumber<ParticipantsNumber>, ParticipantsRepos>();
+builder.Services.AddScoped<IPerformanceValidationService, PerformanceValidationService>();
 
 var app = builder.Build();
 

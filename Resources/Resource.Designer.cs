@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Додайте файл звукової доріжки.
+        /// </summary>
+        public static string FileRequiredError {
+            get {
+                return ResourceManager.GetString("FileRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Народний.
         /// </summary>
         public static string Folk {
@@ -327,6 +336,15 @@ namespace Resources {
         public static string group5 {
             get {
                 return ResourceManager.GetString("group5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не всі обов&apos;язкові поля заповнені.
+        /// </summary>
+        public static string IsErrorsInForm {
+            get {
+                return ResourceManager.GetString("IsErrorsInForm", resourceCulture);
             }
         }
         
@@ -489,6 +507,15 @@ namespace Resources {
         public static string RequiredErrorMessage {
             get {
                 return ResourceManager.GetString("RequiredErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Виберіть зі списку.
+        /// </summary>
+        public static string SelectErrorMessage {
+            get {
+                return ResourceManager.GetString("SelectErrorMessage", resourceCulture);
             }
         }
         

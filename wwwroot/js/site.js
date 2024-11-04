@@ -1,10 +1,49 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Write your JavaScript code.
 
+
+// Write your JavaScript code.debugger
 $(document).ready(
     function () {
+      var indes = num
+      var leng = $("#addP").data('param');
+
+        $("#performancesList").on("change", '.numSelect', function () {
+            var id = $(this).data('id')
+            $(`#personList${id}`).remove()
+            var sOption = $(this).find("option:selected");
+            var selectPer = Math.abs(sOption.val());
+
+            // Проверяем значение
+            if (selectPer <= 3)
+                $(`#personListforNum${id}`).append(`<div id="personList${id}"></div>`)
+            for (var i = 0; i < selectPer; i++)
+                personblock(id, `#personList${id}`, `ParticipantsNameList.Person${i + 1}`, $('#personListforNum0').data('label'))
+        })
+        $('#performancesList').on('click', '.delete', function () {
+            var id = $(this).data('id');
+
+            if (id < num) {
+                for (var i = num; i >= id; i--) {
+                    removeBlock(i)
+                    numDicrement();
+                }
+            } else {
+                removeBlock(id);
+                numDicrement();
+            }
+            function removeBlock(int) {
+                var class1 = `.performance${int}`;
+                $(class1).remove();
+            }
+            function numDicrement() {
+                if (num > 0) {
+                    num--
+                }
+
+            }
+        });
         $('#option1').click(function () {
             if (!$('#option1').hasClass('active')) {
                 $('#option2').removeClass('active')
@@ -19,7 +58,7 @@ $(document).ready(
                 organizationFildToggle()
             }
         })
-        $("#parNum").change(function () {
+        $("#Performances_0_ParticipantsNumber").change(function () {
             var sOption = $(this).find("option:selected");
             var num = Math.abs(sOption.val());  // Проверяем значение
 
@@ -27,7 +66,7 @@ $(document).ready(
             $('#par2').addClass("d-none");
             $('#par3').addClass("d-none");
 
-            if (num == 1 ) {
+            if (num == 1) {
                 $('#par1').removeClass("d-none");
             }
             if (num == 2) {
@@ -39,33 +78,196 @@ $(document).ready(
                 $('#par1').removeClass("d-none");
                 $('#par3').removeClass("d-none");
             }
-            //if (num === 1) {
-            //    if ($('#par1').hasClass("d-none")) $('#par1').removeClass("d-none")
-            //} else if (num === 2) {
-            //    $('#par1').hasClass("d-none")
-            //    $('#par1').removeClass("d-none")
-            //    $('#par2').hasClass("d-none")
-            //    $('#par2').removeClass("d-none")
-            //} else if (num === 3) {
-            //    $('#par1').hasClass("d-none")
-            //    $('#par1').removeClass("d-none")
-            //    $('#par2').hasClass("d-none")
-            //    $('#par2').removeClass("d-none").removeClass("d-none")
-            //    $('#par3').hasClass("d-none")
-            //    $('#par3').removeClass("d-none")
-            //} else {
-            //    $('#par1').addClass("d-none")
-            //    $('#par2').addClass("d-none")
-            //    $('#par3').addClass("d-none")
-            //}
-         
         });
+        $('#addP').click(function () {
+            function perNumberOption() {
+                var optios;
+
+                ParticipantsNumberList.forEach(function (item) {
+                    optios += `<option value="${item.Id}">${$(`#perNum${item.Id}`).data('name')}</option>`
+                })
+                return optios
+            }
+            function genreOption() {
+                var optios;
+
+                genreList.forEach(function (item) {
+                    optios += `<option value="${item.Id}">${$(`#genNum${item.Id}`).data('name')}</option>`
+                })
+                return optios
+            }
+            function ageGroupOption() {
+                var optios;
+
+                categoryList.forEach(function (item) {
+                    optios += `<option value="${item.Id}">${$(`#ageGroup${item.Id}`).data('name')}</option>`
+                })
+                return optios
+            }
+
+            num++
+            $('#performancesList').append(`<div id="per${num}" class="performance performance${num} border-top border-1 border-secondary m-1 p-1">
+
+                    <div class="form-group  text-start mb-2">
+                        <label asp-for="Performances[${num}].PerformanceName" class="control-label mb-2">${$('#perName').data('label')} :</label>
+                        <input asp-for="Performances[${num}].PerformanceName" type="text" 
+                        name="Performances[${num}].PerformanceName"
+                        class="form-control fontSimple" aria-describedby="${$('#perName').data('label')
+                }"/>
+                        <span asp-validation-for="Performances[${num}].PerformanceName" class="text-danger fontError"></span>
+                    </div>
+                         `)
+            personblock(num,`#per${num}`, "ChoreographerDirector", $('#CharLabel').data('label'))
+            personblock(num,`#per${num}`, "Concertmaster", $('#ConcertmasterLabal').data('label'))
+            $(`#per${num}`).append(`
+            <div id="personListforNum${num}">
+                <div class="container p-0 col-md-6">
+                     <label for="parNum">${$('#PartNameListLabel').data('label')} : </label>
+                     <select class="form-select text-center fontSimple fw-bold mt-1 numSelect"asp-for="Performances[${num}].ParticipantsNumber"
+                                data-id="${num}"
+                                name="Performances[${num}].ParticipantsNumber.Id"
+                                id="Performances_${num}_ParticipantsNumberId">
+                            <option value="" selected>------</option>
+                            ${perNumberOption()}
+                        </select>
+                        <span asp-validation-for="Performances[${num}].ParticipantsNumber" class="text-danger fontError"></span>
+                </div>
+                <div id="personList${num}"></div>
+            </div>`)
+            $(`#per${num}`).append(`
+             <div class="row row-cols-sm-2 mt-2">
+                    <div>
+                        <label for="Performances_${num}_Genre">${$('#genreLabel').data('label')} : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].Genre"
+                               id="Performances_${num}_Genre" aria-label="Floating label select example"
+                                name="Performances[${num}].Genre.Id">
+                            <option value="" selected>------</option>
+                            ${genreOption()}
+                        </select>
+                        <span asp-validation-for="Performances[${num}].Genre" class="text-danger fontError"></span>
+
+                    </div>
+                      <div >
+                        <label for="Performances_${num}_PerformanceGroup">${$('#ageGroupLabel').data('label')} : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].PerformanceGroup"
+                                id="Performances_${num}_PerformanceGroup" aria-label="Floating label select example"
+                                name="Performances[${num}].PerformanceGroup.Id">
+                            <option value="" selected>------</option>
+                           ${ageGroupOption()}
+                        </select>
+                        <span asp-validation-for="Performances[${num}].PerformanceGroup" class="text-danger fontError"></span>
+                     </div>
+                </div>
+            `)
+            $(`#per${num}`).append(`
+            <div class="row justify-content-around">
+                    <div class="col-6">
+                        <label for="time">${$('#timeLabel').data('label')}: </label>
+                        <input type="time" asp-for="Performances[${num}].PerformanceTime"
+                                name="Performances[${num}].PerformanceTime"
+                               class="form-control col-12 col-md-3 text-center" id="time${num}" />
+                        <span asp-validation-for="Performances[${num}].PerformanceTime" class="text-danger fontError"></span>
+                    </div>
+                    <div class="col-6 ">
+                        <label for="startSpot">${$('#timeLabel').data('label')} : </label>
+                        <div class="row justify-content-md-around justify-content-center">
+                            <input type="radio" class="btn-check" asp-for="Performances[${num}].StartPoint"
+                                   name="Performances[${num}].StartPoint" value="Wing" id="btn-check-outlined${num}" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
+                                   for="btn-check-outlined${num}" >${$('#radio1').data('label')} </label>
+                            <input type="radio" class="btn-check " asp-for="Performances[${num}].StartPoint"
+                                   name="Performances[${num}].StartPoint" value="Point" id="btn-check-outlined${num}${num}" autocomplete="off">
+                            <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
+                                   for="btn-check-outlined${num}${num}">${$('#radio2').data('label')} </label>
+                        </div>
+                    </div>
+             </div>`)
+            $(`#per${num}`).append(`
+            <div class="form-group text-start mb-2 container">
+                    <label for="file${num}">${$('#filelabel').data('label')} :</label>
+                    <input type="file" name="Performances[${num}].PhonogramFileURL" id="Performances_${num}_PhonogramFileURL" class="form-control fontSimple " />
+                </div>
+                <div class="form-group  text-start mb-2 container">
+                    <label asp-for="Performances[${num}].YouTubeVideoURL" class="control-label  mb-2" id="teamName">${$('#youtubeLinc').data('label')}:</label>
+                    <input asp-for="Performances[${num}].YouTubeVideoURL" name="Performances[${num}].YouTubeVideoURL" class="form-control fontSimple" aria-describedby="${$('#youtubeLinc').data('label')}" />
+                    <span asp-validation-for="Performances[${num}].YouTubeVideoURL" class="text-danger  fontError"></span>
+                </div>`)
 
 
+            $(`#per${num}`).append(`
+            <div class="text-end me-3">
+                <button class="btn btn-danger delete  m-2" type="button" data-id="${num}"><i class="bi bi-trash"></i></button>
+            </div>
+            </div>`)
+
+        })
+
+        var personblock = function (index,id, model, label) {
+
+            $(id).append(`
+             <div class="form-group mb-3 text-start" id="perInput${id}">
+                    <label class="control-label mb-2 ">${label}  :</label>
+                        <div class="form-group row align-items-center">
+                       
+                         <div class="col-12 col-md-4">
+                            <input asp-for="Performances[${index}].${model}.PersonLastName"
+                                   class="form-control fontSimple mb-1"
+                                   name="Performances[${index}].${model}.PersonLastName"
+                                   aria-describedby="Person Last Name"
+                                   placeholder="${leng === "uk" ? "Призвище" : "Last Name"}" />
+                            <span asp-validation-for="Performances[${index}].${model}.PersonLastName" class="text-danger fontError d-block"></span>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <input asp-for="Performances[${index}].${model}.PersonName"
+                                   name="Performances[${index}].${model}.PersonName"
+                                   class="form-control fontSimple mb-1"
+                                   aria-describedby="Person Name"
+                                   placeholder="${leng === "uk" ? "Ім'я" :"Neme"}" />
+                            <span asp-validation-for="Performances[${index}].${model}.PersonName" class="text-danger fontError d-block"></span>
+                        </div>
+                       
+                        ${leng === "uk" ? addFatherName(index,model) : ""}
+                        `)
+            $(id).append(`</div>`)
+
+        }
+
+        
+        var erorsCheck = function () {
+           
+            for (var key in errorsJs) {
+                if (errorsJs.hasOwnProperty(key)) {
+                    //console.log("Field:", key);    // Field name (e.g., "Performances[1].PerformanceName")
+                    // Access the array of errors for this field
+                    errorsJs[key].forEach((errorMessage) => {
+                        key = key.replace(/\[/g, '_') 
+                            .replace(/\]/g, '_') 
+                            .replace(/\./g, '')
+                            id = "#" + key
+                        var peer = $(id).parent()
+                        $(id).parent().append(`<span class="text-danger fontError">${errorMessage}</span>`)
+                        //console.log("Error message:", errorMessage);  // Each error message for this field
+                    });
+                }
+            }
+            errorsJs = null
+        }    
+        erorsCheck()
     })
-
+ 
 var organizationFildToggle = function () {
     $("#organizationField").hasClass("invisible")
         ? $("#organizationField").removeClass("invisible").addClass("visible")
         : $("#organizationField").removeClass("visible").addClass("invisible")
+}
+var addFatherName = function (num, model) {
+    return `
+                <div class="col-12 col-md-4">
+                    <input asp-for="Performances[${num}].${model}.PersonFatherName"
+                        name="Performances[${num}].${model}.PersonFatherName"
+                        class="form-control fontSimple"
+                        aria-describedby="Person Father Name"
+                        placeholder="По батькові" />
+                    <span asp-validation-for="Performances[${num}].${model}.PersonFatherName" class="text-danger fontError d-block"></span>
+                </div>`
 }
