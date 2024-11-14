@@ -11,7 +11,7 @@
     {
         lang = "uk";
     }
-    ViewData["label"] = Resources.Resource.TeamLider;
+
 
 
     List<Genre> genreList = ViewData["GenreList"] as List<Genre> ?? new List<Genre>();
@@ -47,8 +47,13 @@
     <img src="~/images/708807_012.svg" width="30%" alt="Monocrome" />
     <div class="border rounded-3 container border-secondary col-sm-11 col-12">
 
-        <form asp-action="Index" method="post" asp-controller="Registration" enctype="multipart/form-data">
+        <form id="regForm" asp-action="Index" method="post" asp-controller="Registration" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (!string.IsNullOrEmpty(ViewData["MailSendError"]?.ToString()))
+            {
+                <div class="text-danger">*@ViewData["MailSendError"]</div>
+            }
+            <div class="text-danger"></div>
             @if (isErrors)
             {
                 <div class="text-danger fontSimple fw-bold">*@Resources.Resource.IsErrorsInForm</div>
@@ -61,30 +66,30 @@
             </div>
             @*TeamLeader*@
             <div class="form-group mb-3 text-start">
-                <label class="control-label mb-2 ">@ViewData["label"] :</label>
+                <label class="control-label mb-2 ">@Resources.Resource.TeamLider :</label>
                 <div class="form-group row align-items-center">
 
                     <div class="col-12 col-md-4">
                         <input asp-for="TeamLeader.PersonLastName"
-                               class="form-control fontSimple mb-1"
-                               aria-describedby="Person Last Name"
-                               placeholder=@Resources.Resource.PersonLastNameLable />
+                        class="form-control fontSimple mb-1"
+                        aria-describedby="Person Last Name"
+                        placeholder=@Resources.Resource.PersonLastNameLable />
                         <span asp-validation-for="TeamLeader.PersonLastName" class="text-danger fontError d-block"></span>
                     </div>
                     <div class="col-12 col-md-4">
                         <input asp-for="TeamLeader.PersonName"
-                               class="form-control fontSimple mb-1"
-                               aria-describedby="Person Name"
-                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                        class="form-control fontSimple mb-1"
+                        aria-describedby="Person Name"
+                        placeholder=@Resources.Resource.PersonFirstNameLable />
                         <span asp-validation-for="TeamLeader.PersonName" class="text-danger fontError d-block"></span>
                     </div>
                     @if (lang == "uk" || lang == "ru")
                     {
                         <div class="col-12 col-md-4">
                             <input asp-for="TeamLeader.PersonFatherName"
-                                   class="form-control fontSimple"
-                                   aria-describedby="Person Father Name"
-                                   placeholder="По батькові" />
+                            class="form-control fontSimple"
+                            aria-describedby="Person Father Name"
+                            placeholder="По батькові" />
                             <span asp-validation-for="TeamLeader.PersonFatherName" class="text-danger fontError d-block"></span>
                         </div>
                     }
@@ -123,7 +128,7 @@
             <div id="organizationField" class="form-group  text-start invisible">
                 <label asp-for="Organization" class="control-label mb-2">@Resources.Resource.Organization :</label>
                 <input asp-for="Organization" type="tel" placeholder="'@Resources.Resource.OrganizationPlaseholder'"
-                       class="form-control fontSimple" aria-describedby=@Resources.Resource.Organization />
+                class="form-control fontSimple" aria-describedby=@Resources.Resource.Organization />
                 <span asp-validation-for="Organization" class="text-danger fontError"></span>
             </div>
 
@@ -145,27 +150,27 @@
                         <div class="form-group row align-items-center">
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].ChoreographerDirector.PersonLastName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Last Name"
-                                       id="LNPlaseholder"
-                                       data-plaseholder=@Resources.Resource.PersonLastNameLable
-                                       placeholder=@Resources.Resource.PersonLastNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Last Name"
+                                id="LNPlaseholder"
+                                data-plaseholder=@Resources.Resource.PersonLastNameLable
+                                placeholder=@Resources.Resource.PersonLastNameLable />
                                 <span asp-validation-for="Performances[0].ChoreographerDirector.PersonLastName" class="text-danger fontError d-block"></span>
                             </div>
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].ChoreographerDirector.PersonName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Name"
-                                       id="namePlaseholder" data-plaseholder=@Resources.Resource.PersonFirstNameLable placeholder=@Resources.Resource.PersonFirstNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Name"
+                                id="namePlaseholder" data-plaseholder=@Resources.Resource.PersonFirstNameLable placeholder=@Resources.Resource.PersonFirstNameLable />
                                 <span asp-validation-for="Performances[0].ChoreographerDirector.PersonName" class="text-danger fontError d-block"></span>
                             </div>
                             @if (lang == "uk" || lang == "ru")
                             {
                                 <div class="col-12 col-md-4">
                                     <input asp-for="Performances[0].ChoreographerDirector.PersonFatherName"
-                                           class="form-control fontSimple"
-                                           aria-describedby="Person Father Name"
-                                           placeholder="По батькові" />
+                                    class="form-control fontSimple"
+                                    aria-describedby="Person Father Name"
+                                    placeholder="По батькові" />
                                     <span asp-validation-for="Performances[0].ChoreographerDirector.PersonFatherName" class="text-danger fontError d-block"></span>
                                 </div>
                             }
@@ -178,26 +183,26 @@
 
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].Concertmaster.PersonLastName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Last Name"
-                                       placeholder=@Resources.Resource.PersonLastNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Last Name"
+                                placeholder=@Resources.Resource.PersonLastNameLable />
                                 <span asp-validation-for="Performances[0].Concertmaster.PersonLastName" class="text-danger fontError d-block"></span>
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].Concertmaster.PersonName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Name"
-                                       placeholder=@Resources.Resource.PersonFirstNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Name"
+                                placeholder=@Resources.Resource.PersonFirstNameLable />
                                 <span asp-validation-for="Performances[0].Concertmaster.PersonName" class="text-danger fontError d-block"></span>
                             </div>
                             @if (lang == "uk" || lang == "ru")
                             {
                                 <div class="col-12 col-md-4">
                                     <input asp-for="Performances[0].Concertmaster.PersonFatherName"
-                                           class="form-control fontSimple"
-                                           aria-describedby="Person Father Name"
-                                           placeholder="По батькові" />
+                                    class="form-control fontSimple"
+                                    aria-describedby="Person Father Name"
+                                    placeholder="По батькові" />
                                     <span asp-validation-for="Performances[0].Concertmaster.PersonFatherName" class="text-danger fontError d-block"></span>
                                 </div>
                             }
@@ -207,10 +212,10 @@
                     <div id=personListforNum0 data-label=@Resources.Resource.ParticipantNumList>
                         <div class="container p-0 col-md-6">
                             <label for="Performances_0_ParticipantsNumberId" id="PartNameListLabel" data-label="@Resources.Resource.ParticipantsNameListLabel">@Resources.Resource.ParticipantsNameListLabel : </label>
-                            <select class="form-select text-center fontSimple numSelect fw-bold mt-1" asp-for="Performances[0].ParticipantsNumber"
-                                    id="Performances_0_ParticipantsNumberId" data-id="0"
-                                    name="@Html.NameFor(m=>m.Performances[0].ParticipantsNumber.Id)">
-                                @if (Model == null || Model.Performances[0].ParticipantsNumber.Id == 0)
+                            <select class="form-select text-center fontSimple numSelect fw-bold mt-1" asp-for="Performances[0].ParticipantsNumberId"
+                            id="Performances_0_ParticipantsNumberId" data-id="0"
+                            name="@Html.NameFor(m=>m.Performances[0].ParticipantsNumberId)">
+                                @if (Model == null || Model.Performances[0].ParticipantsNumberId == 0)
                                 {
                                     <option value="" selected>------</option>
                                 }
@@ -219,32 +224,32 @@
                                     @if (Model?.Performances[0].ParticipantsNumber?.Id == item.Id)
                                     {
                                         <option value="@item.Id" id=@string.Format("perNum{0}",item.Id)
-                                                data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)" selected>
+                                        data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)" selected>
                                             @Resources.Resource.ResourceManager.GetString(@item.Name)
                                         </option>
                                     }
                                     else
                                     {
                                         <option value="@item.Id" id=@string.Format("perNum{0}",item.Id)
-                                                data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)">
+                                        data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)">
                                             @Resources.Resource.ResourceManager.GetString(@item.Name)
                                         </option>
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="Performances[0].ParticipantsNumber.Id" class="text-danger fontError"></span>
+                            <span asp-validation-for="Performances[0].ParticipantsNumberId" class="text-danger fontError"></span>
                         </div>
 
                         @{
                             var count = 0;
                             if (Model != null)
-                                count = Math.Abs(Model.Performances[0].ParticipantsNumber.Id);
+                                count = Math.Abs(Model.Performances[0].ParticipantsNumberId);
 
                             if (count > 0 && count < 4)
                             {
                                 if (Model != null)
                                 {
-                                                @Html.Raw("<div id=\"personList0\">")
+                                    @Html.Raw("<div id=\"personList0\">")
                                     ;
                                 }
 
@@ -260,18 +265,13 @@
 
                                     if (personNum != null)
                                     {
-                                                    @Html.Raw($"<div class=\"form-group mb-3 text-start\" id=\"perInput{i}\">")
-                                        ; // Corrected HTML tag
-                                                    @Html.Raw($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>")
-                                        ;
-                                                    @Html.PersonReturn($"ParticipantsNameList.Person{i + 1}", personNum)
-                                        ;
-                                                    @Html.Raw("</div>")
-                                        ; // Closing div for each person
+                                        @Html.Raw($"<div class=\"form-group mb-3 text-start\" id=\"perInput{i}\">"); // Corrected HTML tag
+                                        @Html.Raw($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>");
+                                        @Html.PersonReturn($"ParticipantsNameList.Person{i + 1}", personNum);
+                                        @Html.Raw("</div>"); // Closing div for each person
                                     }
                                 }
-                                            @Html.Raw("</div>")
-                                ; // Closing the main container
+                                @Html.Raw("</div>"); // Closing the main container
                             }
                         }
                     </div>
@@ -279,60 +279,61 @@
                     <div class="row row-cols-sm-2 mt-2">
                         <div>
                             <label for="Performances_0_GenreId" id="genreLabel" data-label="@Resources.Resource.GenreLabel">@Resources.Resource.GenreLabel : </label>
-                            <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[0].Genre"
-                                    id="Performances_0_GenreId" aria-label="Floating label select example"
-                                    name="@Html.NameFor(m=>m.Performances[0].Genre.Id)">
-                                @if (Model == null || Model.Performances[0].Genre.Id == 0)
+                            <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[0].GenreId"
+                            id="Performances_0_GenreId" aria-label="Floating label select example"
+                            name="@Html.NameFor(m=>m.Performances[0].GenreId)">
+                                @if (Model == null || Model.Performances[0].GenreId == 0)
                                 {
                                     <option value="" selected>------</option>
                                 }
                                 @foreach (var item in genreList)
                                 {
-                                    @if (Model?.Performances[0].Genre?.Id == item.Id)
+                                    @if (Model?.Performances[0].GenreId == item.Id)
                                     {
                                         <option value="@item.Id" id=@string.Format("genNum{0}",item.Id)
-                                                data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)" selected>
+                                        data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)" selected>
                                             @Resources.Resource.ResourceManager.GetString(@item.Name)
                                         </option>
                                     }
                                     else
                                     {
                                         <option value="@item.Id" id=@string.Format("genNum{0}",item.Id)
-                                                data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)">
+                                        data-name="@Resources.Resource.ResourceManager.GetString(@item.Name)">
                                             @Resources.Resource.ResourceManager.GetString(@item.Name)
                                         </option>
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="Performances[0].Genre.Id" class="text-danger fontError"></span>
+                            <span asp-validation-for="Performances[0].GenreId" class="text-danger fontError"></span>
 
                         </div>
                         <div>
                             <label for="Performances_0_PerformanceGroupId" id="ageGroupLabel" data-label="@Resources.Resource.AgeGroup">@Resources.Resource.AgeGroup : </label>
-                            <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[0].PerformanceGroup"
-                                    aria-label="Floating label select example" id="Performances_0_PerformanceGroupId"
-                                    name="@Html.NameFor(m=>m.Performances[0].PerformanceGroup.Id)">
-                                @if (Model == null || Model.Performances[0].PerformanceGroup.Id == 0)
+                            <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[0].CategoryId"
+                            aria-label="Floating label select example" id="Performances_0_PerformanceGroupId"
+                            name="@Html.NameFor(m=>m.Performances[0].CategoryId)">
+                                @if (Model == null || Model.Performances[0].CategoryId == 0)
                                 {
                                     <option value="" selected>------</option>
                                 }
 
                                 @foreach (var item in categoryList)
                                 {
-                                    @if (Model?.Performances[0].PerformanceGroup?.Id == item.Id)
+                                    @if (Model?.Performances[0].CategoryId == item.Id)
                                     {
                                         <option value="@item.Id" id="@string.Format("ageGroup{0}",item.Id)"
-                                                data-name="@string.Format("{0} - {1}",Resources.Resource.ResourceManager.GetString(@item.Name)
+                                        data-name="@string.Format("{0} - {1}",Resources.Resource.ResourceManager.GetString(@item.Name)
                                             ,Resources.Resource.ResourceManager.GetString(@item.Description))" selected>
                                             @Resources.Resource.ResourceManager.GetString(@item.Name) -
                                             @Resources.Resource.ResourceManager.GetString(@item.Description)
 
                                         </option>
                                     }
+                                    else
                                     {
 
                                         <option value="@item.Id" id="@string.Format("ageGroup{0}",item.Id)"
-                                                data-name="@string.Format("{0} - {1}",Resources.Resource.ResourceManager.GetString(@item.Name)
+                                        data-name="@string.Format("{0} - {1}",Resources.Resource.ResourceManager.GetString(@item.Name)
                                             ,Resources.Resource.ResourceManager.GetString(@item.Description))">
                                             @Resources.Resource.ResourceManager.GetString(@item.Name) -
                                             @Resources.Resource.ResourceManager.GetString(@item.Description)
@@ -341,7 +342,7 @@
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="Performances[0].PerformanceGroup.Id" class="text-danger fontError"></span>
+                            <span asp-validation-for="Performances[0].CategoryId" class="text-danger fontError"></span>
                         </div>
                     </div>
                 </div>
@@ -349,30 +350,33 @@
                     <div class="col-6">
                         <label for="time" id="timeLabel" data-label="@Resources.Resource.PerfomanseTime">@Resources.Resource.PerfomanseTime : </label>
                         <input type="time" asp-for="Performances[0].PerformanceTime"
-                               class="form-control col-12 col-md-3 text-center" id="time" />
+                        class="form-control col-12 col-md-3 text-center" id="time" />
                         <span asp-validation-for="Performances[0].PerformanceTime" class="text-danger fontError"></span>
                     </div>
                     <div class="col-6 ">
                         <label for="startSpot" id="spotLabel" data-label="@Resources.Resource.StartPosition">@Resources.Resource.StartPosition : </label>
                         <div class="row justify-content-md-around justify-content-center">
                             <input type="radio" class="btn-check" asp-for="Performances[0].StartPoint"
-                                   name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Wing" id="btn-check-outlined0" autocomplete="off" checked />
+                            name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Wing" id="btn-check-outlined0" autocomplete="off" checked />
                             <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
-                                   for="btn-check-outlined0" id="radio1" data-label="@Resources.Resource.Backstage">@Resources.Resource.Backstage</label>
+                            for="btn-check-outlined0" id="radio1" data-label="@Resources.Resource.Backstage">@Resources.Resource.Backstage</label>
                             <input type="radio" class="btn-check " asp-for="Performances[0].StartPoint"
-                                   name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Point" id="btn-check-outlined00" autocomplete="off" />
+                            name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Point" id="btn-check-outlined00" autocomplete="off" />
                             <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
-                                   for="btn-check-outlined00" id="radio2" data-label="@Resources.Resource.Spot">@Resources.Resource.Spot</label>
+                            for="btn-check-outlined00" id="radio2" data-label="@Resources.Resource.Spot">@Resources.Resource.Spot</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group text-start mb-2 container">
                     <label for="file" id="filelabel" data-label="@Resources.Resource.FileAdd">@Resources.Resource.FileAdd :</label>
-                    <input type="file" name="Performances[0].PhonogramFileURL" id="Performances_0_PhonogramFileURL" class="form-control fontSimple" />
+                    <input type="file" asp-for="Performances[0].PhonogramFileURL"
+                    name="Performances[0].PhonogramFileURL"
+                    id="Performances_0_PhonogramFileURL" accept=".mp3, .wav"
+                    class="form-control fontSimple" />
                 </div>
                 <div class="form-group  text-start mb-2 container">
                     <label asp-for="Performances[0].YouTubeVideoURL" class="control-label  mb-2" id="youtubeLinc"
-                           data-label="@Resources.Resource.YouTubeURL">@Resources.Resource.YouTubeURL :</label>
+                    data-label="@Resources.Resource.YouTubeURL">@Resources.Resource.YouTubeURL :</label>
                     <input asp-for="Performances[0].YouTubeVideoURL" class="form-control fontSimple" aria-describedby="@Resources.Resource.YouTubeURL" />
                     <span asp-validation-for="Performances[0].YouTubeVideoURL" class="text-danger  fontError"></span>
                 </div>
@@ -381,9 +385,7 @@
                     for (int i = 1; i <= Model.Performances.Count - 1; i++)
                     {
 
-                        @Html.PerformanceReturn(i, Model.Performances[i], genreList, categoryList, participantsList)
-                        ;
-
+                        @Html.PerformanceReturn(i, Model.Performances[i], genreList, categoryList, participantsList);
                     };
                 }
 
@@ -393,9 +395,26 @@
                 <button type="button" id="addP" data-param=@lang class="btn btn-success">
                     <i class="bi bi-plus-square"></i> @Resources.Resource.AddPerformance
                 </button>
-                <button type="submit" class="btn btn-primary">@Resources.Resource.Send</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">@Resources.Resource.Send</button>
             </div>
         </form>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">@Resources.Resource.ModalHeader</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primar" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -405,6 +424,18 @@
     var categoryList = @Html.Raw(JsonConvert.SerializeObject(ViewData["categoryList"]));
     var ParticipantsNumberList = @Html.Raw(JsonConvert.SerializeObject(ViewData["ParticipantsNumberList"]));
     var num = @(Model?.Performances?.Count > 0 ? Model.Performances.Count - 1 : 0);
-    var errorsJs = @Html.Raw(JsonConvert.SerializeObject(errorsList));
+    var  errorsJs = @Html.Raw(JsonConvert.SerializeObject(errorsList));
+    
 
+    // window.onload = () => {
+    //         console.log(errorsJs)
+    //         if (isEmptyObject(errorsJs))
+    //         $('#staticBackdrop').modal('show');
+    //     }
+    // }
+
+    // function isEmptyObject(obj) {
+       
+    //     return Object.keys(obj).length === 0 && obj.constructor === Object;
+    // }
 </script>

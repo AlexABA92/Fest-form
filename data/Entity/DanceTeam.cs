@@ -9,7 +9,7 @@ namespace Fest_form.data.Entity
 {
     public class DanceTeam
     {
-       
+      
         [Key]
         public Guid TeamId { get; set; }
 
@@ -49,14 +49,7 @@ namespace Fest_form.data.Entity
         private List<Performance> _performances = new List<Performance>();
         public List<Performance> Performances
         {
-            get
-            {
-                if (_performances.Count == 0)
-                {
-                    _performances.Add(new Performance());
-                }
-                return _performances;
-            }
+            get => _performances;
             set
             {
                 _performances = value ?? new List<Performance>();

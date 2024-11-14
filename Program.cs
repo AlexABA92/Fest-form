@@ -2,13 +2,33 @@ using Fest_form.data;
 using Fest_form.data.Entity;
 using Fest_form.Interface;
 using Fest_form.Repositories;
+using Fest_form.Repositories.DeanseTeamRepos;
+using Fest_form.Repositories.FileRepos;
 using Fest_form.Services;
+using Fest_form.Services.Bucket;
+using Fest_form.Services.MailSend;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.AzureAppServices;
+
+
+//using Serilog;
+//using Serilog.Events;
+
 using testBD.services;
+
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.AddAzureWebAppDiagnostics();
+
+
+builder.Services.Configure<AzureBlobLoggerOptions>(options =>
+{
+    options.BlobName = "log.txt";
+});
 
 builder.Services.AddDbContext<FestDataContext>(options =>
     options.UseMySql(
@@ -27,24 +47,30 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<IGenreRepos<Genre>, GenreRepos>();
 builder.Services.AddScoped<ICategory<Category>, CategoryRepos>();
 builder.Services.AddScoped<IParticipantsNumber<ParticipantsNumber>, ParticipantsRepos>();
-builder.Services.AddScoped<IPerformanceValidationService, PerformanceValidationService>();
+builder.Services.AddScoped<IDanceTeamRepos<DanceTeam>,DanceTeamRepos>();
+builder.Services.AddScoped<IBucket, Bucket>();
+builder.Services.AddScoped<IMailSend, MailSend>();
+builder.Services.AddScoped<IFileRepos,FilesRepos>();
+
 
 var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-//var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-//app.UseRequestLocalization(localizationOptions.Value);
 
 app.UseSession();
 app.UseRouting();
@@ -80,4 +106,7 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
 }
 
-app.Run();
+    app.Run();
+
+
+

@@ -1,5 +1,6 @@
 ﻿using Fest_form.GlobalData.Enum;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 
@@ -20,21 +21,25 @@ namespace Fest_form.data.Entity
         public Person Concertmaster { get; set; } = null!;
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        public Category PerformanceGroup { get; set; } = null!;
+        public int CategoryId {get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        public Genre Genre { get; set; } = null!;
+        public int GenreId { get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        public ParticipantsNumber ParticipantsNumber { get; set; } = null!;
+        public int ParticipantsNumberId { get; set; }
+        public Category? PerformanceGroup { get; set; } = null!;
+        
+        public Genre? Genre { get; set; } = null!;
+        
+        public ParticipantsNumber? ParticipantsNumber { get; set; } = null!;
         public ParticipantsList? ParticipantsNameList { get; set; }
         [Required(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public string PerformanceTime { get; set; } = null!;
 
         public StartPointEnum StartPoint { get; set; } = StartPointEnum.None;
-        [Required(ErrorMessageResourceType =
-             typeof(Resources.Resource), ErrorMessageResourceName = "FileRequiredError")]
+        
         public string PhonogramFileURL { get; set; } = string.Empty!;
         [Url(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "ValidationUrlError")]

@@ -85,11 +85,11 @@ namespace Fest_form.Helpers
             var participantsNumberSelect = new TagBuilder("select");
             participantsNumberSelect.AddCssClass("form-select text-center fontSimple fw-bold numSelect mt-1");
             participantsNumberSelect.Attributes["id"] = $"Performances_{index}_ParticipantsNumberId";
-            participantsNumberSelect.Attributes["name"] = $"Performances[{index}].ParticipantsNumber.Id";
+            participantsNumberSelect.Attributes["name"] = $"Performances[{index}].ParticipantsNumberId";
             participantsNumberSelect.Attributes["data-id"] = index.ToString();
 
             if (participantsList != null)
-                if (performance.Genre.Id == 0)
+                if (performance.ParticipantsNumberId == 0)
                 {
                     var option = new TagBuilder("option");
                     option.Attributes["value"] = "";
@@ -102,14 +102,14 @@ namespace Fest_form.Helpers
                     var option = new TagBuilder("option");
                     option.Attributes["value"] = $"{item.Id}";
                     option.InnerHtml.Append($"{Resources.Resource.ResourceManager.GetString(item.Name)}");
-                    if (performance.ParticipantsNumber.Id == item.Id)
+                    if (performance.ParticipantsNumberId == item.Id)
                         option.Attributes["selected"] = $"selected";
                     participantsNumberSelect.InnerHtml.AppendHtml(option);
                 }
             participantsNumberSelectBlock.InnerHtml.AppendHtml(participantsNumberSelect);
             participantsAllBlock.InnerHtml.AppendHtml(participantsNumberSelectBlock);
            
-            var persCount = Math.Abs((int)performance.ParticipantsNumber.Id);
+            var persCount = Math.Abs((int)performance.ParticipantsNumberId);
             if (persCount <= 3 &&
                 persCount >= 1)
             {
@@ -148,10 +148,10 @@ namespace Fest_form.Helpers
             genreselect.AddCssClass("form-select text-center fontSimple fw-bold mt-1");
             genreselect.Attributes["data-id"] = index.ToString();
             genreselect.Attributes["id"] = $"Performances_{index}_GenreId";
-            genreselect.Attributes["name"] =$"Performances[{ index}].Genre.Id";
+            genreselect.Attributes["name"] =$"Performances[{ index}].GenreId";
 
             if (genreList != null)
-                if (performance.Genre.Id == 0) {
+                if (performance.GenreId == 0) {
                     var option = new TagBuilder("option");
                     option.Attributes["value"] = "";
                     option.Attributes["selected"] = $"selected";
@@ -162,7 +162,7 @@ namespace Fest_form.Helpers
                    var option = new TagBuilder("option");
                     option.Attributes["value"] = $"{item.Id}";
                     option.InnerHtml.Append($"{Resources.Resource.ResourceManager.GetString(item.Name)}");
-                    if (performance.Genre.Id == item.Id)
+                    if (performance.GenreId == item.Id)
                         option.Attributes["selected"] = $"selected";
                     genreselect.InnerHtml.AppendHtml(option);
                 }
@@ -177,9 +177,9 @@ namespace Fest_form.Helpers
             ageSelect.AddCssClass("form-select text-center fontSimple fw-bold mt-1");
             ageSelect.Attributes["data-id"] = index.ToString();
             ageSelect.Attributes["id"] = $"Performances_{index}_PerformanceGroupId";
-            ageSelect.Attributes["name"] = $"Performances[{index}].PerformanceGroup.Id";
+            ageSelect.Attributes["name"] = $"Performances[{index}].CategoryId";
             if (categoryList != null)
-                if (performance.Genre.Id == 0)
+                if (performance.CategoryId == 0)
                 {
                     var option = new TagBuilder("option");
                     option.Attributes["value"] = "";
@@ -193,7 +193,7 @@ namespace Fest_form.Helpers
                     option.Attributes["value"] = $"{item.Id}";
                     option.InnerHtml.Append($"{Resources.Resource.ResourceManager.GetString(item.Name)} - " +
                         $"{Resources.Resource.ResourceManager.GetString(item.Description)}");
-                    if (performance.PerformanceGroup.Id == item.Id)
+                    if (performance.CategoryId == item.Id)
                         option.Attributes["selected"] = $"selected";
                     ageSelect.InnerHtml.AppendHtml(option);
                 }
@@ -247,7 +247,7 @@ namespace Fest_form.Helpers
             divFile.AddCssClass("form-group text-start mb-2 container");
             divFile.InnerHtml.AppendHtml($"<label for=\"file{index}\">{Resources.Resource.FileAdd} :</label>" +
                 $" <input type =\"file\" name=\"Performances[{index}].PhonogramFileURL\"" +
-                $" id=\"Performances_{index}_PhonogramFileURL\" class=\"form-control fontSimple\"/>");
+                $" id=\"Performances_{index}_PhonogramFileURL\" class=\"form-control fontSimple\" accept=\".mp3, .wav\"/>");
             performanceItem.InnerHtml.AppendHtml(divFile);
             #endregion
             #region youtube

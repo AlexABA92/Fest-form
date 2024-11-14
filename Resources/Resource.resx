@@ -300,4 +300,22 @@
   <data name="SelectErrorMessage" xml:space="preserve">
     <value>Виберіть зі списку</value>
   </data>
+  <data name="FileSizeError" xml:space="preserve">
+    <value>Розмір файлу перевищує 25 МБ. Будь ласка, виберіть менший файл.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Ваша заява успішно зареєстрована</value>
+  </data>
+  <data name="Performace" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Не знайдено</value>
+  </data>
+  <data name="UrlSoundtrack" xml:space="preserve">
+    <value>Url Саундтрек</value>
+  </data>
+  <data name="ModalHeader" xml:space="preserve">
+    <value>Умови та положення</value>
+  </data>
 </root>

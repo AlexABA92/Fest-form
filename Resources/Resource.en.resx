@@ -300,4 +300,22 @@
   <data name="SelectErrorMessage" xml:space="preserve">
     <value>Choose from the list</value>
   </data>
+  <data name="FileSizeError" xml:space="preserve">
+    <value>File size exceeds 25MB. Please choose a smaller file.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Your statment has been successfully registered</value>
+  </data>
+  <data name="Performace" xml:space="preserve">
+    <value>Perfornamc</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="UrlSoundtrack" xml:space="preserve">
+    <value>Url Soundtrack</value>
+  </data>
+  <data name="ModalHeader" xml:space="preserve">
+    <value>Terms and conditions</value>
+  </data>
 </root>

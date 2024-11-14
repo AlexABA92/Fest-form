@@ -6,8 +6,18 @@
 // Write your JavaScript code.debugger
 $(document).ready(
     function () {
-      var indes = num
-      var leng = $("#addP").data('param');
+      
+        var leng = $("#addP").data('param');
+
+        
+
+        $("#regForm").on("click", "#submitBtn" ,()=> {
+            if ($("#regForm").valid()) {
+                $("#submitBtn").prop("disabled", true);
+                $("#regForm").submit();
+            }else 
+            $("#submitBtn").prop("disabled", false);
+        });
 
         $("#performancesList").on("change", '.numSelect', function () {
             var id = $(this).data('id')
@@ -22,6 +32,7 @@ $(document).ready(
                 personblock(id, `#personList${id}`, `ParticipantsNameList.Person${i + 1}`, $('#personListforNum0').data('label'))
         })
         $('#performancesList').on('click', '.delete', function () {
+           
             var id = $(this).data('id');
 
             if (id < num) {
@@ -59,6 +70,7 @@ $(document).ready(
             }
         })
         $("#Performances_0_ParticipantsNumber").change(function () {
+            
             var sOption = $(this).find("option:selected");
             var num = Math.abs(sOption.val());  // Проверяем значение
 
@@ -73,13 +85,14 @@ $(document).ready(
                 $('#par2').removeClass("d-none");
                 $('#par1').removeClass("d-none");
             }
-            if (num == 3) {
+            if (num == 3) { 
                 $('#par2').removeClass("d-none");
                 $('#par1').removeClass("d-none");
                 $('#par3').removeClass("d-none");
             }
         });
         $('#addP').click(function () {
+            
             function perNumberOption() {
                 var optios;
 
@@ -123,39 +136,39 @@ $(document).ready(
             <div id="personListforNum${num}">
                 <div class="container p-0 col-md-6">
                      <label for="parNum">${$('#PartNameListLabel').data('label')} : </label>
-                     <select class="form-select text-center fontSimple fw-bold mt-1 numSelect"asp-for="Performances[${num}].ParticipantsNumber"
+                     <select class="form-select text-center fontSimple fw-bold mt-1 numSelect"asp-for="Performances[${num}].ParticipantsNumberId"
                                 data-id="${num}"
-                                name="Performances[${num}].ParticipantsNumber.Id"
-                                id="Performances_${num}_ParticipantsNumberId">
+                                name="Performances[${num}].ParticipantsNumberId"
+                                id="Performances_${num}_ParticipantsNumber">
                             <option value="" selected>------</option>
                             ${perNumberOption()}
                         </select>
-                        <span asp-validation-for="Performances[${num}].ParticipantsNumber" class="text-danger fontError"></span>
+                        <span asp-validation-for="Performances[${num}].ParticipantsNumberId" class="text-danger fontError"></span>
                 </div>
                 <div id="personList${num}"></div>
             </div>`)
             $(`#per${num}`).append(`
              <div class="row row-cols-sm-2 mt-2">
                     <div>
-                        <label for="Performances_${num}_Genre">${$('#genreLabel').data('label')} : </label>
-                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].Genre"
+                        <label for="Performances_${num}_GenreId">${$('#genreLabel').data('label')} : </label>
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].GenreId"
                                id="Performances_${num}_Genre" aria-label="Floating label select example"
-                                name="Performances[${num}].Genre.Id">
+                                name="Performances[${num}].GenreId">
                             <option value="" selected>------</option>
                             ${genreOption()}
                         </select>
-                        <span asp-validation-for="Performances[${num}].Genre" class="text-danger fontError"></span>
+                        <span asp-validation-for="Performances[${num}].GenreId" class="text-danger fontError"></span>
 
                     </div>
                       <div >
                         <label for="Performances_${num}_PerformanceGroup">${$('#ageGroupLabel').data('label')} : </label>
-                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].PerformanceGroup"
+                        <select class="form-select text-center fontSimple fw-bold mt-1" asp-for="Performances[${num}].CategoryId"
                                 id="Performances_${num}_PerformanceGroup" aria-label="Floating label select example"
-                                name="Performances[${num}].PerformanceGroup.Id">
+                                name="Performances[${num}].CategoryId">
                             <option value="" selected>------</option>
                            ${ageGroupOption()}
                         </select>
-                        <span asp-validation-for="Performances[${num}].PerformanceGroup" class="text-danger fontError"></span>
+                        <span asp-validation-for="Performances[${num}].CategoryId" class="text-danger fontError"></span>
                      </div>
                 </div>
             `)
@@ -185,7 +198,7 @@ $(document).ready(
             $(`#per${num}`).append(`
             <div class="form-group text-start mb-2 container">
                     <label for="file${num}">${$('#filelabel').data('label')} :</label>
-                    <input type="file" name="Performances[${num}].PhonogramFileURL" id="Performances_${num}_PhonogramFileURL" class="form-control fontSimple " />
+                    <input type="file" name="Performances[${num}].PhonogramFileURL" id="Performances_${num}_PhonogramFileURL" accept=".mp3, .wav" class="form-control fontSimple " />
                 </div>
                 <div class="form-group  text-start mb-2 container">
                     <label asp-for="Performances[${num}].YouTubeVideoURL" class="control-label  mb-2" id="teamName">${$('#youtubeLinc').data('label')}:</label>
@@ -232,9 +245,9 @@ $(document).ready(
 
         }
 
-        
+       
         var erorsCheck = function () {
-           
+          
             for (var key in errorsJs) {
                 if (errorsJs.hasOwnProperty(key)) {
                     //console.log("Field:", key);    // Field name (e.g., "Performances[1].PerformanceName")
@@ -250,9 +263,19 @@ $(document).ready(
                     });
                 }
             }
-            errorsJs = null
+            //errorsJs = null
         }    
         erorsCheck()
+        // show modal dialog if it first 
+        var showDialog = () => {
+            function isEmptyObject(obj) {
+
+                return Object.keys(obj).length === 0 && obj.constructor === Object;
+             }
+            if (isEmptyObject(errorsJs))
+                $('#staticBackdrop').modal('show');
+        }
+        showDialog()
     })
  
 var organizationFildToggle = function () {

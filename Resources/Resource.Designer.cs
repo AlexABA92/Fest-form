@@ -268,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Розмір файлу перевищує 25 МБ. Будь ласка, виберіть менший файл..
+        /// </summary>
+        public static string FileSizeError {
+            get {
+                return ResourceManager.GetString("FileSizeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Народний.
         /// </summary>
         public static string Folk {
@@ -358,11 +367,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Умови та положення.
+        /// </summary>
+        public static string ModalHeader {
+            get {
+                return ResourceManager.GetString("ModalHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *Ім&apos;я та прізвище можуть містити тільки букви, пробіли та дефіси..
         /// </summary>
         public static string NameSymbolValidation {
             get {
                 return ResourceManager.GetString("NameSymbolValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не знайдено.
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
         
@@ -426,6 +453,15 @@ namespace Resources {
         public static string PerfomanseTime {
             get {
                 return ResourceManager.GetString("PerfomanseTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер.
+        /// </summary>
+        public static string Performace {
+            get {
+                return ResourceManager.GetString("Performace", resourceCulture);
             }
         }
         
@@ -556,6 +592,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ваша заява успішно зареєстрована.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назва колективу.
         /// </summary>
         public static string TeameName {
@@ -588,6 +633,15 @@ namespace Resources {
         public static string Trio {
             get {
                 return ResourceManager.GetString("Trio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url Саундтрек.
+        /// </summary>
+        public static string UrlSoundtrack {
+            get {
+                return ResourceManager.GetString("UrlSoundtrack", resourceCulture);
             }
         }
         
