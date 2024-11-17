@@ -15,6 +15,7 @@ namespace Fest_form.data.Entity
         public Guid  DanceTeamId { get; set; }
         [Required(ErrorMessageResourceType =
            typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
+        [Trim]
         public string PerformanceName { get; set; } = string.Empty;
         
         public Person ChoreographerDirector { get; set; } = null!;
@@ -36,13 +37,16 @@ namespace Fest_form.data.Entity
         public ParticipantsList? ParticipantsNameList { get; set; }
         [Required(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
+        [Trim]
         public string PerformanceTime { get; set; } = null!;
 
         public StartPointEnum StartPoint { get; set; } = StartPointEnum.None;
-        
+        [Trim]
+
         public string PhonogramFileURL { get; set; } = string.Empty!;
         [Url(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "ValidationUrlError")]
+        [Trim]
         public string? YouTubeVideoURL { get; set; } = string.Empty!;
     }
 }

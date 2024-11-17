@@ -17,7 +17,24 @@ namespace Fest_form.Repositories.DeanseTeamRepos
                 _context.SaveChanges();
             }
             catch (Exception ex) {
-                _logger.LogError(ex, "Fatal Eroor"); 
+                _logger.LogError(ex, " CreateTeam Fatal Error"); 
+            }
+        }
+        public void CheckTeam(ref DanceTeam team) {
+            try
+            {
+                var teamTemp = team;
+                teamTemp = _context.DanceTeams.FirstOrDefault(
+                    dt => dt.TeamName == teamTemp.TeamName);
+
+                if (teamTemp != null)
+                {
+                    team.TeamId = teamTemp.TeamId;
+                }
+               
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex, "CheckTeam Fatal Error");
             }
         }
 

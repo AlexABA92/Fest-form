@@ -18,7 +18,7 @@ namespace Fest_form.data.Entity
             = typeof(Resources.Resource), ErrorMessageResourceName = "ErrorLengthValidation")]
         [RegularExpression(@"^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ'\-]+$", ErrorMessageResourceType
             = typeof(Resources.Resource), ErrorMessageResourceName = "NameSymbolValidation")]
-        
+        [Trim]
         public string PersonName { get; set; } = string.Empty;
 
         [Required(ErrorMessageResourceType =
@@ -27,12 +27,14 @@ namespace Fest_form.data.Entity
             = typeof(Resources.Resource), ErrorMessageResourceName = "ErrorLengthValidation")]
         [RegularExpression(@"^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ'\-]+$", ErrorMessageResourceType
             = typeof(Resources.Resource), ErrorMessageResourceName = "NameSymbolValidation")]
+        [Trim]
         public string PersonLastName { get; set; } = string.Empty;
 
         [StringLength(50, ErrorMessageResourceType
             = typeof(Resources.Resource), ErrorMessageResourceName = "ErrorLengthValidation")]
         [RegularExpression(@"^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ'\-]+$", ErrorMessageResourceType
             = typeof(Resources.Resource), ErrorMessageResourceName = "NameSymbolValidation")]
+        [Trim]
         public string? PersonFatherName { get; set; } = string.Empty;
 
     }

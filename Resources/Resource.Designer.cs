@@ -358,11 +358,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ви даєте згоду на обробку персональних даних.
+        /// </summary>
+        public static string Madal_personalDataPar {
+            get {
+                return ResourceManager.GetString("Madal_personalDataPar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Електронна пoшта.
         /// </summary>
         public static string Mail {
             get {
                 return ResourceManager.GetString("Mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я погоджуюсь.
+        /// </summary>
+        public static string Modal_Agree {
+            get {
+                return ResourceManager.GetString("Modal_Agree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Натиснувши &quot;OK&quot; ви підтверджуєте що ознайомлені з правилами участі у фестевалі.
+        /// </summary>
+        public static string Modal_Rules {
+            get {
+                return ResourceManager.GetString("Modal_Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Умови та правила.
+        /// </summary>
+        public static string Modal_rulesFile {
+            get {
+                return ResourceManager.GetString("Modal_rulesFile", resourceCulture);
             }
         }
         
@@ -471,6 +507,15 @@ namespace Resources {
         public static string PerformanceName {
             get {
                 return ResourceManager.GetString("PerformanceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Для вашого колективу, номер із такою назвою вже зареєстрований.
+        /// </summary>
+        public static string PerformanceUniqueError {
+            get {
+                return ResourceManager.GetString("PerformanceUniqueError", resourceCulture);
             }
         }
         

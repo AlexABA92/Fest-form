@@ -9,9 +9,14 @@ $(document).ready(
       
         var leng = $("#addP").data('param');
 
-        
+        $("#modalCheck").change(() => {
+            if ($("#modalCheck").is(":checked")) 
+                $("#modalBtn").prop("disabled", false)
+            else
+                $("#modalBtn").prop("disabled", true)
+        })
 
-        $("#regForm").on("click", "#submitBtn" ,()=> {
+        $("#submitBtn").click(()=> {
             if ($("#regForm").valid()) {
                 $("#submitBtn").prop("disabled", true);
                 $("#regForm").submit();
@@ -125,6 +130,7 @@ $(document).ready(
                         <label asp-for="Performances[${num}].PerformanceName" class="control-label mb-2">${$('#perName').data('label')} :</label>
                         <input asp-for="Performances[${num}].PerformanceName" type="text" 
                         name="Performances[${num}].PerformanceName"
+                        id="id="Performances_${num}_PerformanceName""
                         class="form-control fontSimple" aria-describedby="${$('#perName').data('label')
                 }"/>
                         <span asp-validation-for="Performances[${num}].PerformanceName" class="text-danger fontError"></span>

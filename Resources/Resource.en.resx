@@ -318,4 +318,19 @@
   <data name="ModalHeader" xml:space="preserve">
     <value>Terms and conditions</value>
   </data>
+  <data name="PerformanceUniqueError" xml:space="preserve">
+    <value>For your team, a Performance with this name has already been registered</value>
+  </data>
+  <data name="Modal_Agree" xml:space="preserve">
+    <value>I agree</value>
+  </data>
+  <data name="Modal_Rules" xml:space="preserve">
+    <value>By clicking "OK" you confirm that you are familiar with the rules of participation in the festival.</value>
+  </data>
+  <data name="Modal_rulesFile" xml:space="preserve">
+    <value>Conditions and rules</value>
+  </data>
+  <data name="Madal_personalDataPar" xml:space="preserve">
+    <value>You consent to the processing of personal data</value>
+  </data>
 </root>

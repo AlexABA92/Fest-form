@@ -1,4 +1,5 @@
 ﻿@using Fest_form.data.Entity
+@using System.Web
 @model Fest_form.data.Entity.DanceTeam
 @{
     ViewData["Title"] = "Success";
@@ -111,7 +112,7 @@
             </div>
             <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.UrlSoundtrack:</strong>
-                <p class="text-end fw-light">@Model.Performances[i].PhonogramFileURL</p>
+                <p class="text-end fw-light">@HttpUtility.UrlDecode(Model.Performances[i].PhonogramFileURL)</p>
             </div>
             @if (!string.IsNullOrEmpty(Model.Performances[i].YouTubeVideoURL))
             {

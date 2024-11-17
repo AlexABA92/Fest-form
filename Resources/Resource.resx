@@ -318,4 +318,19 @@
   <data name="ModalHeader" xml:space="preserve">
     <value>Умови та положення</value>
   </data>
+  <data name="PerformanceUniqueError" xml:space="preserve">
+    <value>Для вашого колективу, номер із такою назвою вже зареєстрований</value>
+  </data>
+  <data name="Modal_Agree" xml:space="preserve">
+    <value>Я погоджуюсь</value>
+  </data>
+  <data name="Modal_Rules" xml:space="preserve">
+    <value>Натиснувши "OK" ви підтверджуєте що ознайомлені з правилами участі у фестевалі</value>
+  </data>
+  <data name="Modal_rulesFile" xml:space="preserve">
+    <value>Умови та правила</value>
+  </data>
+  <data name="Madal_personalDataPar" xml:space="preserve">
+    <value>Ви даєте згоду на обробку персональних даних</value>
+  </data>
 </root>

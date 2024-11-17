@@ -16,40 +16,34 @@ using Newtonsoft.Json;
 using Fest_form.Repositories;
 using Fest_form.Repositories.FileRepos;
 using Fest_form.Repositories.DeanseTeamRepos;
+using Fest_form.Repositories.PerformanceRepos;
+
+
 
 
 namespace Fest_form.Controllers
 {
     
-    public class RegistrationController : Controller
+    public class RegistrationController(
+            ILogger<RegistrationController>          logger,
+            IGenreRepos<Genre>                       genreRepos,
+            ICategory<Category>                      category,
+            IParticipantsNumber<ParticipantsNumber>  participantsNumber,
+            IPerformanceRepos<Performance>           performanceRepos,
+            IDanceTeamRepos<DanceTeam>               danceTeamRepos,
+            IMemoryCache                             memoryCache,
+            IFileRepos                               fileRepos
+) : Controller
     {
-        private readonly ILogger<RegistrationController> _logger;
-        private readonly IGenreRepos<Genre> _genreRepos;
-        private readonly ICategory<Category> _categoryRepos;
-        private readonly IParticipantsNumber<ParticipantsNumber> _participantsNumber;
-        private readonly IMemoryCache _cache;
-        private readonly IDanceTeamRepos<DanceTeam> _danceTeamRepos;
-       
-        
-        private readonly IFileRepos _fileRepos;
+        private readonly ILogger<RegistrationController>        _logger = logger;
+        private readonly IGenreRepos<Genre>                     _genreRepos = genreRepos;
+        private readonly ICategory<Category>                    _categoryRepos = category;
+        private readonly IParticipantsNumber<ParticipantsNumber>_participantsNumber = participantsNumber;
+        private readonly IDanceTeamRepos<DanceTeam>             _danceTeamRepos = danceTeamRepos;
+        private readonly IPerformanceRepos<Performance>         _performanceRepos = performanceRepos;
+        private readonly IMemoryCache                           _cache = memoryCache;
+        private readonly IFileRepos                             _fileRepos = fileRepos;
 
-        public RegistrationController(ILogger<RegistrationController> logger,
-            IGenreRepos<Genre> genreRepos,
-            ICategory<Category> category,
-            IParticipantsNumber<ParticipantsNumber> participantsNumber,
-            IMemoryCache memoryCache,
-            IDanceTeamRepos<DanceTeam> danceTeamRepos,
-            IFileRepos fileRepos
-            )
-        {
-            _logger = logger;
-            _genreRepos = genreRepos;
-            _categoryRepos = category;
-            _participantsNumber = participantsNumber;
-            _cache = memoryCache;
-            _danceTeamRepos = danceTeamRepos;
-            _fileRepos = fileRepos;
-        }
         private const long MaxFileSize = 25 * 1024 * 1024; // 25MB in bytes
        
         public IActionResult Index(string? num)
@@ -162,10 +156,17 @@ namespace Fest_form.Controllers
         }
 
         [HttpPost]
-        public  IActionResult Index(DanceTeam team /*, List<IFormFile> files*/) {
-
-            // "FileRequiredError"
-            List<IFormFile> files = new List<IFormFile>();
+        public  IActionResult Index(DanceTeam team ) {
+            void setViewDataCollection()
+            {
+                ViewData["GenreList"] = _cache.Get<List<Genre>>("GenreList"); ;
+                ViewData["CategoryList"] = _cache.Get<List<Category>>("CategoryList");
+                ViewData["ParticipantsNumberList"] = _cache.Get<List<ParticipantsNumber>>("ParticipantsNumberList");
+            }
+            try
+            {
+                // "FileRequiredError"
+                List<IFormFile> files = new List<IFormFile>();
             for (var i = 0; i < team.Performances.Count; i++) {
                 if ((Request.Form.Files[$"Performances[{i}].PhonogramFileURL"] is { } file && file.Length > 0))
                 {
@@ -187,25 +188,56 @@ namespace Fest_form.Controllers
             HttpContext.Session.SetString("path", Request.Path);
             if (!ModelState.IsValid)
             {
-                ViewData["GenreList"] = _cache.Get<List<Genre>>("GenreList"); ;
-                ViewData["CategoryList"] = _cache.Get<List<Category>>("CategoryList");
-                ViewData["ParticipantsNumberList"] = _cache.Get<List<ParticipantsNumber>>("ParticipantsNumberList");
+                setViewDataCollection();
                 return View(team);
             }
-            try
-            {
+            
                 // _fileRepos.FileSender(team, files);
-                // _mail.SendMultipleEmailsAsync(team, files);
-                //_danceTeamRepos.CreateTeam(team);
+                // _mail.SendMultipleEmailsAsync(team, files); add chack for id team 
+                _danceTeamRepos.CheckTeam(ref team);
+                if (team.TeamId == Guid.Empty)
+                {
+                    //_danceTeamRepos.CreateTeam(team);
+                }
+                else {
+                   var per =  _performanceRepos.GetPerformances(team.TeamId);
+                    if (per != null)
+                    {
+                        var match = from perName in per
+                                    join tPerfname in team.Performances 
+                                    on perName.PerformanceName
+                                    equals tPerfname.PerformanceName
+                                    select perName;
+                        if (!match.Any())
+                        {
+                             team.Performances.ForEach(item => item.DanceTeamId = team.TeamId);
+                            _performanceRepos.AddPerformance(team.Performances);
+                        }
+                        else {  
+                            
+                            foreach (var item in match) {
+                               var index = team.Performances.FindIndex(pitem => pitem.PerformanceName == item.PerformanceName);
+                                ModelState.AddModelError($"Performances_{index}_PerformanceName", Resources.Resource.PerformanceUniqueError);
+                            }
+                            //"Performances_0_PerformanceName"
+                            setViewDataCollection();
+                            return View(team);
+                        }
+                    }
+                    else {
+                        
+                        _performanceRepos.AddPerformance(team.Performances);
 
+                    }
+                }
+               
             }
-            catch (Exception) {
-                ViewData["MailSendError"] = "Mail Send Error";
-                return View(team);
+            catch (Exception ex) {
+                _logger.LogError(ex, "Index(DanceTeam team ) Error");
+                return View();
             }
             HttpContext.Session.SetString("team",JsonConvert.SerializeObject(team));
             return RedirectToAction("Success");
-           
         }
         public IActionResult Success()
         {

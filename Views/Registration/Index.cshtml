@@ -139,8 +139,11 @@
                     @*PerformanceName*@
                     <div id="performanceItem">
                         <div class="form-group  text-start mb-2">
-                            <label asp-for="Performances[0].PerformanceName" id="perName" data-label=@Resources.Resource.PerformanceName class="control-label mb-2">@Resources.Resource.PerformanceName :</label>
-                            <input asp-for="Performances[0].PerformanceName" type="text" class="form-control fontSimple" aria-describedby=@Resources.Resource.PerformanceName />
+                            <label asp-for="Performances[0].PerformanceName" 
+                            id="perName" 
+                            data-label=@Resources.Resource.PerformanceName class="control-label mb-2">@Resources.Resource.PerformanceName :</label>
+                            <input asp-for="Performances[0].PerformanceName" type="text"
+                                   id="Performances_0_PerformanceName" class="form-control fontSimple" aria-describedby=@Resources.Resource.PerformanceName />
                             <span asp-validation-for="Performances[0].PerformanceName" class="text-danger fontError"></span>
                         </div>
                     </div>
@@ -397,26 +400,43 @@
                 </button>
                 <button type="submit" id="submitBtn" class="btn btn-primary">@Resources.Resource.Send</button>
             </div>
-        </form>
-    </div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">@Resources.Resource.ModalHeader</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primar" data-bs-dismiss="modal">Ok</button>
+        </form>
+        <div class="modal fade  col-6"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">@Resources.Resource.ModalHeader</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <div>
+                                <p>@Resources.Resource.Modal_Rules</p><span>
+                                    <a href="~/v3.pdf" target="_blank">@Resources.Resource.Modal_rulesFile</a>
+                                </span>
+                            </div>
+                            <div class="form-check ">
+                                <p>@Resources.Resource.Madal_personalDataPar</p>
+                                <div class="container d-flex justify-content-center">
+                                    <input type="checkbox" class="form-check-input me-3 text-danger" id="modalCheck">
+                                    <label class="form-check-label" for="exampleCheck1">@Resources.Resource.Modal_Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="modalBtn" disabled class="btn btn-primary" data-bs-dismiss="modal">
+                                Ok
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
-</div>
+
+    
 
 <script type="text/javascript">
     var ajaxUrl = '@Url.Action("Index", "Registration")';
@@ -426,16 +446,4 @@
     var num = @(Model?.Performances?.Count > 0 ? Model.Performances.Count - 1 : 0);
     var  errorsJs = @Html.Raw(JsonConvert.SerializeObject(errorsList));
     
-
-    // window.onload = () => {
-    //         console.log(errorsJs)
-    //         if (isEmptyObject(errorsJs))
-    //         $('#staticBackdrop').modal('show');
-    //     }
-    // }
-
-    // function isEmptyObject(obj) {
-       
-    //     return Object.keys(obj).length === 0 && obj.constructor === Object;
-    // }
 </script>

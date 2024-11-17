@@ -27,7 +27,7 @@ namespace Fest_form.Helpers
            
 
             var performanceItem = new TagBuilder("div");
-            //  id = "per${num}" class="performance performance${num} border-top border-1 border-secondary m-1 p-1"
+            
             performanceItem.Attributes["id"] = $"per{index}";
             performanceItem.AddCssClass($"performance performance{index} border-top border-1 border-secondary m-1 p-1");
             #region PerformanceName
@@ -263,8 +263,16 @@ namespace Fest_form.Helpers
                 $"<span asp-validation-for=\"Performances[{index}].YouTubeVideoURL\" class=\"text-danger  fontError\"></span>");
             #endregion
             performanceItem.InnerHtml.AppendHtml(youtubeDiv);
+            performanceItem.InnerHtml.AppendHtml(
+                "<div class=\"text-end me-3\">" +
+                "<button class=\"btn btn-danger delete  m-2\"" +
+                $"type=\"button\" data-id=\"{index}\">" +
+                "<i class=\"bi bi-trash\"></i>" +
+                "</button>" +
+                "</div>" +
+                "</div>");
 
-           
+
             return performanceItem;
         }
 
