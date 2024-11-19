@@ -412,6 +412,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Увага!.
+        /// </summary>
+        public static string ModalWorning_header {
+            get {
+                return ResourceManager.GetString("ModalWorning_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ви можете додати лише 5 номерів за один раз.
+        /// </summary>
+        public static string ModalWornong_5itemsOnli {
+            get {
+                return ResourceManager.GetString("ModalWornong_5itemsOnli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *Ім&apos;я та прізвище можуть містити тільки букви, пробіли та дефіси..
         /// </summary>
         public static string NameSymbolValidation {

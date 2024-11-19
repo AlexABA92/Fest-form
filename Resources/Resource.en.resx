@@ -333,4 +333,10 @@
   <data name="Madal_personalDataPar" xml:space="preserve">
     <value>You consent to the processing of personal data</value>
   </data>
+  <data name="ModalWornong_5itemsOnli" xml:space="preserve">
+    <value>You can add only 5 performances at a time</value>
+  </data>
+  <data name="ModalWorning_header" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
 </root>

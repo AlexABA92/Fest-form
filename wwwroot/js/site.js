@@ -3,11 +3,13 @@
 
 
 
+
+
 // Write your JavaScript code.debugger
 $(document).ready(
     function () {
       
-        var leng = $("#addP").data('param');
+       
 
         $("#modalCheck").change(() => {
             if ($("#modalCheck").is(":checked")) 
@@ -97,7 +99,12 @@ $(document).ready(
             }
         });
         $('#addP').click(function () {
-            
+
+            if (num >= 4) {
+                $("#warningDialog").modal("show")
+                return
+            }
+
             function perNumberOption() {
                 var optios;
 

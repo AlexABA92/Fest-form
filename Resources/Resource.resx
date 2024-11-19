@@ -333,4 +333,10 @@
   <data name="Madal_personalDataPar" xml:space="preserve">
     <value>Ви даєте згоду на обробку персональних даних</value>
   </data>
+  <data name="ModalWornong_5itemsOnli" xml:space="preserve">
+    <value>Ви можете додати лише 5 номерів за один раз</value>
+  </data>
+  <data name="ModalWorning_header" xml:space="preserve">
+    <value>Увага!</value>
+  </data>
 </root>
