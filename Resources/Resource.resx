@@ -339,4 +339,13 @@
   <data name="ModalWorning_header" xml:space="preserve">
     <value>Увага!</value>
   </data>
+  <data name="Succsses_Back" xml:space="preserve">
+    <value>Повернутися для продовження реєстрації</value>
+  </data>
+  <data name="Modal_FileLoadin_header" xml:space="preserve">
+    <value>Зачекайте</value>
+  </data>
+  <data name="Modal_fileLoadin_body" xml:space="preserve">
+    <value>Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти кілька хвилин)</value>
+  </data>
 </root>

@@ -2,6 +2,9 @@
 using Fest_form.Services.Bucket;
 using Fest_form.Services.MailSend;
 
+using System.Runtime.ExceptionServices;
+using System.Security.Cryptography.X509Certificates;
+
 namespace Fest_form.Repositories.FileRepos
 {
     public class FilesRepos : IFileRepos
@@ -42,6 +45,10 @@ namespace Fest_form.Repositories.FileRepos
             {
                 throw new Exception(ex.Message);
             }
+
+        }
+        public async void TeamInfoMail(DanceTeam team) {
+           await _mail.SendTeamInfoEmailAsync(team);
         }
     }
 }

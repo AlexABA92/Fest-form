@@ -1,11 +1,17 @@
 ﻿@using Fest_form.data.Entity
 @using System.Web
+@using Newtonsoft.Json
 @model Fest_form.data.Entity.DanceTeam
 @{
     ViewData["Title"] = "Success";
+   
 }
 
 <div class="bg-white col-10 col-lg-5 container font-simple text-center mt-1 mt-lg-4 p-5 rounded shadow">
+    <a asp-action="Return" asp-controller="Success"  class="back btn btn-outline-secondary fs-6 fontSimple">
+        <i class="bi bi-arrow-left-short"></i>
+        @Resources.Resource.Succsses_Back</a>
+
     <h1 class="text-success fw-bolder pb-3">@Resources.Resource.Success</h1>
     <div class="mb-3 text-start alert alert-success ">
         <strong>@Resources.Resource.TeameName:</strong>
@@ -60,11 +66,11 @@
             </div>
             <div class="mb-3 text-start alert alert-warning">
                 <strong>@Resources.Resource.ParticipantNumList:</strong>
-                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].ParticipantsNumber.Name ?? "NotFound")</p>
+                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].ParticipantsNumber?.Name ?? "NotFound")</p>
             </div>
             @for (var j = 1; j <= 3; j++)
             {
-                var person = Model.Performances[i].ParticipantsNameList.GetType().GetProperty($"Person{j}")?.GetValue(Model.Performances[i].ParticipantsNameList) as Person;
+                var person = Model.Performances[i].ParticipantsNameList?.GetType().GetProperty($"PersonRepos{j}")?.GetValue(Model.Performances[i].ParticipantsNameList) as Person;
                 if (person != null)
                 {
                     @if (j % 2 == 0)
@@ -85,12 +91,12 @@
             }
             <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.GenreLabel:</strong>
-                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].Genre.Name ?? "NotFound")</p>
+                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i]?.Genre?.Name ?? "NotFound")</p>
             </div>
 
             <div class="mb-3  text-start alert alert-warning">
                 <strong>@Resources.Resource.AgeGroup:</strong>
-                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].PerformanceGroup.Name ?? "NotFound")</p>
+                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i]?.PerformanceGroup?.Name ?? "NotFound")</p>
             </div>
             <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.StartPosition:</strong>
@@ -122,5 +128,13 @@
                 </div>
             }
         </div>
+        <a asp-action="Return" asp-controller="Success"  class="back btn btn-outline-secondary fs-6 fontSimple">
+            <i class="bi bi-arrow-left-short"></i>
+            @Resources.Resource.Succsses_Back
+        </a>
     }
 </div>
+<script>
+    var num = 0;
+    var  errorsJs = "";
+</script>

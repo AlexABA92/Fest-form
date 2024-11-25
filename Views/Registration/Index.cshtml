@@ -22,7 +22,9 @@
 
     // Populate the array with error field IDs from the ModelState
     bool isErrors = false;
-    foreach (var key in ViewData.ModelState.Keys)
+    // if(!ViewData.ModelState.IsValid)
+   
+    foreach (var key in ViewData.ModelState.Keys )
     {
         if (ViewData.ModelState[key]?.Errors.Count > 0)
         {
@@ -456,6 +458,23 @@
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                                 Ok
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="modal fade  col-6" id="ModalFileLoading" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center d-block">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">@Resources.Resource.Modal_FileLoadin_header</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <img src="~/images/Eclipse@1x-0.5s-200px-200px.svg"  alt="spinner" />
+                            <p>@Resources.Resource.Modal_fileLoadin_body</p>
                         </div>
                     </div>
                 </div>

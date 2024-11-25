@@ -385,6 +385,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти кілька хвилин).
+        /// </summary>
+        public static string Modal_fileLoadin_body {
+            get {
+                return ResourceManager.GetString("Modal_fileLoadin_body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Зачекайте.
+        /// </summary>
+        public static string Modal_FileLoadin_header {
+            get {
+                return ResourceManager.GetString("Modal_FileLoadin_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Натиснувши &quot;OK&quot; ви підтверджуєте що ознайомлені з правилами участі у фестевалі.
         /// </summary>
         public static string Modal_Rules {
@@ -660,6 +678,15 @@ namespace Resources {
         public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Повернутися для продовження реєстрації.
+        /// </summary>
+        public static string Succsses_Back {
+            get {
+                return ResourceManager.GetString("Succsses_Back", resourceCulture);
             }
         }
         

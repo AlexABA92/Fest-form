@@ -129,7 +129,7 @@ namespace Fest_form.Helpers
                     personItem.InnerHtml.AppendHtml($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>");
 
                     personItem.InnerHtml.AppendHtml(
-                           Person(index,$"ParticipantsNameList.Person{i + 1}",
+                           Person(index,$"ParticipantsNameList.PersonRepos{i + 1}",
                           personNum!
                            ));
                     personlistBlock.InnerHtml.AppendHtml(personItem);
@@ -292,7 +292,7 @@ namespace Fest_form.Helpers
                     $"id=\"Performances_{index}_{model.Replace(".", "")}PersonLastName\"" +
                     $"value=\"{person.PersonLastName}\"" +
                     $"class=\"form-control fontSimple mb-1\"" +
-                    $"aria-describedby=\"Person Last Name\"" +
+                    $"aria-describedby=\"PersonRepos Last Name\"" +
                     $"placeholder=\"{Resources.Resource.PersonLastNameLable}\"/>" +
                     $"<span asp-validation-for=\"Performances[{index}].{model}.PersonLastName\" class=\"text-danger fontError d-block\"></span>" +
                 $"</div>" +
@@ -302,7 +302,7 @@ namespace Fest_form.Helpers
                     $"name=\"Performances[{index}].{model}.PersonName\" " +
                     $"value=\"{person.PersonName}\"" +
                     $"class=\"form-control fontSimple mb-1\"\r\n" +
-                    $"aria-describedby=\"Person Name\"\r\n" +
+                    $"aria-describedby=\"PersonRepos Name\"\r\n" +
                     $"placeholder=\"{Resources.Resource.PersonFirstNameLable}\" />\r\n" +
                     $"<span asp-validation-for=\"Performances[{index}].{model}.PersonName\" class=\"text-danger fontError d-block\"></span>\r\n" +
                 $"</div>"
@@ -313,7 +313,7 @@ namespace Fest_form.Helpers
                         $"<input asp-for=\"Performances[{index}].{model}.PersonFatherName\"" +
                         $"id=\"Performances_{index}_{model.Replace(".", "")}PersonFatherName\"" +
                         $"class=\"form-control fontSimple\"" +
-                        $"aria-describedby=\"Person Father Name\"" +
+                        $"aria-describedby=\"PersonRepos Father Name\"" +
                         $"name=\"Performances[{index}].{model}.PersonFatherName\"" +
                         $"value=\"{person.PersonFatherName}\"" +
                         $"placeholder=\"По батькові\" />" +

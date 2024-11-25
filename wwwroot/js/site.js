@@ -5,12 +5,16 @@
 
 
 
+
+
 // Write your JavaScript code.debugger
 $(document).ready(
     function () {
       
-       
-
+        
+        $(".back").click(() => {
+            sessionStorage.setItem("return", "");
+        })
         $("#modalCheck").change(() => {
             if ($("#modalCheck").is(":checked")) 
                 $("#modalBtn").prop("disabled", false)
@@ -21,6 +25,7 @@ $(document).ready(
         $("#submitBtn").click(()=> {
             if ($("#regForm").valid()) {
                 $("#submitBtn").prop("disabled", true);
+                $("#ModalFileLoading").modal("show")
                 $("#regForm").submit();
             }else 
             $("#submitBtn").prop("disabled", false);
@@ -284,9 +289,12 @@ $(document).ready(
             function isEmptyObject(obj) {
 
                 return Object.keys(obj).length === 0 && obj.constructor === Object;
-             }
-            if (isEmptyObject(errorsJs))
-                $('#staticBackdrop').modal('show');
+            }
+           
+            if (sessionStorage.getItem("return") !== ""){
+                if (isEmptyObject(errorsJs))
+                    $('#staticBackdrop').modal('show');
+            }
         }
         showDialog()
     })

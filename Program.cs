@@ -6,6 +6,7 @@ using Fest_form.Repositories.DeanseTeamRepos;
 using Fest_form.Repositories.FileRepos;
 
 using Fest_form.Repositories.PerformanceRepos;
+using Fest_form.Repositories.PersonRepos;
 using Fest_form.Services;
 using Fest_form.Services.Bucket;
 using Fest_form.Services.MailSend;
@@ -14,12 +15,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.AzureAppServices;
 
 
-//using Serilog;
-//using Serilog.Events;
-
 using testBD.services;
 
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +49,7 @@ builder.Services.AddScoped<ICategory<Category>, CategoryRepos>();
 builder.Services.AddScoped<IParticipantsNumber<ParticipantsNumber>, ParticipantsRepos>();
 builder.Services.AddScoped<IDanceTeamRepos<DanceTeam>,DanceTeamRepos>();
 builder.Services.AddScoped<IPerformanceRepos<Performance>, PerformanceRepos>();
+builder.Services.AddScoped<IPersonRepos<Person>, PersonRepos>();
 builder.Services.AddScoped<IBucket, Bucket>();
 builder.Services.AddScoped<IMailSend, MailSend>();
 builder.Services.AddScoped<IFileRepos,FilesRepos>();
