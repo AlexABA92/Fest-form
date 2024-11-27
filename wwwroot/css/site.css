@@ -15,6 +15,7 @@ html, body {
     position:relative;
     font-family: "Pacifico",Arial,sans-serif;
     min-height:100%;
+    overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
