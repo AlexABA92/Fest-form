@@ -29,7 +29,10 @@ builder.Services.Configure<AzureBlobLoggerOptions>(options =>
 {
     options.BlobName = "log.txt";
 });
-
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
+});
 builder.Services.AddDbContext<FestDataContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("FestDb2025"),

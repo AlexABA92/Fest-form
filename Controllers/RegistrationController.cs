@@ -75,65 +75,7 @@ namespace Fest_form.Controllers
                         return View(team);
                 }
 
-            
-
-                var danceTeam = new DanceTeam
-                {
-                    TeamId = Guid.NewGuid(),
-                    TeamName = "Черноморские Везірунки",
-                    TeamLeader = new Person
-                    {
-                        PersonId = Guid.NewGuid(),
-                        PersonName = "Алина",
-                        PersonLastName = "Бляхарская",
-                        PersonFatherName = "Олеговна"
-                    },
-                    Mail = "teamleader@example.com",
-                    TeamPhoneNumber = "+123456789012",
-                    TeamLevel = TeamLevelEnum.Amateur,
-                    //Organization = "Local Dance Club",
-                    Performances = new List<Performance>
-                {
-                    new Performance
-                    {
-                        PerformanceId = Guid.NewGuid(),
-                        DanceTeamId = Guid.NewGuid(), // Link this to the DanceTeam's TeamId as needed
-                        PerformanceName = "Тапалиний Пух",
-                        ChoreographerDirector = new Person
-                        {
-                            PersonId = Guid.NewGuid(),
-                            PersonName = "Алина",
-                            PersonLastName = "Бляхарская",
-                            PersonFatherName ="Олеговна"
-                        },
-                        Concertmaster = new Person
-                        {
-                            PersonId = Guid.NewGuid(),
-                            PersonName = "Emily",
-                            PersonLastName = "White"
-                        },
-
-                        CategoryId = -1,
-                        GenreId = -1,
-                        ParticipantsNumberId = -1,
-
-                        ParticipantsNameList = new ParticipantsList
-                        {
-                            Person1 = new Person {
-                                  PersonName = "Janet",
-                                  PersonLastName = "Peltroo"
-                             },
-                        },
-                        PerformanceTime = "03:30",
-                        StartPoint = StartPointEnum.Wing,
-                        PhonogramFileURL = "",
-                        YouTubeVideoURL = "https://youtube.com/example"
-                    }
-                }
-                };
-
-
-                return View(danceTeam);
+                return View();
             }
             catch (Exception ex)
             {
@@ -147,7 +89,7 @@ namespace Fest_form.Controllers
         public IActionResult Index(DanceTeam team)
         {
             
-
+            // set data for view select list
             void setViewDataCollection()
             {
                 ViewData["GenreList"] = _cache.Get<List<Genre>>("GenreList"); ;
@@ -156,7 +98,7 @@ namespace Fest_form.Controllers
             }
             try
             {
-                // "FileRequiredError"
+                //check file for validation and set encrypt name to url safety
                 List<IFormFile> files = new List<IFormFile>();
                 for (var i = 0; i < team.Performances.Count; i++)
                 {
@@ -178,31 +120,30 @@ namespace Fest_form.Controllers
                     else ModelState.AddModelError($"Performances_{i}_PhonogramFileURL", Resources.Resource.FileRequiredError);
                 }
 
+                // set path for language 
                 HttpContext.Session.SetString("path", Request.Path);
+                
                 if (!ModelState.IsValid)
                 {
                     setViewDataCollection();
                     return View(team);
                 }
 
-                //_fileRepos.FileSender(team, files);
-                //_mailSend.SendMultipleEmailsAsync(team, files);
-                
+                // set person to list for chack persen in bd
                 List<Person> _people = new();
                 if (HttpContext.Session.GetString("people") != null)
-                    _people = JsonConvert.DeserializeObject<List<Person>>(HttpContext.Session.GetString("people")!)!; 
+                    _people = JsonConvert.DeserializeObject<List<Person>>(HttpContext.Session.GetString("people")!)!;
 
-                if(_people.Count > 0)
+                if (_people.Count > 0)
                     _personRepos.CheckTeamForPerson(ref team, ref _people);
 
                 _danceTeamRepos.CheckTeam(ref team);
-
+              
 
                 if (team.TeamId == Guid.Empty)
                 {
-                    //send team info mail whitouth performaces 
-                    //_fileRepos.TeamInfoMail(team);
-                    
+                     
+                    _fileRepos.TeamInfoMail(team);
                     _danceTeamRepos.CreateTeam(team);
                 }
                 else
@@ -228,7 +169,7 @@ namespace Fest_form.Controllers
                                 var index = team.Performances.FindIndex(pitem => pitem.PerformanceName == item.PerformanceName);
                                 ModelState.AddModelError($"Performances_{index}_PerformanceName", Resources.Resource.PerformanceUniqueError);
                             }
-                           
+
                             setViewDataCollection();
                             return View(team);
                         }
@@ -239,14 +180,18 @@ namespace Fest_form.Controllers
                     }
                 }
 
+
+                //send files to bucket and mail
+                _fileRepos.FileSender(team, files);
+
+                HttpContext.Session.SetString("team", JsonConvert.SerializeObject(team));
+                return RedirectToAction("index", "Success");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Index(DanceTeam team ) Error");
                 return View();
             }
-            HttpContext.Session.SetString("team", JsonConvert.SerializeObject(team));
-            return RedirectToAction("index","Success");
         }
         
 
@@ -279,6 +224,7 @@ namespace Fest_form.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+       
         private void SetDataToView() {
 
             HttpContext.Session.SetString("path", Request.Path);

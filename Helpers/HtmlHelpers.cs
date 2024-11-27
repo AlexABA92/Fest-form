@@ -31,19 +31,19 @@ namespace Fest_form.Helpers
             performanceItem.Attributes["id"] = $"per{index}";
             performanceItem.AddCssClass($"performance performance{index} border-top border-1 border-secondary m-1 p-1");
             #region PerformanceName
-            performanceItem.InnerHtml.AppendHtml($"<div>" +
-                $"<div class=\"form-group  text-start mb-2\">" +
-                $"<label asp-for=\"Performances[{index}].PerformanceName\" class=\"control-label mb-2\">{Resources.Resource.PerformanceName} :</label>" +
-                $"<input asp-for=\"Performances[{index}].PerformanceName\"" +
-                $"name=\"Performances[{index}].PerformanceName\"" +
-                $"value=\"{performance.PerformanceName}\" " +
-                $"type=\"text\" " +
-                $"class=\"form-control fontSimple\"" +
-                 $"id=\"Performances_{index}_PerformanceName\"" +
-                $"aria-describedby={Resources.Resource.PerformanceName} />" +
-               
-                $"<span asp-validation-for=\"Performances[{index}].PerformanceName\" class=\"text-danger fontError\"></span>" +
-                $"</div>" +
+            performanceItem.InnerHtml.AppendHtml(
+                $"<div>" +
+                    $"<div class=\"form-group  text-start mb-2\">" +
+                    $"<label asp-for=\"Performances[{index}].PerformanceName\" class=\"control-label mb-2\">{Resources.Resource.PerformanceName} :</label>" +
+                    $"<input asp-for=\"Performances[{index}].PerformanceName\"" +
+                    $"name=\"Performances[{index}].PerformanceName\"" +
+                    $"value=\"{performance.PerformanceName}\" " +
+                    $"type=\"text\" " +
+                    $"class=\"form-control fontSimple\"" +
+                    $"id=\"Performances_{index}_PerformanceName\"" +
+                    $"aria-describedby={Resources.Resource.PerformanceName} />" +             
+                        $"<span asp-validation-for=\"Performances[{index}].PerformanceName\" class=\"text-danger fontError\"></span>" +
+                    $"</div>" +
                 $" </div>"
                 );
             #endregion
@@ -129,7 +129,7 @@ namespace Fest_form.Helpers
                     personItem.InnerHtml.AppendHtml($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>");
 
                     personItem.InnerHtml.AppendHtml(
-                           Person(index,$"ParticipantsNameList.PersonRepos{i + 1}",
+                           Person(index,$"ParticipantsNameList.Person{i + 1}",
                           personNum!
                            ));
                     personlistBlock.InnerHtml.AppendHtml(personItem);
@@ -264,13 +264,13 @@ namespace Fest_form.Helpers
             #endregion
             performanceItem.InnerHtml.AppendHtml(youtubeDiv);
             performanceItem.InnerHtml.AppendHtml(
-                "<div class=\"text-end me-3\">" +
-                "<button class=\"btn btn-danger delete  m-2\"" +
-                $"type=\"button\" data-id=\"{index}\">" +
-                "<i class=\"bi bi-trash\"></i>" +
+             "<div class=\"text-end me-3\">" +
+               "<button class=\"btn btn-danger delete  m-2\"" +
+                  $"type=\"button\" data-id=\"{index}\">" +
+                 "<i class=\"bi bi-trash\"></i>" +
                 "</button>" +
-                "</div>" +
-                "</div>");
+             "</div>" 
+           );
 
 
             return performanceItem;

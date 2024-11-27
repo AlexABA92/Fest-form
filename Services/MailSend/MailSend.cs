@@ -5,6 +5,9 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
 using System.Web;
+using Amazon.Runtime.Internal.Util;
+using System.Runtime.ConstrainedExecution;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Fest_form.Services.MailSend
 {
@@ -16,9 +19,11 @@ namespace Fest_form.Services.MailSend
         string? key;
         int? port;
         bool ssl;
+        private IMemoryCache  _cache;
         MailAddress mailAddressTo =new MailAddress( "blacksea.patterns@gmail.com");
-        public MailSend(IConfiguration _configuration)
+        public MailSend(IConfiguration _configuration, IMemoryCache cache)
         {
+            _cache = cache;
             configuration = _configuration;
             var gmailConfig = configuration.GetSection("Gmail");
             host  = gmailConfig.GetValue<string>("Host");
@@ -89,6 +94,26 @@ namespace Fest_form.Services.MailSend
             return mailBodyString;
         }
         private string PerformanceInfo(Performance performance, int index, string teamName)  {
+            Category? ageGroup = null;
+            Genre? genre = null;
+            ParticipantsNumber? number = null;
+
+
+            if (_cache.TryGetValue("GenreList", out List<Genre> genreList))
+            {
+                genre = genreList.FirstOrDefault(item => item.Id == performance.GenreId);
+            }
+
+            if (_cache.TryGetValue("CategoryList", out List<Category> categoryList))
+            {
+                ageGroup = categoryList.FirstOrDefault(item => item.Id == performance.CategoryId);
+            }
+
+            if (_cache.TryGetValue("ParticipantsNumberList", out List<ParticipantsNumber> partNumb))
+            {
+                number = partNumb.FirstOrDefault(item => item.Id == performance.ParticipantsNumberId);
+            }
+
             var container = new TagBuilder("div");
             container.Attributes.Add("style", "font-family: Arial, sans-serif; " +
                 "line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px; max-width: 600px; margin: 0 auto;");
@@ -109,9 +134,9 @@ namespace Fest_form.Services.MailSend
             AppendField(container, "Kонцертмейстер", fullName.ToString());
             fullName.Clear();
 
-            AppendField(container, "Вікова категория", performance.PerformanceGroup?.Name ?? "N/A");
-            AppendField(container, "Жанр", performance.Genre?.Name ?? "N/A");
-            AppendField(container, "Кількість учасників", performance.ParticipantsNumber?.Name ?? "N/A");
+            AppendField(container, "Вікова категория", ageGroup?.Name ?? "N/A");
+            AppendField(container, "Жанр", genre?.Name ?? "N/A");
+            AppendField(container, "Кількість учасників", number?.Name ?? "N/A");
 
             if (performance.ParticipantsNameList != null) {
                 if (performance.ParticipantsNameList.Person1 != null) {
@@ -119,6 +144,7 @@ namespace Fest_form.Services.MailSend
                         $"{performance.ParticipantsNameList.Person1.PersonName} " +
                         $"{performance.ParticipantsNameList.Person1.PersonFatherName}");
                     AppendField(container, "Учасник 1", fullName.ToString());
+                    fullName.Clear();
                 }
                 if (performance.ParticipantsNameList.Person2 != null)
                 {
@@ -126,6 +152,7 @@ namespace Fest_form.Services.MailSend
                         $"{performance.ParticipantsNameList.Person2.PersonName} " +
                         $"{performance.ParticipantsNameList.Person2.PersonFatherName}");
                     AppendField(container, "Учасник 2", fullName.ToString());
+                    fullName.Clear();
                 }
                 if (performance.ParticipantsNameList.Person3 != null)
                 {
@@ -133,6 +160,7 @@ namespace Fest_form.Services.MailSend
                         $"{performance.ParticipantsNameList.Person3.PersonName} " +
                         $"{performance.ParticipantsNameList.Person3.PersonFatherName}");
                     AppendField(container, "Учасник 3", fullName.ToString());
+                    fullName.Clear();
                 }
             }
             AppendField(container, "Час виступу", performance.PerformanceTime);

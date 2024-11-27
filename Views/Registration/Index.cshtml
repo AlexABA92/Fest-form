@@ -137,9 +137,9 @@
             <h2 class="mb-3">@Resources.Resource.PerfornamceInfo</h2>
             <div id="performancesList" class="border-1 border rounded-3 border-secondary m-1">
 
-                <div class="m-1">
+                <div class="performanceItem m-1">
                     @*PerformanceName*@
-                    <div id="performanceItem">
+                    <div>
                         <div class="form-group  text-start mb-2">
                             <label asp-for="Performances[0].PerformanceName"
                                    id="perName"
@@ -355,48 +355,49 @@
                             <span asp-validation-for="Performances[0].CategoryId" class="text-danger fontError"></span>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-around">
-                    <div class="col-6">
-                        <label for="time" id="timeLabel" data-label="@Resources.Resource.PerfomanseTime">@Resources.Resource.PerfomanseTime : </label>
-                        <input type="time" asp-for="Performances[0].PerformanceTime"
-                               class="form-control col-12 col-md-3 text-center" id="time" />
-                        <span asp-validation-for="Performances[0].PerformanceTime" class="text-danger fontError"></span>
-                    </div>
-                    <div class="col-6 ">
-                        <label for="startSpot" id="spotLabel" data-label="@Resources.Resource.StartPosition">@Resources.Resource.StartPosition : </label>
-                        <div class="row justify-content-md-around justify-content-center">
-                            <input type="radio" class="btn-check" asp-for="Performances[0].StartPoint"
-                                   name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Wing" id="btn-check-outlined0" autocomplete="off" checked />
-                            <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
-                                   for="btn-check-outlined0" id="radio1" data-label="@Resources.Resource.Backstage">@Resources.Resource.Backstage</label>
-                            <input type="radio" class="btn-check " asp-for="Performances[0].StartPoint"
-                                   name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Point" id="btn-check-outlined00" autocomplete="off" />
-                            <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
-                                   for="btn-check-outlined00" id="radio2" data-label="@Resources.Resource.Spot">@Resources.Resource.Spot</label>
+                    <div class="row justify-content-around">
+                        <div class="col-6">
+                            <label for="time" id="timeLabel" data-label="@Resources.Resource.PerfomanseTime">@Resources.Resource.PerfomanseTime : </label>
+                            <input type="time" asp-for="Performances[0].PerformanceTime"
+                                   class="form-control col-12 col-md-3 text-center" id="time" />
+                            <span asp-validation-for="Performances[0].PerformanceTime" class="text-danger fontError"></span>
+                        </div>
+                        <div class="col-6 ">
+                            <label for="startSpot" id="spotLabel" data-label="@Resources.Resource.StartPosition">@Resources.Resource.StartPosition : </label>
+                            <div class="row justify-content-md-around justify-content-center">
+                                <input type="radio" class="btn-check" asp-for="Performances[0].StartPoint"
+                                       name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Wing" id="btn-check-outlined0" autocomplete="off" checked />
+                                <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
+                                       for="btn-check-outlined0" id="radio1" data-label="@Resources.Resource.Backstage">@Resources.Resource.Backstage</label>
+                                <input type="radio" class="btn-check " asp-for="Performances[0].StartPoint"
+                                       name="@Html.NameFor(m=>m.Performances[0].StartPoint)" value="Point" id="btn-check-outlined00" autocomplete="off" />
+                                <label class="btn btn-outline-primary col-8 mb-1 col-md-4 fontSimple"
+                                       for="btn-check-outlined00" id="radio2" data-label="@Resources.Resource.Spot">@Resources.Resource.Spot</label>
+                            </div>
                         </div>
                     </div>
+                    <div class="form-group text-start mb-2 container">
+                        <label for="file" id="filelabel" data-label="@Resources.Resource.FileAdd">@Resources.Resource.FileAdd :</label>
+                        <input type="file" asp-for="Performances[0].PhonogramFileURL"
+                               name="Performances[0].PhonogramFileURL"
+                               id="Performances_0_PhonogramFileURL" accept=".mp3, .wav"
+                               class="form-control fontSimple" />
+                    </div>
+                    <div class="form-group  text-start mb-2 container">
+                        <label asp-for="Performances[0].YouTubeVideoURL" class="control-label  mb-2" id="youtubeLinc"
+                               data-label="@Resources.Resource.YouTubeURL">@Resources.Resource.YouTubeURL :</label>
+                        <input asp-for="Performances[0].YouTubeVideoURL" class="form-control fontSimple" aria-describedby="@Resources.Resource.YouTubeURL" />
+                        <span asp-validation-for="Performances[0].YouTubeVideoURL" class="text-danger  fontError"></span>
+                    </div>
                 </div>
-                <div class="form-group text-start mb-2 container">
-                    <label for="file" id="filelabel" data-label="@Resources.Resource.FileAdd">@Resources.Resource.FileAdd :</label>
-                    <input type="file" asp-for="Performances[0].PhonogramFileURL"
-                           name="Performances[0].PhonogramFileURL"
-                           id="Performances_0_PhonogramFileURL" accept=".mp3, .wav"
-                           class="form-control fontSimple" />
-                </div>
-                <div class="form-group  text-start mb-2 container">
-                    <label asp-for="Performances[0].YouTubeVideoURL" class="control-label  mb-2" id="youtubeLinc"
-                           data-label="@Resources.Resource.YouTubeURL">@Resources.Resource.YouTubeURL :</label>
-                    <input asp-for="Performances[0].YouTubeVideoURL" class="form-control fontSimple" aria-describedby="@Resources.Resource.YouTubeURL" />
-                    <span asp-validation-for="Performances[0].YouTubeVideoURL" class="text-danger  fontError"></span>
-                </div>
+                
                 @if (Model != null && Model?.Performances?.Count > 1)
                 {
                     for (int i = 1; i <= Model.Performances.Count - 1; i++)
                     {
 
-                        @Html.PerformanceReturn(i, Model.Performances[i], genreList, categoryList, participantsList)
-                        ;
+                        @Html.PerformanceReturn(i, Model.Performances[i], genreList, categoryList, participantsList);
+                        
                     };
                 }
 
