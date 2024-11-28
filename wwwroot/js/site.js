@@ -11,7 +11,8 @@
 $(document).ready(
     function () {
       
-        
+       
+
         $(".back").click(() => {
             sessionStorage.setItem("return", "");
         })
@@ -22,11 +23,15 @@ $(document).ready(
                 $("#modalBtn").prop("disabled", true)
         })
 
-        $("#submitBtn").click(()=> {
+        $("#submitBtn").on("click",(event)=> {
             if ($("#regForm").valid()) {
+               $("#ModalFileLoading").modal("show")
                 $("#submitBtn").prop("disabled", true);
-                $("#ModalFileLoading").modal("show")
-                $("#regForm").submit();
+                setTimeout(() => {
+                    $("#regForm").trigger("submit");
+                },400)
+                
+                
             }else 
             $("#submitBtn").prop("disabled", false);
         });
@@ -294,6 +299,8 @@ $(document).ready(
             if (sessionStorage.getItem("return") !== ""){
                 if (isEmptyObject(errorsJs))
                     $('#staticBackdrop').modal('show');
+               
+
             }
         }
         showDialog()

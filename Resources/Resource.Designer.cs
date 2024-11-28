@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл фонограми обовьязковий .
+        ///   Looks up a localized string similar to Файл фонограми обов`язковий.
         /// </summary>
         public static string AddTrack {
             get {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Класика.
+        ///   Looks up a localized string similar to Класичний танець.
         /// </summary>
         public static string Classic {
             get {
@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *Введіть правельну пошту.
+        ///   Looks up a localized string similar to *Введіть правильну пошту.
         /// </summary>
         public static string EmailErrorValidation {
             get {
@@ -277,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Народний.
+        ///   Looks up a localized string similar to Народний танець.
         /// </summary>
         public static string Folk {
             get {
@@ -385,7 +385,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти кілька хвилин).
+        ///   Looks up a localized string similar to Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти декілька хвилин).
         /// </summary>
         public static string Modal_fileLoadin_body {
             get {
@@ -403,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Натиснувши &quot;OK&quot; ви підтверджуєте що ознайомлені з правилами участі у фестевалі.
+        ///   Looks up a localized string similar to Натиснувши &quot;OK&quot; ви підтверджуєте, що ознайомлені з правилами участі у фестивалі.
         /// </summary>
         public static string Modal_Rules {
             get {
@@ -583,7 +583,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Телефонный номер.
+        ///   Looks up a localized string similar to Телефонний номер.
         /// </summary>
         public static string PhoneNumber {
             get {
@@ -709,7 +709,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Керивник колективу (П.І.Б).
+        ///   Looks up a localized string similar to Керівник колективу (П.І.Б).
         /// </summary>
         public static string TeamLider {
             get {

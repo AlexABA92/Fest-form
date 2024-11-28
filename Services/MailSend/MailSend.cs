@@ -78,7 +78,7 @@ namespace Fest_form.Services.MailSend
                     teamBody.InnerHtml.AppendHtml(
                     $"<div style=\"font-size: 1.5rem; padding-left: 2rem;\">" +
                         $"<span style=\"color: rgb(79, 79, 79); font-weight: 600; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">" +
-                        $"Оргонізація : &nbsp;</span>" +
+                        $"Організація : &nbsp;</span>" +
                         $"<span style='color: black; margin: 0; font-family: Arial, Helvetica, sans-serif;' >"+
                         $"{team.Organization}" +
                         $"</span>" +
@@ -194,7 +194,7 @@ namespace Fest_form.Services.MailSend
                     IsBodyHtml = true,
                     From = new MailAddress(box),
                     Subject = index == 0 ?
-                    "Новий Участник : " + team.TeamName + " - " + $"Номер {index + 1} : " + team.Performances[index].PerformanceName :
+                    team.TeamName + " - " + $"Номер {index + 1} : " + team.Performances[index].PerformanceName :
                     $"Номер {index + 1} : " + team.Performances[index].PerformanceName,
                     Body = PerformanceInfo(team.Performances[index],index,team.TeamName)
                 }; 

@@ -7,7 +7,7 @@
    
 }
 
-<div class="bg-white col-10 col-lg-5 container font-simple text-center mt-1 mt-lg-4 p-5 rounded shadow">
+<div class="bgWhite col-10 col-lg-5 container font-simple text-center mt-1 mt-lg-4 p-5 rounded shadow">
     <a asp-action="Return" asp-controller="Success"  class="back btn btn-outline-secondary fs-6 fontSimple">
         <i class="bi bi-arrow-left-short"></i>
         @Resources.Resource.Succsses_Back</a>
@@ -65,7 +65,7 @@
                 <p class="text-end fw-light">@Model.Performances[i].ChoreographerDirector.PersonLastName @Model.Performances[i].ChoreographerDirector.PersonName @Model.Performances[i].ChoreographerDirector.PersonFatherName</p>
             </div>
             <div class="mb-3 text-start alert alert-warning">
-                <strong>@Resources.Resource.ParticipantNumList:</strong>
+                <strong>@Resources.Resource.ParticipantsNameListLabel:</strong>
                 <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].ParticipantsNumber?.Name ?? "NotFound")</p>
             </div>
             @for (var j = 1; j <= 3; j++)

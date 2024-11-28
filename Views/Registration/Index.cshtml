@@ -405,11 +405,12 @@
                 <button type="button" id="addP" data-param=@lang class="btn btn-success">
                     <i class="bi bi-plus-square"></i> @Resources.Resource.AddPerformance
                 </button>
-                <button type="submit" id="submitBtn" class="btn btn-primary">@Resources.Resource.Send</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary" data-toggle="modal" data-target="#ModalFileLoading" >@Resources.Resource.Send</button>
             </div>
 
         </form>
-        <div class="modal fade  col-6" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade  col-6" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -462,9 +463,9 @@
                 </div>
             </div>  
         </div>
-        <div class="modal fade  col-6" id="ModalFileLoading" data-bs-backdrop="static"
+        <div class="modal fade  col-6"  id="ModalFileLoading" data-bs-backdrop="static"
              data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+             aria-labelledby="ModalFileLoading" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header text-center d-block">

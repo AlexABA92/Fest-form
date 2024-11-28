@@ -139,7 +139,7 @@
     <value>*Не всі обов'язкові поля заповнені</value>
   </data>
   <data name="TeamLider" xml:space="preserve">
-    <value>Керивник колективу (П.І.Б)</value>
+    <value>Керівник колективу (П.І.Б)</value>
   </data>
   <data name="RequiredErrorMessage" xml:space="preserve">
     <value>*Поле обов'язкове для заповнення</value>
@@ -154,7 +154,7 @@
     <value>*Введіть правильний номер телефону.</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value>Телефонный номер</value>
+    <value>Телефонний номер</value>
   </data>
   <data name="OptionsToggleTeamLevelAmateur" xml:space="preserve">
     <value>Аматорський</value>
@@ -169,7 +169,7 @@
     <value>Електронна пoшта</value>
   </data>
   <data name="EmailErrorValidation" xml:space="preserve">
-    <value>*Введіть правельну пошту</value>
+    <value>*Введіть правильну пошту</value>
   </data>
   <data name="PersonFirstNameLable" xml:space="preserve">
     <value>Ім'я</value>
@@ -244,13 +244,13 @@
     <value>Змішані за віком</value>
   </data>
   <data name="Classic" xml:space="preserve">
-    <value>Класика</value>
+    <value>Класичний танець</value>
   </data>
   <data name="Contemporary/Modern" xml:space="preserve">
     <value>Сучасний / Модерн</value>
   </data>
   <data name="Folk" xml:space="preserve">
-    <value>Народний</value>
+    <value>Народний танець</value>
   </data>
   <data name="GenreLabel" xml:space="preserve">
     <value>Оберіть жанр</value>
@@ -277,7 +277,7 @@
     <value>Фонограма</value>
   </data>
   <data name="AddTrack" xml:space="preserve">
-    <value>Файл фонограми обовьязковий </value>
+    <value>Файл фонограми обов`язковий</value>
   </data>
   <data name="YouTubeURL" xml:space="preserve">
     <value>Посилання на відеозапис виступу (за наявності)</value>
@@ -325,7 +325,7 @@
     <value>Я погоджуюсь</value>
   </data>
   <data name="Modal_Rules" xml:space="preserve">
-    <value>Натиснувши "OK" ви підтверджуєте що ознайомлені з правилами участі у фестевалі</value>
+    <value>Натиснувши "OK" ви підтверджуєте, що ознайомлені з правилами участі у фестивалі</value>
   </data>
   <data name="Modal_rulesFile" xml:space="preserve">
     <value>Умови та правила</value>
@@ -346,6 +346,6 @@
     <value>Зачекайте</value>
   </data>
   <data name="Modal_fileLoadin_body" xml:space="preserve">
-    <value>Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти кілька хвилин)</value>
+    <value>Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти декілька хвилин)</value>
   </data>
 </root>

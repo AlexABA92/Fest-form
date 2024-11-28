@@ -70,7 +70,7 @@ body {
     background-color : rgba(225,225,225,0.9)
 }
 .zIndex {
-    z-index:0;
+    z-index:-1;
 }
 #organizationField.invisible {
     opacity: 0;
