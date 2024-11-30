@@ -1,0 +1,46 @@
+﻿@using Fest_form.data.Entity
+@model List<DanceTeam>
+@{
+    ViewData["Title"] = "Review";
+    var count = Model.Count;
+    var performanceCount = Model.Sum(dt => dt.Performances.Count);
+}
+<div class="bgWhite col-12 m-0  font-simple text-center mt-1  p-1 rounded shadow">
+    <div class="col-12 text-end">
+        <p class="fs-2"><strong class="fs-4 fontError">Кількисть Команд</strong> :  @count</p>
+        <p class="fs-2"><strong class="fs-4 fontError">Кількисть Номерів</strong> :  @performanceCount</p>
+    </div>
+    <div>
+            <div class="table-responsive"></div>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Team Leader</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Team Level</th>
+                        <th>Organization</th>
+                    </tr>
+                </thead>
+                <tbody>
+        @foreach (var team in Model)
+        {
+                    <tr>
+                        <td>@team.TeamName</td>
+                        <td>@team.TeamLeader.PersonLastName @team.TeamLeader.PersonName @team.TeamLeader?.PersonFatherName </td>
+                        <td>@team.Mail</td>
+                        <td>@team.TeamPhoneNumber</td>
+                        <td>@team.TeamLevel</td>
+                        <td>@team.Organization</td>
+                     </tr>
+        }
+                </tbody>
+            </table>
+    </div>
+</div>
+
+<script>
+    var num = 0;
+    var  errorsJs = "";
+</script>

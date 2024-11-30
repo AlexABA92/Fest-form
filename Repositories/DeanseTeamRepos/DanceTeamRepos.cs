@@ -1,6 +1,9 @@
 ﻿using Fest_form.data;
 using Fest_form.data.Entity;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Fest_form.Repositories.DeanseTeamRepos
 {
@@ -9,7 +12,25 @@ namespace Fest_form.Repositories.DeanseTeamRepos
     {
         private readonly FestDataContext _context = context;
         private ILogger<DanceTeamRepos> _logger = logger;
-      
+        [HttpGet]
+        public List<DanceTeam> GetTeamList() {
+        
+            return _context.DanceTeams
+                .Include(dt => dt.TeamLeader)
+                .Include(dt => dt.Performances).ThenInclude(p => p.Concertmaster)
+                .Include(dt => dt.Performances).ThenInclude(p => p.ChoreographerDirector)
+                .Include(dt => dt.Performances).ThenInclude(p => p.Genre)
+                .Include(dt => dt.Performances).ThenInclude(p => p.ParticipantsNumber)
+                .Include(dt => dt.Performances).ThenInclude(p => p.PerformanceGroup)
+
+
+                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per=>per.Person1)
+                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per => per.Person2)
+                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per => per.Person3)
+
+
+                .ToList();
+        }
         public void CreateTeam(DanceTeam team) {
             try
             {
@@ -25,7 +46,10 @@ namespace Fest_form.Repositories.DeanseTeamRepos
             {
                 var teamTemp = team;
                 teamTemp = _context.DanceTeams.FirstOrDefault(
-                    dt => dt.TeamName == teamTemp.TeamName);
+                    dt => dt.TeamName == teamTemp.TeamName &&
+                    (dt.TeamLeader.PersonName == teamTemp.TeamLeader.PersonName &&
+                    dt.TeamLeader.PersonLastName == teamTemp.TeamLeader.PersonLastName
+                    ));
 
                 if (teamTemp != null)
                 {

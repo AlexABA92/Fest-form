@@ -6,5 +6,6 @@ namespace Fest_form.Repositories.DeanseTeamRepos
     {
         public void CreateTeam(DanceTeam team);
         public void CheckTeam(ref DanceTeam team);
+        public List<DanceTeam> GetTeamList();
     }
 }

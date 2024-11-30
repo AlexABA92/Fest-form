@@ -133,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Натисніть, якщо не має.
+        ///   Looks up a localized string similar to Натисніть, якщо немає.
         /// </summary>
         public static string ConcertmasterChackBox {
             get {

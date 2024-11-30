@@ -12,6 +12,7 @@
     <PackageReference Include="AWSSDK.S3" Version="3.7.405.13" />
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.22.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
