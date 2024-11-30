@@ -129,8 +129,8 @@ namespace Fest_form.Services.MailSend
             AppendField(container, "Хореограф постановник", fullName.ToString());
             fullName.Clear();
             
-            fullName.Append($"{performance.Concertmaster.PersonLastName} {performance.Concertmaster.PersonName} " +
-                $"{performance.Concertmaster.PersonFatherName}");
+            fullName.Append($"{performance.Concertmaster?.PersonLastName} {performance.Concertmaster?.PersonName} " +
+                $"{performance.Concertmaster?.PersonFatherName}");
             AppendField(container, "Kонцертмейстер", fullName.ToString());
             fullName.Clear();
 
