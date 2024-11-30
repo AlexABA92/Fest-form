@@ -32,6 +32,7 @@ namespace Fest_form.Services.Bucket
            
             try
             {
+             
                 if (file == null || file.Length == 0)
                 {
                     throw new Exception("File is empty or null.");
@@ -93,7 +94,7 @@ namespace Fest_form.Services.Bucket
                     completeRequest.AddPartETags(uploadsResp);
                     CompleteMultipartUploadResponse completeUploadResponce = 
                         await _s3Client.CompleteMultipartUploadAsync(completeRequest);
-                    Console.WriteLine($"Upload completed successfully {fileName}.");
+                    
                 }
                 catch (Exception exception)
                 {

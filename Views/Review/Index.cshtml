@@ -2,41 +2,102 @@
 @model List<DanceTeam>
 @{
     ViewData["Title"] = "Review";
+    var index = 0;
     var count = Model.Count;
     var performanceCount = Model.Sum(dt => dt.Performances.Count);
 }
 <div class="bgWhite col-12 m-0  font-simple text-center mt-1  p-1 rounded shadow">
     <div class="col-12 text-end">
-        <p class="fs-2"><strong class="fs-4 fontError">Кількисть Команд</strong> :  @count</p>
+        <p class="fs-2"><strong class="fs-4 fontError">Кількість Команд</strong> :  @count</p>
         <p class="fs-2"><strong class="fs-4 fontError">Кількисть Номерів</strong> :  @performanceCount</p>
     </div>
     <div>
-            <div class="table-responsive"></div>
+        <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Team Name</th>
-                        <th>Team Leader</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Team Level</th>
-                        <th>Organization</th>
+                        <th>@Resources.Resource.TeameName</th>
+                        <th>@Resources.Resource.TeamLider</th>
+                        <th>@Resources.Resource.Mail</th>
+                        <th>@Resources.Resource.PhoneNumber</th>
+                        <th>@Resources.Resource.TeamLevelLabel</th>
+                        <th>@Resources.Resource.Organization</th>
                     </tr>
                 </thead>
                 <tbody>
-        @foreach (var team in Model)
-        {
-                    <tr>
-                        <td>@team.TeamName</td>
-                        <td>@team.TeamLeader.PersonLastName @team.TeamLeader.PersonName @team.TeamLeader?.PersonFatherName </td>
-                        <td>@team.Mail</td>
-                        <td>@team.TeamPhoneNumber</td>
-                        <td>@team.TeamLevel</td>
-                        <td>@team.Organization</td>
-                     </tr>
-        }
-                </tbody>
-            </table>
+                    @foreach (var team in Model)
+                    {
+                        <tr>
+                            <td>@team.TeamName</td>
+                            <td>@team.TeamLeader.PersonLastName @team.TeamLeader.PersonName @team.TeamLeader?.PersonFatherName </td>
+                            <td>@team.Mail</td>
+                            <td>@team.TeamPhoneNumber</td>
+                            <td>@team.TeamLevel</td>
+                            <td>@team.Organization</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" id="performanceItem">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="btn btn-primary  collapsed text-black  fontError fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(index)"
+                                        aria-expanded="false" aria-controls="flush-collapse@(index)">
+                                            Зареестровано номерів : <strong class="fs-4">@(team.Performances.Count)</strong>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse@(index++)" class="accordion-collapse collapse"
+                                    data-bs-parent="#performanceItem">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-success table-striped">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>@Resources.Resource.PerformanceName</th>
+                                                        <th>@Resources.Resource.ChoreographerDirector</th>
+                                                        <th>@Resources.Resource.Concertmaster</th>
+                                                        <th>@Resources.Resource.GenreLabel</th>
+                                                        <th>@Resources.Resource.ParticipantsNameListLabel</th>
+                                                        <th>Учасники </th>
+                                                        <th>@Resources.Resource.AgeGroup</th>
+                                                        <th>@Resources.Resource.StartPosition</th>
+                                                        <th>@Resources.Resource.PerfomanseTime</th>
+                                                        <th>@Resources.Resource.UrlSoundtrack</th>
+                                                        <th>@Resources.Resource.YouTubeURL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="fontSimple">
+                                                    @foreach (var perf in team.Performances) {
+                                                        <tr>
+                                                            <th>@perf.PerformanceName</th>
+                                                            <th>@perf.ChoreographerDirector.PersonLastName @perf.ChoreographerDirector.PersonName @perf.ChoreographerDirector.PersonFatherName</th>
+                                                            <th>@perf.Concertmaster?.PersonLastName @perf.Concertmaster?.PersonName @perf.Concertmaster?.PersonFatherName</th>
+                                                            <th>@perf.Genre?.Name</th>
+                                                            <th>@perf.ParticipantsNumber?.Name</th>
+                                                            <th>
+                                                                @perf.ParticipantsNameList?.Person1?.PersonLastName @perf.ParticipantsNameList?.Person1?.PersonName @perf.ParticipantsNameList?.Person1?.PersonFatherName
+                                                                @perf.ParticipantsNameList?.Person2?.PersonLastName @perf.ParticipantsNameList?.Person2?.PersonName @perf.ParticipantsNameList?.Person2?.PersonFatherName
+                                                                @perf.ParticipantsNameList?.Person3?.PersonLastName @perf.ParticipantsNameList?.Person3?.PersonName @perf.ParticipantsNameList?.Person3?.PersonFatherName
+                                                            </th>
+                                                            <th>@perf.PerformanceGroup?.Name</th>
+                                                            <th>@perf.StartPoint</th>
+                                                            <th>@perf.PerformanceTime</th>
+                                                            @{
+                                                                var url = "https://fest-minus-file.s3.us-east-1.amazonaws.com/" + Uri.EscapeDataString(perf.PhonogramFileURL);
+                                                            }
+                                                            <th><a href="@url">Слухати</a></th>
+                                                            <th><a href="@perf.YouTubeVideoURL">Перейти</a></th>
+                                                     </tr>
+                                                    }
+                                                </tbody>
+                                            </table>    
+                                        </div>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                    
+                }
+            </tbody>
+        </table>
+    </div>
     </div>
 </div>
 

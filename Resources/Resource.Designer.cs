@@ -493,7 +493,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Організація.
+        ///   Looks up a localized string similar to Організація та Місто.
         /// </summary>
         public static string Organization {
             get {
