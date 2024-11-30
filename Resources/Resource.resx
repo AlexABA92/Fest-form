@@ -148,7 +148,7 @@
     <value>*Kількість символів</value>
   </data>
   <data name="NameSymbolValidation" xml:space="preserve">
-    <value>*Ім'я та прізвище можуть містити тільки букви, пробіли та дефіси.</value>
+    <value>*Ім'я та прізвище можуть містити тільки букви та дефіси.</value>
   </data>
   <data name="PhoneNumberValidation" xml:space="preserve">
     <value>*Введіть правильний номер телефону.</value>
@@ -347,5 +347,8 @@
   </data>
   <data name="Modal_fileLoadin_body" xml:space="preserve">
     <value>Будь ласка, зачекайте, поки ваші файли будуть відправлені на сервер (це може зайняти декілька хвилин)</value>
+  </data>
+  <data name="ConcertmasterChackBox" xml:space="preserve">
+    <value>Натисніть, якщо не має</value>
   </data>
 </root>

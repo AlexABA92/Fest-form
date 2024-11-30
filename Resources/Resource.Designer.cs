@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Натисніть, якщо не має.
+        /// </summary>
+        public static string ConcertmasterChackBox {
+            get {
+                return ResourceManager.GetString("ConcertmasterChackBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сучасний / Модерн.
         /// </summary>
         public static string Contemporary_Modern {
@@ -448,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *Ім&apos;я та прізвище можуть містити тільки букви, пробіли та дефіси..
+        ///   Looks up a localized string similar to *Ім&apos;я та прізвище можуть містити тільки букви та дефіси..
         /// </summary>
         public static string NameSymbolValidation {
             get {

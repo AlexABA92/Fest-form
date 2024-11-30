@@ -19,7 +19,7 @@ namespace Fest_form.data.Entity
         public string PerformanceName { get; set; } = string.Empty;
         
         public Person ChoreographerDirector { get; set; } = null!;
-        public Person Concertmaster { get; set; } = null!;
+        public Person? Concertmaster { get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public int CategoryId {get; set; }

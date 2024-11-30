@@ -88,7 +88,7 @@ namespace Fest_form.Controllers
         [HttpPost]
         public IActionResult Index(DanceTeam team)
         {
-            
+            //team.Performances[0].Concertmaster = null;
             // set data for view select list
             void setViewDataCollection()
             {

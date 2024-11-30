@@ -17,13 +17,32 @@ $(document).ready(
             sessionStorage.setItem("return", "");
         })
         $("#modalCheck").change(() => {
-            if ($("#modalCheck").is(":checked")) 
+            if ($("#modalCheck").is(":checked"))
                 $("#modalBtn").prop("disabled", false)
             else
                 $("#modalBtn").prop("disabled", true)
         })
+        $(document).on("change", ".ConcertmasterNullCheckBox", (event) => {
+            id = $(event.currentTarget).data("id")
+            if ($(event.currentTarget).is(":checked")) {
+                
+                $(`#Performances_${id}_ConcertmasterPersonLastName`).val("")
+                $(`#Performances_${id}_ConcertmasterPersonLastName`).prop("disabled", true)
 
-        $("#submitBtn").on("click",(event)=> {
+                $(`#Performances_${id}_ConcertmasterPersonName`).val("")
+                $(`#Performances_${id}_ConcertmasterPersonName`).prop("disabled", true)
+
+                if ($(`#Performances_${id}_ConcertmasterPersonFatherName`).length) {
+                    $(`#Performances_${id}_ConcertmasterPersonFatherName`).val("")
+                    $(`#Performances_${id}_ConcertmasterPersonFatherName`).prop("disabled", true)
+                }
+            } else {
+                $(`#Performances_${id}_ConcertmasterPersonLastName`).prop("disabled", false)
+                $(`#Performances_${id}_ConcertmasterPersonName`).prop("disabled", false)
+                $(`#Performances_${id}_ConcertmasterPersonFatherName`).prop("disabled", false)
+            }
+        })
+        $("#submitBtn").on("click",()=> {
             if ($("#regForm").valid()) {
                $("#ModalFileLoading").modal("show")
                 $("#submitBtn").prop("disabled", true);
@@ -239,17 +258,21 @@ $(document).ready(
         })
 
         var personblock = function (index,id, model, label) {
+            var pesonDiv = $(`<div class="form-group mb-3 text-start" id="perInput${id}"></div>`)
 
-            $(id).append(`
-             <div class="form-group mb-3 text-start" id="perInput${id}">
-                    <label class="control-label mb-2 ">${label}  :</label>
+            if (model !== "Concertmaster")
+                pesonDiv.append(labelReturn(label))
+            else
+                pesonDiv.append(checkboxDisable(label, num))
+
+            pesonDiv.append(`                    
                         <div class="form-group row align-items-center">
-                       
                          <div class="col-12 col-md-4">
                             <input asp-for="Performances[${index}].${model}.PersonLastName"
                                    class="form-control fontSimple mb-1"
                                    name="Performances[${index}].${model}.PersonLastName"
                                    aria-describedby="Person Last Name"
+                                   id="Performances_${num}_${model}PersonLastName"
                                    placeholder="${leng === "uk" ? "Призвище" : "Last Name"}" />
                             <span asp-validation-for="Performances[${index}].${model}.PersonLastName" class="text-danger fontError d-block"></span>
                         </div>
@@ -258,16 +281,32 @@ $(document).ready(
                                    name="Performances[${index}].${model}.PersonName"
                                    class="form-control fontSimple mb-1"
                                    aria-describedby="Person Name"
+                                   id="Performances_${num}_${model}PersonName"
                                    placeholder="${leng === "uk" ? "Ім'я" :"Neme"}" />
                             <span asp-validation-for="Performances[${index}].${model}.PersonName" class="text-danger fontError d-block"></span>
                         </div>
                        
                         ${leng === "uk" ? addFatherName(index,model) : ""}
                         `)
-            $(id).append(`</div>`)
+            $(id).append(pesonDiv)
 
         }
-
+        var labelReturn = (label) => {
+            return `<label class="control-label mb-2 col-12 col-md-6">${label}  :</label>`
+        }
+        var checkboxDisable = function (label, num) {
+            var div = $(`<div class="d-flex justify-content-between row"></div>`)
+            div.append(labelReturn(label))
+            div.append(`
+                <div class="form-check mb-2 col-12 col-md-6 d-flex justify-content-center">
+                <input class="form-check-input me-2 ConcertmasterNullCheckBox"
+                    type="checkbox" value="" data-id="${num}""
+                <label class="form-check-label" for="flexCheckDefault">
+                    ${$('#checkLabel').data('label')}
+                </label>
+                </div >`)
+            return div               
+        }
        
         var erorsCheck = function () {
           
@@ -318,6 +357,7 @@ var addFatherName = function (num, model) {
                         name="Performances[${num}].${model}.PersonFatherName"
                         class="form-control fontSimple"
                         aria-describedby="Person Father Name"
+                        id="Performances_${num}_${model}PersonFatherName"
                         placeholder="По батькові" />
                     <span asp-validation-for="Performances[${num}].${model}.PersonFatherName" class="text-danger fontError d-block"></span>
                 </div>`

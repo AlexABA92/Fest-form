@@ -348,4 +348,7 @@
   <data name="Modal_fileLoadin_body" xml:space="preserve">
     <value>Please wait until your files are sent to the server (it may take a few minutes)</value>
   </data>
+  <data name="ConcertmasterChackBox" xml:space="preserve">
+    <value>Click if it does not have</value>
+  </data>
 </root>

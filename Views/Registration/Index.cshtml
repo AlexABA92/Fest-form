@@ -23,7 +23,7 @@
     // Populate the array with error field IDs from the ModelState
     bool isErrors = false;
     // if(!ViewData.ModelState.IsValid)
-   
+
     foreach (var key in ViewData.ModelState.Keys )
     {
         if (ViewData.ModelState[key]?.Errors.Count > 0)
@@ -71,25 +71,25 @@
 
                     <div class="col-12 col-md-4">
                         <input asp-for="TeamLeader.PersonLastName"
-                               class="form-control fontSimple mb-1"
-                               aria-describedby="Person Last Name"
-                               placeholder=@Resources.Resource.PersonLastNameLable />
+                        class="form-control fontSimple mb-1"
+                        aria-describedby="Person Last Name"
+                        placeholder=@Resources.Resource.PersonLastNameLable />
                         <span asp-validation-for="TeamLeader.PersonLastName" class="text-danger fontError d-block"></span>
                     </div>
                     <div class="col-12 col-md-4">
                         <input asp-for="TeamLeader.PersonName"
-                               class="form-control fontSimple mb-1"
-                               aria-describedby="Person Name"
-                               placeholder=@Resources.Resource.PersonFirstNameLable />
+                        class="form-control fontSimple mb-1"
+                        aria-describedby="Person Name"
+                        placeholder=@Resources.Resource.PersonFirstNameLable />
                         <span asp-validation-for="TeamLeader.PersonName" class="text-danger fontError d-block"></span>
                     </div>
                     @if (lang == "uk" || lang == "ru")
                     {
                         <div class="col-12 col-md-4">
                             <input asp-for="TeamLeader.PersonFatherName"
-                                   class="form-control fontSimple"
-                                   aria-describedby="Person Father Name"
-                                   placeholder="По батькові" />
+                            class="form-control fontSimple"
+                            aria-describedby="Person Father Name"
+                            placeholder="По батькові" />
                             <span asp-validation-for="TeamLeader.PersonFatherName" class="text-danger fontError d-block"></span>
                         </div>
                     }
@@ -128,7 +128,7 @@
             <div id="organizationField" class="form-group  text-start invisible">
                 <label asp-for="Organization" class="control-label mb-2">@Resources.Resource.Organization :</label>
                 <input asp-for="Organization" type="text" placeholder="'@Resources.Resource.OrganizationPlaseholder'"
-                       class="form-control fontSimple" aria-describedby=@Resources.Resource.Organization />
+                class="form-control fontSimple" aria-describedby=@Resources.Resource.Organization />
                 <span asp-validation-for="Organization" class="text-danger fontError"></span>
             </div>
 
@@ -140,10 +140,10 @@
                     <div>
                         <div class="form-group  text-start mb-2">
                             <label asp-for="Performances[0].PerformanceName"
-                                   id="perName"
-                                   data-label=@Resources.Resource.PerformanceName class="control-label mb-2">@Resources.Resource.PerformanceName :</label>
+                            id="perName"
+                            data-label=@Resources.Resource.PerformanceName class="control-label mb-2">@Resources.Resource.PerformanceName :</label>
                             <input asp-for="Performances[0].PerformanceName" type="text"
-                                   id="Performances_0_PerformanceName" class="form-control fontSimple" aria-describedby=@Resources.Resource.PerformanceName />
+                            id="Performances_0_PerformanceName" class="form-control fontSimple" aria-describedby=@Resources.Resource.PerformanceName />
                             <span asp-validation-for="Performances[0].PerformanceName" class="text-danger fontError"></span>
                         </div>
                     </div>
@@ -153,27 +153,27 @@
                         <div class="form-group row align-items-center">
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].ChoreographerDirector.PersonLastName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Last Name"
-                                       id="LNPlaseholder"
-                                       data-plaseholder=@Resources.Resource.PersonLastNameLable
-                                       placeholder=@Resources.Resource.PersonLastNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Last Name"
+                                id="LNPlaseholder"
+                                data-plaseholder=@Resources.Resource.PersonLastNameLable
+                                placeholder=@Resources.Resource.PersonLastNameLable />
                                 <span asp-validation-for="Performances[0].ChoreographerDirector.PersonLastName" class="text-danger fontError d-block"></span>
                             </div>
                             <div class="col-12 col-md-4">
                                 <input asp-for="Performances[0].ChoreographerDirector.PersonName"
-                                       class="form-control fontSimple mb-1"
-                                       aria-describedby="Person Name"
-                                       id="namePlaseholder" data-plaseholder=@Resources.Resource.PersonFirstNameLable placeholder=@Resources.Resource.PersonFirstNameLable />
+                                class="form-control fontSimple mb-1"
+                                aria-describedby="Person Name"
+                                id="namePlaseholder" data-plaseholder=@Resources.Resource.PersonFirstNameLable placeholder=@Resources.Resource.PersonFirstNameLable />
                                 <span asp-validation-for="Performances[0].ChoreographerDirector.PersonName" class="text-danger fontError d-block"></span>
                             </div>
                             @if (lang == "uk" || lang == "ru")
                             {
                                 <div class="col-12 col-md-4">
                                     <input asp-for="Performances[0].ChoreographerDirector.PersonFatherName"
-                                           class="form-control fontSimple"
-                                           aria-describedby="Person Father Name"
-                                           placeholder="По батькові" />
+                                    class="form-control fontSimple"
+                                    aria-describedby="Person Father Name"
+                                    placeholder="По батькові" />
                                     <span asp-validation-for="Performances[0].ChoreographerDirector.PersonFatherName" class="text-danger fontError d-block"></span>
                                 </div>
                             }
@@ -181,11 +181,22 @@
                     </div>
                     @*Concertmaster*@
                     <div class="form-group mb-3 text-start">
-                        <label class="control-label mb-2" id="ConcertmasterLabal" data-label=@Resources.Resource.Concertmaster>@Resources.Resource.Concertmaster :</label>
+                        <div class="d-flex justify-content-between row">
+                            <label class="control-label mb-2 col-12 col-md-6" id="ConcertmasterLabal"
+                                data-label=@Resources.Resource.Concertmaster>@Resources.Resource.Concertmaster :</label>
+                            <div class="form-check  mb-2 col-12 col-md-6 d-flex justify-content-center">
+                                <input class="form-check-input me-2 ConcertmasterNullCheckBox" type="checkbox" 
+                                value="" data-id="0">
+                                <label class="form-check-label" id="checkLabel" for="flexCheckDefault" data-label="@Resources.Resource.ConcertmasterChackBox">
+                                    @Resources.Resource.ConcertmasterChackBox
+                                </label>
+                            </div>
+                         </div>
                         <div class="form-group row align-items-center">
 
                             <div class="col-12 col-md-4">
-                                <input asp-for="Performances[0].Concertmaster.PersonLastName"
+                                <input asp-for="Performances[0].Concertmaster.PersonLastName" 
+                                       id="Performances_0_ConcertmasterPersonLastName"
                                        class="form-control fontSimple mb-1"
                                        aria-describedby="Person Last Name"
                                        placeholder=@Resources.Resource.PersonLastNameLable />
@@ -193,7 +204,8 @@
                             </div>
 
                             <div class="col-12 col-md-4">
-                                <input asp-for="Performances[0].Concertmaster.PersonName"
+                                <input asp-for="Performances[0].Concertmaster.PersonName" 
+                                       id="Performances_0_ConcertmasterPersonName"
                                        class="form-control fontSimple mb-1"
                                        aria-describedby="Person Name"
                                        placeholder=@Resources.Resource.PersonFirstNameLable />
@@ -203,6 +215,7 @@
                             {
                                 <div class="col-12 col-md-4">
                                     <input asp-for="Performances[0].Concertmaster.PersonFatherName"
+                                           id="Performances_0_ConcertmasterPersonFatherName"
                                            class="form-control fontSimple"
                                            aria-describedby="Person Father Name"
                                            placeholder="По батькові" />
@@ -210,7 +223,10 @@
                                 </div>
                             }
                         </div>
+               
+                          
                     </div>
+                    
                     @*select ParticipantsNumber*@
                     <div id=personListforNum0 data-label=@Resources.Resource.ParticipantNumList>
                         <div class="container p-0 col-md-6">

@@ -65,13 +65,43 @@ namespace Fest_form.Helpers
             #region Concertmaster
             var concertMeister = new TagBuilder("div");
             concertMeister.AddCssClass("form-group mb-3 text-start");
-            concertMeister.InnerHtml.AppendHtml($"<label class=\"control-label mb-2\">{Resources.Resource.Concertmaster} :</label>");
+            var checkBoxBlok = new TagBuilder("div");
+            checkBoxBlok.Attributes["class"] = "d-flex justify-content-between row";
+            checkBoxBlok.InnerHtml.AppendHtml($"<label class=\"control-label mb-2  col-12 col-md-6\">{Resources.Resource.Concertmaster} :</label>");
+            var checkBoxDiv = new TagBuilder("div");
+            checkBoxDiv.AddCssClass("form-check mb-2 col-12 col-md-6 d-flex justify-content-center");
+            var checkBoxInput = new TagBuilder("input");
+            
+            checkBoxInput.Attributes["class"] = "form-check-input me-2 ConcertmasterNullCheckBox";
+            checkBoxInput.Attributes["type"] = "checkbox";
+            
+            checkBoxInput.Attributes["value"] = "";
+            checkBoxInput.Attributes["data-id"] = $"{index}";
+            if(performance.Concertmaster == null)
+                checkBoxInput.Attributes["checked"] = "checked";
 
+            var checkBoxLabel =new TagBuilder("label");
+            checkBoxLabel.Attributes["class"] = "form-check-label";
+            checkBoxLabel.InnerHtml.Append(Resources.Resource.ConcertmasterChackBox);
+
+            checkBoxDiv.InnerHtml.AppendHtml( checkBoxInput );
+            checkBoxDiv.InnerHtml.AppendHtml(checkBoxLabel);
+            checkBoxBlok.InnerHtml.AppendHtml(checkBoxDiv);
+            concertMeister.InnerHtml.AppendHtml(checkBoxBlok);
+
+
+
+            if (performance.Concertmaster == null)
             concertMeister.InnerHtml.AppendHtml(
                    Person(index,"Concertmaster",
+                  performance.Concertmaster, true 
+                   ));
+            else
+                concertMeister.InnerHtml.AppendHtml(
+                   Person(index, "Concertmaster",
                   performance.Concertmaster
                    ));
-
+           
             performanceItem.InnerHtml.AppendHtml(concertMeister);
             #endregion
 
@@ -276,48 +306,84 @@ namespace Fest_form.Helpers
             return performanceItem;
         }
 
-        public static IHtmlContent PersonReturn(this IHtmlHelper htmlHelper, string model, Person person) {
+        public static IHtmlContent PersonReturn(this IHtmlHelper htmlHelper, string model, Person? person,bool IsDisabled = false) {
                      
-            return Person(0, model, person);
+            return Person(0, model, person, IsDisabled);
 
         }
-       static TagBuilder  Person(int index, string model, Person person)
+       static TagBuilder  Person(int index, string model, Person? person, bool IsDisabled = false)
         {
+            TagBuilder NamePart(string part,string? value)
+            {
+                var personLastName = new TagBuilder("div");
+                personLastName.Attributes["class"] = "col-12 col-md-4";
+                var input = new TagBuilder("input");
+                input.Attributes["name"] = $"Performances[{index}].{model}.{part}";
+                input.Attributes["id"] = $"Performances_{index}_{model.Replace(".", "")}{part}";
+                input.Attributes["class"] = "form-control fontSimple mb-1";
+                input.Attributes["asp-for"] = $"Performances[{index}].{model}.{part}";
+                input.Attributes["aria-describedby"] = $"Person {part}";
+                input.Attributes["placeholder"] = $"{Resources.Resource.PersonLastNameLable}";
+
+                if (IsDisabled)
+                {
+                    input.Attributes["disabled"] = "disabled";
+                    input.Attributes["value"] = "";
+                }
+                else
+                {
+                    input.Attributes["value"] = $"{value}";
+                }
+                var span = new TagBuilder("span");
+                span.Attributes["class"] = "text-danger fontError d-block";
+                span.Attributes["asp-validation-for"] = $"Performances[{index}].{model}.{part}";
+
+                personLastName.InnerHtml.AppendHtml(input);
+                personLastName.InnerHtml.AppendHtml(span);
+                
+                return personLastName;
+            }
+
             var personDiv = new TagBuilder("div");
             personDiv.AddCssClass("form-group row align-items-center");
-            personDiv.InnerHtml.AppendHtml(
-            $"<div class=\"col-12 col-md-4\">" +
-                    $"<input asp-for=\"Performances[{index}].{model}.PersonLastName\"" +
-                    $"name=\"Performances[{index}].{model}.PersonLastName\"" +
-                    $"id=\"Performances_{index}_{model.Replace(".", "")}PersonLastName\"" +
-                    $"value=\"{person.PersonLastName}\"" +
-                    $"class=\"form-control fontSimple mb-1\"" +
-                    $"aria-describedby=\"PersonRepos Last Name\"" +
-                    $"placeholder=\"{Resources.Resource.PersonLastNameLable}\"/>" +
-                    $"<span asp-validation-for=\"Performances[{index}].{model}.PersonLastName\" class=\"text-danger fontError d-block\"></span>" +
-                $"</div>" +
-            $"<div class=\"col-12 col-md-4\">\r\n" +
-                    $"<input asp-for=\"Performances[{index}].{model}.PersonName\"\r\n" +
-                    $"id=\"Performances_{index}_{model.Replace(".", "")}PersonName\"" +
-                    $"name=\"Performances[{index}].{model}.PersonName\" " +
-                    $"value=\"{person.PersonName}\"" +
-                    $"class=\"form-control fontSimple mb-1\"\r\n" +
-                    $"aria-describedby=\"PersonRepos Name\"\r\n" +
-                    $"placeholder=\"{Resources.Resource.PersonFirstNameLable}\" />\r\n" +
-                    $"<span asp-validation-for=\"Performances[{index}].{model}.PersonName\" class=\"text-danger fontError d-block\"></span>\r\n" +
-                $"</div>"
-            );
-            if (!string.IsNullOrEmpty(person.PersonFatherName))
-                personDiv.InnerHtml.AppendHtml(
-                $" <div class=\"col-12 col-md-4\">" +
-                        $"<input asp-for=\"Performances[{index}].{model}.PersonFatherName\"" +
-                        $"id=\"Performances_{index}_{model.Replace(".", "")}PersonFatherName\"" +
-                        $"class=\"form-control fontSimple\"" +
-                        $"aria-describedby=\"PersonRepos Father Name\"" +
-                        $"name=\"Performances[{index}].{model}.PersonFatherName\"" +
-                        $"value=\"{person.PersonFatherName}\"" +
-                        $"placeholder=\"По батькові\" />" +
-                    $"</div>");
+
+            personDiv.InnerHtml.AppendHtml(NamePart("PersonLastName",person?.PersonLastName));
+            personDiv.InnerHtml.AppendHtml(NamePart("PersonName",person?.PersonName));
+            if (!string.IsNullOrEmpty(person?.PersonFatherName)) {
+                personDiv.InnerHtml.AppendHtml(NamePart("PersonFatherName", person?.PersonFatherName));
+            }
+                ////$"<div class=\"col-12 col-md-4\">" +
+                ////        $"<input asp-for=\"Performances[{index}].{model}.PersonLastName\"" +
+                ////        $"name=\"Performances[{index}].{model}.PersonLastName\"" +
+                ////        $"id=\"Performances_{index}_{model.Replace(".", "")}PersonLastName\"" +
+                ////        $"value=\"{person?.PersonLastName}\"" +
+                ////        $"class=\"form-control fontSimple mb-1\"" +
+                ////        $"aria-describedby=\"PersonRepos Last Name\"" +
+                ////        $"placeholder=\"{Resources.Resource.PersonLastNameLable}\"/>" +
+                ////        $"<span asp-validation-for=\"Performances[{index}].{model}.PersonLastName\" class=\"text-danger fontError d-block\"></span>" +
+                ////    $"</div>" +
+                ////$"<div class=\"col-12 col-md-4\">\r\n" +
+                ////        $"<input asp-for=\"Performances[{index}].{model}.PersonName\"\r\n" +
+                ////        $"id=\"Performances_{index}_{model.Replace(".", "")}PersonName\"" +
+                ////        $"name=\"Performances[{index}].{model}.PersonName\" " +
+                ////        $"value=\"{person?.PersonName}\"" +
+                ////        $"class=\"form-control fontSimple mb-1\"\r\n" +
+                ////        $"aria-describedby=\"PersonRepos Name\"\r\n" +
+                ////        $"placeholder=\"{Resources.Resource.PersonFirstNameLable}\" />\r\n" +
+                ////        $"<span asp-validation-for=\"Performances[{index}].{model}.PersonName\" class=\"text-danger fontError d-block\"></span>\r\n" +
+                ////    $"</div>"
+                ////);
+                //if (!string.IsNullOrEmpty(person?.PersonFatherName))
+                //personDiv.InnerHtml.AppendHtml(
+                //$" <div class=\"col-12 col-md-4\">" +
+                //        $"<input asp-for=\"Performances[{index}].{model}.PersonFatherName\"" +
+                //        $"id=\"Performances_{index}_{model.Replace(".", "")}PersonFatherName\"" +
+                //        $"class=\"form-control fontSimple\"" +
+                //        $"aria-describedby=\"PersonRepos Father Name\"" +
+                //        $"name=\"Performances[{index}].{model}.PersonFatherName\"" +
+                //        $"value=\"{person?.PersonFatherName}\"" +
+                //        $"placeholder=\"По батькові\" />" +
+                //    $"</div>");
             return personDiv;
         }
     }
