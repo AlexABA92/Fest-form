@@ -22,7 +22,7 @@ namespace Fest_form.data.Entity
         public Person? Concertmaster { get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        public int CategoryId {get; set; }
+        public int? CategoryId {get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public int GenreId { get; set; }
