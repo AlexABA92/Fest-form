@@ -14,32 +14,28 @@ using Fest_form.Services.MailSend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.AzureAppServices;
 
-
-using testBD.services;
-
-
-
+//using testBD.services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.AddAzureWebAppDiagnostics();
+//builder.Logging.AddAzureWebAppDiagnostics();
 
 
-builder.Services.Configure<AzureBlobLoggerOptions>(options =>
-{
-    options.BlobName = "log.txt";
-});
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
-});
+//builder.Services.Configure<AzureBlobLoggerOptions>(options =>
+//{
+//    options.BlobName = "log.txt";
+//});
+//builder.WebHost.ConfigureKestrel(serverOptions =>
+//{
+//    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
+//});
 builder.Services.AddDbContext<FestDataContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("FestDb2025"),
        new MySqlServerVersion(new Version(8, 0, 39))
     )
 );
-builder.Services.AddSingleton<SshTunnelServices>();
+//builder.Services.AddSingleton<SshTunnelServices>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -89,8 +85,8 @@ app.Use(async (context, next) => {
     }
     else
     {
-        Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk");
         Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk");
+        Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk");
     }
     await next.Invoke();
 });
@@ -104,8 +100,8 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var shhTunnelService = services.GetRequiredService<SshTunnelServices>();
-    await shhTunnelService.InitializeSshTunnel(services);
+    //var shhTunnelService = services.GetRequiredService<SshTunnelServices>();
+    //await shhTunnelService.InitializeSshTunnel(services);
 
     var context = services.GetRequiredService<FestDataContext>();
     context.Database.Migrate();
