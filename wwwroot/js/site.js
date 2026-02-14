@@ -230,11 +230,8 @@ $(document).ready(
                         </div>
                     </div>
              </div>`)
+              
             $(`#per${num}`).append(`
-            <div class="form-group text-start mb-2 container">
-                    <label for="file${num}">${$('#filelabel').data('label')} :</label>
-                    <input type="file" name="Performances[${num}].PhonogramFileURL" id="Performances_${num}_PhonogramFileURL" accept=".mp3, .wav" class="form-control fontSimple " />
-                </div>
                 <div class="form-group  text-start mb-2 container">
                     <label asp-for="Performances[${num}].YouTubeVideoURL" class="control-label  mb-2" id="teamName">${$('#youtubeLinc').data('label')}:</label>
                     <input asp-for="Performances[${num}].YouTubeVideoURL" name="Performances[${num}].YouTubeVideoURL" class="form-control fontSimple" aria-describedby="${$('#youtubeLinc').data('label')}" />

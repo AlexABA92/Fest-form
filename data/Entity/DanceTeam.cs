@@ -9,7 +9,8 @@ namespace Fest_form.data.Entity
 {
     public class DanceTeam
     {
-      
+        private List<Performance> _performances = new List<Performance>();
+
         [Key]
         public Guid TeamId { get; set; }
 
@@ -18,12 +19,11 @@ namespace Fest_form.data.Entity
         [StringLength(75, ErrorMessageResourceType
             = typeof(Resources.Resource), ErrorMessageResourceName = "ErrorLengthValidation")]
         [Trim]
-        public string TeamName { get; set; } = string.Empty;
+        public string TeamName { get; set; } = null!;
 
-
+        public Guid TeamLeaderId { get; set; }
         [Required(ErrorMessageResourceType =
            typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        
         public Person TeamLeader { get; set; } = null!;
 
         [Required(ErrorMessageResourceType =
@@ -31,7 +31,7 @@ namespace Fest_form.data.Entity
         [EmailAddress(ErrorMessageResourceType =
           typeof(Resources.Resource), ErrorMessageResourceName = "EmailErrorValidation")]
         [Trim]
-        public string Mail { get; set; } = string.Empty;
+        public string Mail { get; set; } = null!;
 
 
         [Required(ErrorMessageResourceType =
@@ -40,17 +40,14 @@ namespace Fest_form.data.Entity
             = typeof(Resources.Resource),
            ErrorMessageResourceName = "PhoneNumberValidation")]
         [Trim]
-        public string TeamPhoneNumber { get; set; } = string.Empty;
+        public string TeamPhoneNumber { get; set; } = null!;
 
         public TeamLevelEnum TeamLevel { get; set; } = TeamLevelEnum.None;
         [Trim]
 
-        public string? Organization
-        {
-            get;set;
-        } = string.Empty;  
+        public string? Organization { get; set; } 
 
-        private List<Performance> _performances = new List<Performance>();
+       
         public List<Performance> Performances
         {
             get => _performances;

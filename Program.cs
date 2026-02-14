@@ -30,10 +30,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
 //});
 builder.Services.AddDbContext<FestDataContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("FestDb2025"),
-       new MySqlServerVersion(new Version(8, 0, 39))
-    )
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FestDb2025"))
 );
 //builder.Services.AddSingleton<SshTunnelServices>();
 builder.Services.AddControllersWithViews();

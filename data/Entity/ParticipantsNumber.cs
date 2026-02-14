@@ -6,6 +6,7 @@ namespace Fest_form.data.Entity
     {
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
+        public List<Performance> Performances { get; set; } = new();
     }
 }
