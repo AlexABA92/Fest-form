@@ -20,7 +20,7 @@ namespace Fest_form.Services.MailSend
         int? port;
         bool ssl;
         private IMemoryCache  _cache;
-        MailAddress mailAddressTo =new MailAddress( "blacksea.patterns@gmail.com");
+        MailAddress mailAddressTo =new MailAddress( "alex1991020480@gmail.com");
         public MailSend(IConfiguration _configuration, IMemoryCache cache)
         {
             _cache = cache;
@@ -166,7 +166,7 @@ namespace Fest_form.Services.MailSend
             AppendField(container, "Час виступу", performance.PerformanceTime);
             var point = performance.StartPoint == GlobalData.Enum.StartPointEnum.Point ? "З точки" : "З кулиси";
             AppendField(container, "Стартова позиція", point);
-            AppendField(container, "Назва файла фонограми", HttpUtility.UrlDecode( performance.PhonogramFileURL));
+            //AppendField(container, "Назва файла фонограми", HttpUtility.UrlDecode( performance.PhonogramFileURL));
             if(!string.IsNullOrEmpty( performance.YouTubeVideoURL))
                 AppendField(container, "Посиланя на відео виступу", performance.YouTubeVideoURL);
 
