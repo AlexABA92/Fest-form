@@ -99,7 +99,7 @@
 
             <div class="mb-3  text-start alert alert-warning">
                 <strong>@Resources.Resource.AgeGroup:</strong>
-                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i]?.PerformanceGroup?.Name ?? "NotFound")</p>
+                <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i]?.Category?.Name ?? "NotFound")</p>
             </div>
             <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.StartPosition:</strong>
@@ -119,10 +119,10 @@
                 <strong>@Resources.Resource.PerfomanseTime:</strong>
                 <p class="text-end fw-light">@Model.Performances[i].PerformanceTime</p>
             </div>
-            <div class="mb-3 text-start alert alert-success">
+            @* <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.UrlSoundtrack:</strong>
                 <p class="text-end fw-light">@HttpUtility.UrlDecode(Model.Performances[i].PhonogramFileURL)</p>
-            </div>
+            </div> *@
             @if (!string.IsNullOrEmpty(Model.Performances[i].YouTubeVideoURL))
             {
                 <div class="mb-3  text-start alert alert-warning">

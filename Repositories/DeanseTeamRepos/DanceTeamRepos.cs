@@ -21,7 +21,7 @@ namespace Fest_form.Repositories.DeanseTeamRepos
                 .Include(dt => dt.Performances).ThenInclude(p => p.ChoreographerDirector)
                 .Include(dt => dt.Performances).ThenInclude(p => p.Genre)
                 .Include(dt => dt.Performances).ThenInclude(p => p.ParticipantsNumber)
-                .Include(dt => dt.Performances).ThenInclude(p => p.PerformanceGroup)
+                .Include(dt => dt.Performances).ThenInclude(p => p.Category)
 
 
                 .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per=>per.Person1)

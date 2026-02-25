@@ -65,7 +65,7 @@ namespace Fest_form.data
                  .OnDelete(DeleteBehavior.Restrict);
 
               
-                e.HasOne(x => x.PerformanceGroup)
+                e.HasOne(x => x.Category)
                  .WithMany(c => c.Performances)
                  .HasForeignKey(x => x.CategoryId)
                  .OnDelete(DeleteBehavior.Restrict);
