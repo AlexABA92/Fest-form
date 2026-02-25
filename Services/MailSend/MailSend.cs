@@ -1,13 +1,18 @@
-﻿using Fest_form.data.Entity;
-using System.Net.Mail;
-using System.Net;
+﻿using Amazon.Runtime.Internal.Util;
+
+using Fest_form.data.Entity;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
+
+using Newtonsoft.Json;
+
+using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Web;
-using Amazon.Runtime.Internal.Util;
-using System.Runtime.ConstrainedExecution;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Fest_form.Services.MailSend
 {
@@ -93,7 +98,7 @@ namespace Fest_form.Services.MailSend
 
             return mailBodyString;
         }
-        private string PerformanceInfo(Performance performance, int index, string teamName)  {
+        private string PerformanceInfo(Performance performance)  {
             Category? ageGroup = null;
             Genre? genre = null;
             ParticipantsNumber? number = null;
@@ -119,7 +124,7 @@ namespace Fest_form.Services.MailSend
                 "line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px; max-width: 600px; margin: 0 auto;");
             
             var header = new TagBuilder("h1");
-            header.InnerHtml.Append($"{teamName} - {performance.PerformanceName}");
+            header.InnerHtml.Append($"{performance.PerformanceName}");
             container.InnerHtml.AppendHtml(header);
             
             StringBuilder fullName = new StringBuilder();
@@ -174,70 +179,131 @@ namespace Fest_form.Services.MailSend
             container.WriteTo(writer, System.Text.Encodings.Web.HtmlEncoder.Default);
             return writer.ToString();
         }
-        
 
-        public async Task SendMultipleEmailsAsync(DanceTeam team, byte[] fileData, int index)
+        public async Task SendEmailAsync(DanceTeam team, List<IFormFile>? files)
         {
-
-
             try
             {
                 using SmtpClient smtpClient = new SmtpClient(host)
-            {
-                Port = port ?? throw new Exception("SendMultipleEmailsAsync : smtpClient - port is null!!!"),
-                EnableSsl = ssl,
-                Credentials = new NetworkCredential(box, key)
-            };
-          
+                {
+                    Port = port ?? throw new Exception("SendEmailAsync : smtpClient - port is null!!!"),
+                    EnableSsl = ssl,
+                    Credentials = new NetworkCredential(box, key)
+                };
                 using MailMessage mailMessage = new MailMessage()
                 {
                     IsBodyHtml = true,
                     From = new MailAddress(box),
-                    Subject = index == 0 ?
-                    team.TeamName + " - " + $"Номер {index + 1} : " + team.Performances[index].PerformanceName :
-                    $"Номер {index + 1} : " + team.Performances[index].PerformanceName,
-                    Body = PerformanceInfo(team.Performances[index],index,team.TeamName)
-                }; 
-
+                    Subject = "Реєстрація",
+                    Body = TeamInfo(team) + string.Concat(team.Performances.Select(p => PerformanceInfo(p)))
+                };
                 mailMessage.To.Add(mailAddressTo);
+                if (files != null)
+                {
+                    files.ForEach(async fileData =>
+                    {
+                        var memoryStream = new MemoryStream();
 
-                using var stream = new MemoryStream(fileData);
-                var mailAttachment = new Attachment(stream, Uri.UnescapeDataString(team.Performances[index].PhonogramFileURL));
-                mailMessage.Attachments.Add(mailAttachment);
+                        await fileData.CopyToAsync(memoryStream);
 
+                        memoryStream.Position = 0;
+
+                        var attachment = new Attachment(
+                                memoryStream,
+                                fileData.FileName,
+                                fileData.ContentType);
+
+                        mailMessage.Attachments.Add(attachment);
+                        
+                    });
+                }
                 await smtpClient.SendMailAsync(mailMessage);
-
             }
             catch (SmtpException smtpEx)
             {
                 Console.WriteLine($"SMTP Error: {smtpEx.Message}");
+                Debug.WriteLine(JsonConvert.SerializeObject(smtpEx.Message));
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"General Error: {ex.Message}");
+                Debug.WriteLine(JsonConvert.SerializeObject(ex));
             }
-
         }
+        //public async Task SendEmailAsync(DanceTeam team, byte[] fileData, int index)
+        //{
+        //    try
+        //    {
+        //        using SmtpClient smtpClient = new SmtpClient(host)
+        //    {
+        //        Port = port ?? throw new Exception("SendEmailAsync : smtpClient - port is null!!!"),
+        //        EnableSsl = ssl,
+        //        Credentials = new NetworkCredential(box, key)
+        //    };
 
-        public async Task SendTeamInfoEmailAsync(DanceTeam team)
-        {
-            using SmtpClient smtpClient = new SmtpClient(host)
-            {
-                Port = port ?? throw new Exception("SendMultipleEmailsAsync : smtpClient - port is null!!!"),
-                EnableSsl = ssl,
-                Credentials = new NetworkCredential(box, key)
-            };
-            using MailMessage mailMessage = new MailMessage()
-            {
-                IsBodyHtml = true,
-                From = new MailAddress(box),
-                Subject =
-                    "Новий Участник : " + team.TeamName,
-                Body = TeamInfo(team)
-            };
-            mailMessage.To.Add(mailAddressTo);
-            await smtpClient.SendMailAsync(mailMessage);
-        }
+        //        using MailMessage mailMessage = new MailMessage()
+        //        {
+        //            IsBodyHtml = true,
+        //            From = new MailAddress(box),
+        //            Subject = index == 0 ?
+        //            team.TeamName + " - " + $"Номер {index + 1} : " + team.Performances[index].PerformanceName :
+        //            $"Номер {index + 1} : " + team.Performances[index].PerformanceName,
+        //            Body = PerformanceInfo(team.Performances[index],index,team.TeamName)
+        //        }; 
+
+        //        mailMessage.To.Add(mailAddressTo);
+
+        //        using var stream = new MemoryStream(fileData);
+        //        var mailAttachment = new Attachment(stream, Uri.UnescapeDataString(team.Performances[index].PhonogramFileURL));
+        //        mailMessage.Attachments.Add(mailAttachment);
+
+        //        await smtpClient.SendMailAsync(mailMessage);
+
+        //    }
+        //    catch (SmtpException smtpEx)
+        //    {
+        //        Console.WriteLine($"SMTP Error: {smtpEx.Message}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"General Error: {ex.Message}");
+        //    }
+
+        //}
+
+        //public async Task SendTeamInfoEmailAsync(DanceTeam team )
+        //{
+        //    using SmtpClient smtpClient = new SmtpClient(host)
+        //    {
+        //        Port = port ?? throw new Exception("SendEmailAsync : smtpClient - port is null!!!"),
+        //        EnableSsl = ssl,
+        //        Credentials = new NetworkCredential(box, key)
+        //    };
+        //    using MailMessage mailMessage = new MailMessage()
+        //    {
+        //        IsBodyHtml = true,
+        //        From = new MailAddress(box),
+        //        Subject =
+        //            "Новий Участник : " + team.TeamName,
+        //        Body = TeamInfo(team), 
+
+
+
+        //    };
+        //    mailMessage.To.Add(mailAddressTo);
+        //    try
+        //    {
+        //        await smtpClient.SendMailAsync(mailMessage);
+        //    }
+        //    catch (SmtpException ex)
+        //    {
+        //        Debug.WriteLine(JsonConvert.SerializeObject(ex));
+        //        throw;
+        //    }
+
+        //}
+
+
         private void AppendField(TagBuilder container, string fieldName, string fieldValue)
         {
             var fieldContainer = new TagBuilder("p");
@@ -253,5 +319,7 @@ namespace Fest_form.Services.MailSend
 
             container.InnerHtml.AppendHtml(fieldContainer);
         }
+
+      
     }
 }

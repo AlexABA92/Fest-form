@@ -4,7 +4,7 @@ namespace Fest_form.Repositories.FileRepos
 {
     public interface IFileRepos
     {
-        public Task FileSender(DanceTeam team, List<IFormFile> files);
-        public void TeamInfoMail(DanceTeam team);
+        public Task TeamInfoMail(DanceTeam team, List<IFormFile>? files = null);
+        //public void TeamInfoMail(DanceTeam team);
     }
 }
