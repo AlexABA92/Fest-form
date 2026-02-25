@@ -76,13 +76,13 @@
                                                                 @perf.ParticipantsNameList?.Person2?.PersonLastName @perf.ParticipantsNameList?.Person2?.PersonName @perf.ParticipantsNameList?.Person2?.PersonFatherName
                                                                 @perf.ParticipantsNameList?.Person3?.PersonLastName @perf.ParticipantsNameList?.Person3?.PersonName @perf.ParticipantsNameList?.Person3?.PersonFatherName
                                                             </th>
-                                                            <th>@perf.PerformanceGroup?.Name</th>
+                                                            <th>@perf.Category?.Name</th>
                                                             <th>@perf.StartPoint</th>
                                                             <th>@perf.PerformanceTime</th>
-                                                            @{
+                                                            @* @{
                                                                 var url = "https://fest-minus-file.s3.us-east-1.amazonaws.com/" + Uri.EscapeDataString(perf.PhonogramFileURL);
-                                                            }
-                                                            <th><a href="@url">Слухати</a></th>
+                                                            } *@
+                                                            @* <th><a href="@url">Слухати</a></th> *@
                                                             <th><a href="@perf.YouTubeVideoURL">Перейти</a></th>
                                                      </tr>
                                                     }
