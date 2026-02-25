@@ -1,4 +1,7 @@
 ﻿using Fest_form.GlobalData.Enum;
+
+using Newtonsoft.Json;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +16,8 @@ namespace Fest_form.data.Entity
         [Key]
         public Guid PerformanceId { get; set; }
         public Guid  DanceTeamId { get; set; }
-        public DanceTeam DanceTeam { get; set; } = null!;
+        [JsonIgnore]
+        public DanceTeam? DanceTeam { get; set; } = null!;
         [Required(ErrorMessageResourceType =
            typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         [Trim]
@@ -27,15 +31,12 @@ namespace Fest_form.data.Entity
        
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        
-        public int? CategoryId {get; set; }
-        [Required(ErrorMessageResourceType =
-             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
-        public Category? PerformanceGroup { get; set; } = null!;
+        public int CategoryId {get; set; }
+        public Category? Category { get; set; } = null!;
       
-        public int? GenreId { get; set; }
         [Required(ErrorMessageResourceType =
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
+        public int GenreId { get; set; }
         public Genre? Genre { get; set; } = null!;
       
         public int ParticipantsNumberId { get; set; }
@@ -50,8 +51,7 @@ namespace Fest_form.data.Entity
         public string PerformanceTime { get; set; } = null!;
 
         public StartPointEnum StartPoint { get; set; } = StartPointEnum.None;
-        [Trim]
-
+        
         public string? PhonogramFileURL { get; set; }
         [Url(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "ValidationUrlError")]

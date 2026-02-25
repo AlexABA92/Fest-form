@@ -45,7 +45,7 @@ namespace Fest_form.data.Entity
         public TeamLevelEnum TeamLevel { get; set; } = TeamLevelEnum.None;
         [Trim]
 
-        public string? Organization { get; set; } 
+        public string? Organization { get; set; }
 
        
         public List<Performance> Performances

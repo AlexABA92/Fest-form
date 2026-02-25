@@ -1,4 +1,6 @@
-﻿namespace Fest_form.data.Entity
+﻿using Newtonsoft.Json;
+
+namespace Fest_form.data.Entity
 {
     public class ParticipantsList
     {
@@ -15,7 +17,7 @@
         public Guid? Person3Id { get; set; }
 
         public Person? Person3 { get; set; }
-
+        [JsonIgnore]
         public List<Performance> Performances { get; set; } = new();
     }
 }

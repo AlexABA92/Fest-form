@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,9 +38,11 @@ namespace Fest_form.data.Entity
             = typeof(Resources.Resource), ErrorMessageResourceName = "NameSymbolValidation")]
         [Trim]
         public string? PersonFatherName { get; set; }
-
+        [JsonIgnore]
         public List<DanceTeam> LedTeams { get; set; } = new();
+        [JsonIgnore]
         public List<Performance> DirectedPerformances { get; set; } = new();
+        [JsonIgnore]
         public List<Performance> ConcertmasterPerformances { get; set; } = new();
 
 
