@@ -88,7 +88,7 @@ namespace Fest_form.Controllers
         [HttpPost]
         public IActionResult Index(DanceTeam team)
         {
-         
+            Debug.WriteLine(JsonConvert.SerializeObject(team));
             // set data for view select list
             void setViewDataCollection()
             {
@@ -99,7 +99,7 @@ namespace Fest_form.Controllers
             try
             {
                 //check file for validation and set encrypt name to url safety
-                List<IFormFile> files = new List<IFormFile>();
+                List < IFormFile > files = new List<IFormFile>();
                 for (var i = 0; i < team.Performances.Count; i++)
                 {
                     if ((Request.Form.Files[$"Performances[{i}].PhonogramFileURL"] is { } file && file.Length > 0))
@@ -117,7 +117,7 @@ namespace Fest_form.Controllers
                         files.Add(file);
 
                     }
-                    else ModelState.AddModelError($"Performances_{i}_PhonogramFileURL", Resources.Resource.FileRequiredError);
+                    
                 }
 
                 // set path for language 
@@ -182,13 +182,18 @@ namespace Fest_form.Controllers
 
 
                 //send files to bucket and mail
-                _fileRepos.FileSender(team, files);
+                if (files.Count > 0)
+                    _fileRepos.TeamInfoMail(team, files);
+                else _fileRepos.TeamInfoMail(team);
 
+                if (HttpContext.Session.GetString("team") != null)
+                    HttpContext.Session.Clear();
                 HttpContext.Session.SetString("team", JsonConvert.SerializeObject(team));
                 return RedirectToAction("index", "Success");
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(JsonConvert.SerializeObject(ex));
                 _logger.LogError(ex, "Index(DanceTeam team ) Error");
                 return View();
             }
