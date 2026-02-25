@@ -40,7 +40,7 @@ namespace Fest_form.Controllers
                     .First(item => _dt.Performances[i].GenreId == item.Id);
                 _dt.Performances[i].ParticipantsNumber = ParticipantsNumberList?
                     .First(item => _dt.Performances[i].ParticipantsNumberId == item.Id);
-                _dt.Performances[i].PerformanceGroup = categoryList?
+                _dt.Performances[i].Category = categoryList?
                     .First(item => _dt.Performances[i].CategoryId == item.Id);
             };
 
