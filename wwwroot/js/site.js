@@ -58,7 +58,7 @@ $(document).ready(
             if (selectPer <= 3)
                 $(`#personListforNum${id}`).append(`<div id="personList${id}"></div>`)
             for (var i = 0; i < selectPer; i++)
-                personblock(id, `#personList${id}`, `ParticipantsNameList.Person${i + 1}`, $('#personListforNum0').data('label'))
+                personblock(id, `#personList${id}`, `Participants[${i}].Person`, $('#personListforNum0').data('label'))
         })
         $('#performancesList').on('click', '.delete', function () {
            
@@ -263,7 +263,7 @@ $(document).ready(
                                    name="Performances[${index}].${model}.PersonLastName"
                                    aria-describedby="Person Last Name"
                                    id="Performances_${num}_${model}PersonLastName"
-                                   placeholder="${leng === "uk" ? "Призвище" : "Last Name"}" />
+                                   placeholder="${leng === "uk" ? "Прізвище" : "Last Name"}" />
                             <span asp-validation-for="Performances[${index}].${model}.PersonLastName" class="text-danger fontError d-block"></span>
                         </div>
                         <div class="col-12 col-md-4">

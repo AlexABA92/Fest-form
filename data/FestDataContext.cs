@@ -2,6 +2,8 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using static Amazon.S3.Util.S3EventNotification;
+
 namespace Fest_form.data
 {
     public class FestDataContext : DbContext
@@ -12,7 +14,7 @@ namespace Fest_form.data
         public DbSet <Genre>              Genres               { get; set; }
         public DbSet <ParticipantsNumber> ParticipantsNumbers  { get; set; }
         public DbSet <Person>             Persons              { get; set; }
-        public DbSet <ParticipantsList>   ParticipantsLists    { get; set; }
+        public DbSet <Participant> Participant { get; set; }
 
         public FestDataContext(DbContextOptions<FestDataContext> options) : base(options)
         {
@@ -54,6 +56,11 @@ namespace Fest_form.data
                 e.Property(x => x.PhonogramFileURL).HasMaxLength(500);
                 e.Property(x => x.YouTubeVideoURL).HasMaxLength(500);
 
+                e.HasOne(p => p.DanceTeam)
+                 .WithMany(t => t.Performances)
+                 .HasForeignKey(p => p.DanceTeamId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
                 e.HasOne(x => x.ChoreographerDirector)
                  .WithMany(p => p.DirectedPerformances)
                  .HasForeignKey(x => x.ChoreographerDirectorId)
@@ -80,15 +87,12 @@ namespace Fest_form.data
                  .HasForeignKey(x => x.ParticipantsNumberId)
                  .OnDelete(DeleteBehavior.Restrict);
 
-                e.HasOne(x => x.ParticipantsNameList)
-                 .WithMany(pl => pl.Performances)
-                 .HasForeignKey(x => x.ParticipantsNameListId)
-                 .OnDelete(DeleteBehavior.SetNull);
+               
 
                 e.HasIndex(x => x.DanceTeamId);
                 e.HasIndex(x => x.GenreId);
                 e.HasIndex(x => x.CategoryId);
-                e.HasIndex(x => x.ParticipantsNumberId);
+                
             });
 
             modelBuilder.Entity<Category>(e =>
@@ -124,30 +128,27 @@ namespace Fest_form.data
                 // часто удобно уникальность (по желанию):
                 e.HasIndex(x => new { x.PersonName, x.PersonLastName, x.PersonFatherName });
             });
-            modelBuilder.Entity<ParticipantsList>(e =>
+
+            modelBuilder.Entity<Participant>(entity =>
             {
-                e.ToTable("ParticipantsLists");
-                e.HasKey(x => x.Id);
+                entity.HasKey(x => x.Id);
 
-                e.HasOne(x => x.Person1)
-                 .WithMany()
-                 .HasForeignKey(x => x.Person1Id)
-                 .OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(x => x.Performance)
+                      .WithMany(p => p.Participants)
+                      .HasForeignKey(x => x.PerformanceId)
+                      .OnDelete(DeleteBehavior.Cascade); // удалили номер -> удалились его участники
 
-                e.HasOne(x => x.Person2)
-                 .WithMany()
-                 .HasForeignKey(x => x.Person2Id)
-                 .OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(x => x.Person)
+                      .WithMany(p => p.Participations)
+                      .HasForeignKey(x => x.PersonId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                // чтобы случайно не удалять Person каскадом через participants
 
-                e.HasOne(x => x.Person3)
-                 .WithMany()
-                 .HasForeignKey(x => x.Person3Id)
-                 .OnDelete(DeleteBehavior.NoAction);
-
-                e.HasIndex(x => x.Person1Id);
-                e.HasIndex(x => x.Person2Id);
-                e.HasIndex(x => x.Person3Id);
+                // запретить дубликаты: один и тот же Person не может быть дважды в одном Performance
+                entity.HasIndex(x => new { x.PerformanceId, x.PersonId })
+                      .IsUnique();
             });
+
             modelBuilder.Entity<Category>().HasData(
                 new Category()
                 {

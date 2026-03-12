@@ -4,7 +4,6 @@
 @model Fest_form.data.Entity.DanceTeam
 @{
     ViewData["Title"] = "Success";
-
 }
 
 <div class="bgWhite col-10 col-lg-5 container font-simple text-center mt-1 mt-lg-4 p-5 rounded shadow">
@@ -71,27 +70,15 @@
                 <strong>@Resources.Resource.ParticipantsNameListLabel:</strong>
                 <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i].ParticipantsNumber?.Name ?? "NotFound")</p>
             </div>
-            @for (var j = 1; j <= 3; j++)
-            {
-                var person = Model.Performances[i].ParticipantsNameList?.GetType().GetProperty($"PersonRepos{j}")?.GetValue(Model.Performances[i].ParticipantsNameList) as Person;
-                if (person != null)
+            <div class="mb-3 text-start alert alert-warning">
+                <strong>@Resources.Resource.ParticipantNumList:</strong>
+                @foreach (var participant in Model.Performances[i].Participants)
                 {
-                    @if (j % 2 == 0)
-                    {
-                        <div class="mb-3 text-start alert alert-warning">
-                            <strong>@Resources.Resource.ParticipantNumList:</strong>
-                            <p class="text-end fw-light">@person.PersonLastName @person.PersonName @person.PersonFatherName</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="mb-3 text-start alert alert-success">
-                            <strong>@Resources.Resource.ParticipantNumList:</strong>
-                            <p class="text-end fw-light">@person.PersonLastName @person.PersonName @person.PersonFatherName</p>
-                        </div>
-                    }
+                   
+                    <p class="text-end fw-light">@participant.Person.PersonLastName @participant.Person.PersonName @participant.Person.PersonFatherName</p>
                 }
-            }
+                
+            </div>
             <div class="mb-3 text-start alert alert-success">
                 <strong>@Resources.Resource.GenreLabel:</strong>
                 <p class="text-end fw-light">@Resources.Resource.ResourceManager.GetString(Model.Performances[i]?.Genre?.Name ?? "NotFound")</p>

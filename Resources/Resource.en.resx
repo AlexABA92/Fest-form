@@ -351,4 +351,7 @@
   <data name="ConcertmasterChackBox" xml:space="preserve">
     <value>Click if it does not have</value>
   </data>
+  <data name="stagedance" xml:space="preserve">
+    <value>Stage dance</value>
+  </data>
 </root>

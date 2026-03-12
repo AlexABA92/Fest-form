@@ -45,6 +45,8 @@ namespace Fest_form.data.Entity
         [JsonIgnore]
         public List<Performance> ConcertmasterPerformances { get; set; } = new();
 
+        [JsonIgnore]
+        public List<Participant> Participations { get; set; } = new();
 
     }
 }

@@ -268,32 +268,25 @@
                             {
                                 if (Model != null)
                                 {
-                                    @Html.Raw("<div id=\"personList0\">")
-                                    ;
-                                }
-
-                                for (int i = 0; i <= count; i++)
-                                {
-                                    Person? personNum = i switch
-                                    {
-                                        0 => Model?.Performances[0]?.ParticipantsNameList?.Person1,
-                                        1 => Model?.Performances[0]?.ParticipantsNameList?.Person2,
-                                        2 => Model?.Performances[0]?.ParticipantsNameList?.Person3,
-                                        _ => null
-                                    };
-
-                                    if (personNum != null)
-                                    {
-                                        @Html.Raw($"<div class=\"form-group mb-3 text-start\" id=\"perInput{i}\">")
-                                        ; // Corrected HTML tag
-                                        @Html.Raw($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>")
+                                        @Html.Raw("<div id=\"personList0\">")
                                         ;
-                                        @Html.PersonReturn($"ParticipantsNameList.Person{i + 1}", personNum)
-                                        ;
-                                        @Html.Raw("</div>")
-                                        ; // Closing div for each person
                                     }
-                                }
+                                    Model?.Performances[0]?.Participants.ForEach(p =>
+                                    {
+                                        if (p.Person != null)
+                                        {
+                                            var index = Model?.Performances[0]?.Participants.IndexOf(p) + 1;         
+                                        @Html.Raw($"<div class=\"form-group mb-3 text-start\" id=\"perInput{index}\">")
+                                            ; // Corrected HTML tag
+                                            @Html.Raw($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>")
+                                                  ;
+                                        @Html.PersonReturn($"ParticipantsNameList.Person{index + 1}", p.Person)
+                                            ;
+                                            @Html.Raw("</div>")
+                                            ; // Closing div for each person
+                                        }
+                                    }
+                                );
                                 @Html.Raw("</div>")
                                 ; // Closing the main container
                             }
@@ -390,7 +383,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group text-start mb-2 container">
+                    <div class="form-group text-start mb-2 container d-none">
                         <label for="file" id="filelabel" data-label="@Resources.Resource.FileAdd">@Resources.Resource.FileAdd :</label>
                         <input type="file" asp-for="Performances[0].PhonogramFileURL"
                                name="Performances[0].PhonogramFileURL"

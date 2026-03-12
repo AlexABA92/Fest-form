@@ -3,22 +3,20 @@ using Fest_form.data.Entity;
 using Fest_form.GlobalData.Collections;
 using Fest_form.Interface;
 using Fest_form.Models;
+using Fest_form.Repositories.DeanseTeamRepos;
+using Fest_form.Repositories.FileRepos;
+using Fest_form.Repositories.ParticipantRepos;
+using Fest_form.Repositories.PerformanceRepos;
+using Fest_form.Repositories.PersonRepos;
+using Fest_form.Services.MailSend;
 
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+
+using Newtonsoft.Json;
+
 using System.Diagnostics;
 using System.Globalization;
-
-using Fest_form.GlobalData.Enum;
-using Fest_form.Services.Bucket;
-using Fest_form.Services.MailSend;
-using Newtonsoft.Json;
-using Fest_form.Repositories;
-using Fest_form.Repositories.FileRepos;
-using Fest_form.Repositories.DeanseTeamRepos;
-using Fest_form.Repositories.PerformanceRepos;
-using System;
-using Fest_form.Repositories.PersonRepos;
 
 
 
@@ -32,6 +30,7 @@ namespace Fest_form.Controllers
             ICategory<Category> category,
             IParticipantsNumber<ParticipantsNumber> participantsNumber,
             IPerformanceRepos<Performance> performanceRepos,
+            IParticipantRepos<Participant> participantRepos,
             IDanceTeamRepos<DanceTeam> danceTeamRepos,
             IMemoryCache memoryCache,
             IFileRepos fileRepos,
@@ -49,7 +48,8 @@ namespace Fest_form.Controllers
         private readonly IFileRepos _fileRepos = fileRepos;
         private readonly IMailSend _mailSend = mailSend;
         private readonly IPersonRepos<Person>_personRepos =personRepos;
-       
+        private readonly IParticipantRepos<Participant> _participantRepos = participantRepos;
+
         private const long MaxFileSize = 25 * 1024 * 1024; // 25MB in bytes
 
 
@@ -160,6 +160,7 @@ namespace Fest_form.Controllers
                         {
                             team.Performances.ForEach(item => item.DanceTeamId = team.TeamId);
                             _performanceRepos.AddPerformance(team.Performances);
+                            _participantRepos.AddParticipant(team.Performances.SelectMany(p => p.Participants).ToList());
                         }
                         else
                         {
@@ -177,6 +178,7 @@ namespace Fest_form.Controllers
                     else
                     {
                         _performanceRepos.AddPerformance(team.Performances);
+                        _participantRepos.AddParticipant(team.Performances.SelectMany(p => p.Participants).ToList());
                     }
                 }
 

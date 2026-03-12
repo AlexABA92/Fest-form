@@ -351,4 +351,7 @@
   <data name="ConcertmasterChackBox" xml:space="preserve">
     <value>Натисніть, якщо немає</value>
   </data>
+  <data name="stagedance" xml:space="preserve">
+    <value>Eстрадний танець</value>
+  </data>
 </root>

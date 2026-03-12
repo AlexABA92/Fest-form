@@ -12,7 +12,6 @@ namespace Fest_form.data.Entity
     public class Performance
     {
         
-
         [Key]
         public Guid PerformanceId { get; set; }
         public Guid  DanceTeamId { get; set; }
@@ -38,12 +37,9 @@ namespace Fest_form.data.Entity
              typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
         public int GenreId { get; set; }
         public Genre? Genre { get; set; } = null!;
-      
+
         public int ParticipantsNumberId { get; set; }
         public ParticipantsNumber? ParticipantsNumber { get; set; } = null!;
-
-        public int? ParticipantsNameListId { get; set; }
-        public ParticipantsList? ParticipantsNameList { get; set; }
 
         [Required(ErrorMessageResourceType =
             typeof(Resources.Resource), ErrorMessageResourceName = "RequiredErrorMessage")]
@@ -57,5 +53,7 @@ namespace Fest_form.data.Entity
             typeof(Resources.Resource), ErrorMessageResourceName = "ValidationUrlError")]
         [Trim]
         public string? YouTubeVideoURL { get; set; }
+
+        public List<Participant> Participants { get; set; } = new();
     }
 }

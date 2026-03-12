@@ -4,7 +4,7 @@ using Fest_form.Interface;
 using Fest_form.Repositories;
 using Fest_form.Repositories.DeanseTeamRepos;
 using Fest_form.Repositories.FileRepos;
-
+using Fest_form.Repositories.ParticipantRepos;
 using Fest_form.Repositories.PerformanceRepos;
 using Fest_form.Repositories.PersonRepos;
 using Fest_form.Services;
@@ -30,7 +30,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
 //});
 builder.Services.AddDbContext<FestDataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FestDb2025"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FestDb2026"))
 );
 //builder.Services.AddSingleton<SshTunnelServices>();
 builder.Services.AddControllersWithViews();
@@ -45,6 +45,7 @@ builder.Services.AddScoped<ICategory<Category>, CategoryRepos>();
 builder.Services.AddScoped<IParticipantsNumber<ParticipantsNumber>, ParticipantsRepos>();
 builder.Services.AddScoped<IDanceTeamRepos<DanceTeam>,DanceTeamRepos>();
 builder.Services.AddScoped<IPerformanceRepos<Performance>, PerformanceRepos>();
+builder.Services.AddScoped<IParticipantRepos<Participant>, ParticipantRepos>();
 builder.Services.AddScoped<IPersonRepos<Person>, PersonRepos>();
 builder.Services.AddScoped<IBucket, Bucket>();
 builder.Services.AddScoped<IMailSend, MailSend>();
@@ -68,7 +69,6 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 
 app.UseSession();
 app.UseRouting();
@@ -97,13 +97,9 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    //var shhTunnelService = services.GetRequiredService<SshTunnelServices>();
-    //await shhTunnelService.InitializeSshTunnel(services);
-
     var context = services.GetRequiredService<FestDataContext>();
     context.Database.Migrate();
 }
-
     app.Run();
 
 

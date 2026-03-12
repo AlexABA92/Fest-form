@@ -17,7 +17,7 @@ namespace Fest_form.Controllers
             DanceTeam? dt = JsonConvert.DeserializeObject<DanceTeam>( HttpContext.Session.GetString("team")?? "");
             if (dt != null) {
 
-                dt.Performances = new List<Performance>() { new Performance() { ParticipantsNameList = new ParticipantsList()} };
+                //dt.Performances = new List<Performance>() { new Performance() { ParticipantsNameList = new ParticipantsList()} };
                 HttpContext.Session.SetString("return", JsonConvert.SerializeObject(dt));
             }
             return RedirectToAction("Index", "Registration");

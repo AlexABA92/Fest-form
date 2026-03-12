@@ -21,7 +21,7 @@ namespace Fest_form.Helpers
             Performance performance,
             List<Genre> genreList,
             List<Category> categoryList,
-            List<ParticipantsNumber> participantsList)
+            List<ParticipantsNumber> ParticipantsNumber)
         {
 
            
@@ -118,7 +118,7 @@ namespace Fest_form.Helpers
             participantsNumberSelect.Attributes["name"] = $"Performances[{index}].ParticipantsNumberId";
             participantsNumberSelect.Attributes["data-id"] = index.ToString();
 
-            if (participantsList != null)
+            if (ParticipantsNumber != null)
                 if (performance.ParticipantsNumberId == 0)
                 {
                     var option = new TagBuilder("option");
@@ -127,7 +127,7 @@ namespace Fest_form.Helpers
                     option.InnerHtml.Append("--------");
                     participantsNumberSelect.InnerHtml.AppendHtml(option);
                 }
-            foreach (var item in participantsList)
+            foreach (var item in ParticipantsNumber)
                 {
                     var option = new TagBuilder("option");
                     option.Attributes["value"] = $"{item.Id}";
@@ -147,20 +147,21 @@ namespace Fest_form.Helpers
                 personlistBlock.Attributes["id"] = $"personList{index}";
                 for (int i = 0; i < persCount; i++)
                 {
-                    Person? personNum = i switch
-                    {
-                        0 => performance.ParticipantsNameList.Person1,
-                        1 => performance.ParticipantsNameList.Person2,
-                        2 => performance.ParticipantsNameList.Person3,
-                        _ => null
-                    };
+                    //Person? personNum = i switch
+                    //{
+                    //    0 => performance.ParticipantsNameList.Person1,
+                    //    1 => performance.ParticipantsNameList.Person2,
+                    //    2 => performance.ParticipantsNameList.Person3,
+                    //    _ => null
+                    //};
+                    
                     var personItem = new TagBuilder("div");
                     personItem.AddCssClass("form-group mb-3 text-start");
                     personItem.InnerHtml.AppendHtml($"<label class=\"control-label mb-2\">{Resources.Resource.ParticipantNumList} :</label>");
 
                     personItem.InnerHtml.AppendHtml(
                            Person(index,$"ParticipantsNameList.Person{i + 1}",
-                          personNum!
+                          performance.Participants[i].Person
                            ));
                     personlistBlock.InnerHtml.AppendHtml(personItem);
                 }

@@ -25,7 +25,7 @@ namespace Fest_form.Services.MailSend
         int? port;
         bool ssl;
         private IMemoryCache  _cache;
-        MailAddress mailAddressTo =new MailAddress( "alex1991020480@gmail.com");
+        MailAddress mailAddressTo =new MailAddress("blacksea.patterns@gmail.com");
         public MailSend(IConfiguration _configuration, IMemoryCache cache)
         {
             _cache = cache;
@@ -143,31 +143,14 @@ namespace Fest_form.Services.MailSend
             AppendField(container, "Жанр", genre?.Name ?? "N/A");
             AppendField(container, "Кількість учасників", number?.Name ?? "N/A");
 
-            if (performance.ParticipantsNameList != null) {
-                if (performance.ParticipantsNameList.Person1 != null) {
-                    fullName.Append($"{performance.ParticipantsNameList.Person1.PersonLastName} " +
-                        $"{performance.ParticipantsNameList.Person1.PersonName} " +
-                        $"{performance.ParticipantsNameList.Person1.PersonFatherName}");
-                    AppendField(container, "Учасник 1", fullName.ToString());
-                    fullName.Clear();
-                }
-                if (performance.ParticipantsNameList.Person2 != null)
-                {
-                    fullName.Append($"{performance.ParticipantsNameList.Person2.PersonLastName} " +
-                        $"{performance.ParticipantsNameList.Person2.PersonName} " +
-                        $"{performance.ParticipantsNameList.Person2.PersonFatherName}");
-                    AppendField(container, "Учасник 2", fullName.ToString());
-                    fullName.Clear();
-                }
-                if (performance.ParticipantsNameList.Person3 != null)
-                {
-                    fullName.Append($"{performance.ParticipantsNameList.Person3.PersonLastName} " +
-                        $"{performance.ParticipantsNameList.Person3.PersonName} " +
-                        $"{performance.ParticipantsNameList.Person3.PersonFatherName}");
-                    AppendField(container, "Учасник 3", fullName.ToString());
-                    fullName.Clear();
-                }
-            }
+            performance.Participants?.ForEach(participant =>
+            {
+                fullName.Append($"{participant.Person.PersonLastName} {participant.Person.PersonName} " +
+                    $"{participant.Person.PersonFatherName}");
+                AppendField(container, $"Учасник {performance.Participants.IndexOf(participant) + 1}", fullName.ToString());
+                fullName.Clear();
+            });
+
             AppendField(container, "Час виступу", performance.PerformanceTime);
             var point = performance.StartPoint == GlobalData.Enum.StartPointEnum.Point ? "З точки" : "З кулиси";
             AppendField(container, "Стартова позиція", point);
@@ -200,22 +183,20 @@ namespace Fest_form.Services.MailSend
                 mailMessage.To.Add(mailAddressTo);
                 if (files != null)
                 {
-                    files.ForEach(async fileData =>
+                    var copyTasks = new List<Task<Attachment>>();
+                    foreach (var fileData in files)
                     {
-                        var memoryStream = new MemoryStream();
+                        copyTasks.Add(Task.Run(async () =>
+                        {
+                            var ms = new MemoryStream();
+                            await fileData.CopyToAsync(ms);
+                            ms.Position = 0;
+                            return new Attachment(ms, fileData.FileName, fileData.ContentType);
+                        }));
+                    }
 
-                        await fileData.CopyToAsync(memoryStream);
-
-                        memoryStream.Position = 0;
-
-                        var attachment = new Attachment(
-                                memoryStream,
-                                fileData.FileName,
-                                fileData.ContentType);
-
-                        mailMessage.Attachments.Add(attachment);
-                        
-                    });
+                    var attachments = await Task.WhenAll(copyTasks);
+                    foreach (var a in attachments) mailMessage.Attachments.Add(a);
                 }
                 await smtpClient.SendMailAsync(mailMessage);
             }

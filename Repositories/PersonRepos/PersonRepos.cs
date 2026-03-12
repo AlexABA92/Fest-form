@@ -63,7 +63,7 @@ namespace Fest_form.Repositories.PersonRepos
                     {
                         result[propetryKay] = (Person)value;
                     }
-                    else if (property.PropertyType == typeof(ParticipantsList))
+                    else if (property.PropertyType == typeof(List<Participant>))
                     {
                         result = MergeDictionaries(result, (GetAllPersonObject(value, propetryKay)));
                     }

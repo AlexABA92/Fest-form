@@ -22,13 +22,7 @@ namespace Fest_form.Repositories.DeanseTeamRepos
                 .Include(dt => dt.Performances).ThenInclude(p => p.Genre)
                 .Include(dt => dt.Performances).ThenInclude(p => p.ParticipantsNumber)
                 .Include(dt => dt.Performances).ThenInclude(p => p.Category)
-
-
-                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per=>per.Person1)
-                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per => per.Person2)
-                .Include(p => p.Performances).ThenInclude(p => p.ParticipantsNameList).ThenInclude(per => per.Person3)
-
-
+                .Include(p => p.Performances).ThenInclude(p => p.Participants)
                 .ToList();
         }
         public void CreateTeam(DanceTeam team) {
